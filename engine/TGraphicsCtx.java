@@ -4,10 +4,13 @@ import graphics.TTransform;
 
 import java.awt.*;
 
-public class TGContext implements GraphicsCtx {
+public class TGraphicsCtx implements GraphicsCtx {
     GameEngine engine;
-    public TGContext(GameEngine engine) {
+    protected Color backgroundColor;
+
+    public TGraphicsCtx(GameEngine engine) {
         this.engine = engine;
+        backgroundColor = null;
     }
 
     @Override
@@ -16,7 +19,6 @@ public class TGContext implements GraphicsCtx {
 
         engine.drawRectangle(0, 0, dimension.width, dimension.height);
 
-        // reset color to default (black)
         engine.changeColor(Color.BLACK);
     }
 
@@ -32,12 +34,9 @@ public class TGContext implements GraphicsCtx {
     @Override
     public void drawFilledRect(Dimension dimension, Color color) {
         engine.changeColor(color);
-        // get parent transforms
 
-        // apply own transforms
         engine.drawSolidRectangle(0, 0, dimension.width, dimension.height);
 
-        // reset color to default (black)
         engine.changeColor(Color.BLACK);
     }
 
