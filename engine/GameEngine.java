@@ -1,5 +1,11 @@
 package engine;
 
+import actors.Actor;
+import actors.MovableActor;
+import collisions.CollisionDetector;
+import collisions.CollisionEvent;
+import graphics.GraphicsEngine;
+
 import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
 import javax.swing.*;
@@ -13,6 +19,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serial;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Stack;
 
 public abstract class GameEngine implements KeyListener, MouseListener, MouseMotionListener {
@@ -21,6 +29,12 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     int mWidth, mHeight;
     Graphics2D mGraphics;
     boolean initialised = false;
+    Stack<AffineTransform> mTransforms;
+
+    GraphicsEngine graphicsEngine;
+    Set<Actor> actors;
+    Set<MovableActor> movableActors;
+    CollisionDetector collisionDetector;
 
     long time = 0, oldTime = 0;
     // Main Loop of the game. Runs continuously and calls all the updates
@@ -39,46 +53,51 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         }
     });
 
-    // TODO: Move these into a TColors class
-    @SuppressWarnings("unused")
-    Color black = Color.BLACK;
-    @SuppressWarnings("unused")
-    Color orange = Color.ORANGE;
-    @SuppressWarnings("unused")
-    Color pink = Color.PINK;
-    @SuppressWarnings("unused")
-    Color red = Color.RED;
-    @SuppressWarnings("unused")
-    Color purple = new Color(128, 0, 128);
-    @SuppressWarnings("unused")
-    Color blue = Color.BLUE;
-    @SuppressWarnings("unused")
-    Color green = Color.GREEN;
-    @SuppressWarnings("unused")
-    Color yellow = Color.YELLOW;
-    @SuppressWarnings("unused")
-    Color white = Color.WHITE;
-
-    // Stack of transforms
-    Stack<AffineTransform> mTransforms;
-
 //    Random mRandom = new Random();
 
     public GameEngine() {
-        // Create graphics transform stack
         mTransforms = new Stack<>();
 
-        SwingUtilities.invokeLater(() -> setupWindow(500, 500, "Window"));
+        actors = new HashSet<>();
+        movableActors = new HashSet<>();
+        collisionDetector = new CollisionDetector();
+
+        SwingUtilities.invokeLater(() -> setupWindow(new Dimension(500, 500), "Window"));
     }
 
     public static void createGame(GameEngine game, int framerate) {
         game.init();
-
-        game.gameLoop(framerate);
+        game.startGameLoop(framerate);
     }
 
     public static void createGame(GameEngine game) {
         createGame(game, 30);
+    }
+
+    protected static class GameTimer extends Timer {
+        @Serial
+        private static final long serialVersionUID = 1L;
+        private int framerate;
+
+        protected GameTimer(int framerate, ActionListener listener) {
+            super(1000 / framerate, listener);
+            this.framerate = framerate;
+        }
+
+        @SuppressWarnings("unused")
+        protected int getFramerate() {
+            return framerate;
+        }
+
+        protected void setFramerate(int framerate) {
+            if (framerate < 1)
+                framerate = 1;
+            this.framerate = framerate;
+
+            int delay = 1000 / framerate;
+            setInitialDelay(0);
+            setDelay(delay);
+        }
     }
 
     // Returns the time in milliseconds
@@ -105,14 +124,18 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         return passed;
     }
 
-    public void setupWindow(int width, int height, String title) {
+    //------------------------------------------------------------------------------------------------------ Window --//
+
+    public void setupWindow(Dimension dimension, String title) {
+        graphicsEngine = new GraphicsEngine(this);
+
         mFrame = new JFrame();
         mPanel = new GamePanel();
 
-        mWidth = width;
-        mHeight = height;
+        mWidth = dimension.width;
+        mHeight = dimension.height;
 
-        mFrame.setSize(width, height);
+        mFrame.setSize(mWidth, mHeight);
         mFrame.setLocation(200, 200);
         mFrame.setTitle(title);
         mFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -141,14 +164,14 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
             }
         });
 
-        // Resize the window (insets are just the boarders that the Operating System puts on the board)
+        // Resize the window (insets are just the borders that the Operating System puts on the board)
         Insets insets = mFrame.getInsets();
-        mFrame.setSize(width + insets.left + insets.right, height + insets.top + insets.bottom);
+        mFrame.setSize(mWidth + insets.left + insets.right, mHeight + insets.top + insets.bottom);
     }
 
     public void setWindowSize(final int width, final int height) {
         SwingUtilities.invokeLater(() -> {
-            // Resize the window (insets are just the boarders that the Operating System puts on the board)
+            // Resize the window (insets are just the borders that the Operating System puts on the board)
             Insets insets = mFrame.getInsets();
             mWidth = width;
             mHeight = height;
@@ -157,18 +180,16 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         });
     }
 
-    // Return the width of the window
-    public int width() {
+    public int windowWidth() {
         return mWidth;
     }
 
-    // Return the height of the window
-    public int height() {
+    public int windowHeight() {
         return mHeight;
     }
 
-    // Initialises and starts the game loop with the given framerate.
-    public void gameLoop(int framerate) {
+    // Initialises and starts the game loop with the given framerate
+    public void startGameLoop(int framerate) {
         initialised = true; // assume init has been called or won't be called
 
         timer.setFramerate(framerate);
@@ -178,14 +199,24 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         timer.start();
     }
 
+    //------------------------------------------------------------------------------- Abstract & Overridden Methods --//
+
+    public void update(double dt) {
+        updateMovingActors();
+        // Detect collisions
+        // if (!collisions.isEmpty()) {
+        // collisions.forEach(collision -> onCollision(collision);
+    }
+
+    public void paintComponent() {
+        clearBackground(mWidth, mHeight);
+
+        graphicsEngine.update();
+    }
+
     public void init() {
     }
 
-    public abstract void update(double dt);
-
-    public abstract void paintComponent();
-
-    // Called whenever a key is pressed
     public void keyPressed(KeyEvent event) {
     }
 
@@ -214,6 +245,65 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     }
 
     public void mouseDragged(MouseEvent event) {
+    }
+
+    //------------------------------------------------------------------------------------------------------ Actors --//
+
+    public void addActor(Actor actor) {
+        actors.add(actor);
+        if (actor instanceof MovableActor) {
+            movableActors.add((MovableActor) actor);
+        }
+        graphicsEngine.add(actor);
+    }
+
+    public void addActors(Actor... actors) {
+        for (var actor : actors) {
+            addActor(actor);
+        }
+    }
+
+    public void destroyActor(Actor actor) {
+        actors.remove(actor);
+        graphicsEngine.remove(actor);
+    }
+
+    public void destroyActors(Actor... actors) {
+       for (var actor : actors) {
+           destroyActor(actor);
+       }
+    }
+
+    private void updateMovingActors() {
+        movableActors.forEach(MovableActor::move);
+    }
+
+    public void onCollision(CollisionEvent e) {
+    }
+
+    //----------------------------------------------------------------------------------------------------- Drawing --//
+
+    protected class GamePanel extends JPanel {
+        @Serial
+        private static final long serialVersionUID = 1L;
+
+        // This gets called any time the Operating System tells the program to paint itself
+        public void paintComponent(Graphics graphics) {
+            // Get the graphics object
+            mGraphics = (Graphics2D) graphics;
+
+            // Reset all transforms
+            mTransforms.clear();
+            mTransforms.push(mGraphics.getTransform());
+
+            // Rendering settings
+            mGraphics.setRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
+
+            // Paint the game
+            if (initialised) {
+                GameEngine.this.paintComponent();
+            }
+        }
     }
 
     // Changes the background Color to the color c
@@ -432,6 +522,56 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         mGraphics.shear(x, y);
     }
 
+    //------------------------------------------------------------------------------------------------------- Audio --//
+
+    public static class AudioClip {
+        AudioFormat mFormat;
+
+        byte[] mData;
+
+        long mLength;
+
+        Clip mLoopClip;
+
+        public AudioClip(AudioInputStream stream) {
+            mFormat = stream.getFormat();
+
+            mLength = stream.getFrameLength() * mFormat.getFrameSize();
+
+            mData = new byte[(int) mLength];
+
+            try {
+                stream.read(mData);
+            } catch (Exception exception) {
+                System.out.println("Error reading Audio File\n");
+
+                System.exit(1);
+            }
+
+            mLoopClip = null;
+        }
+
+        public Clip getLoopClip() {
+            return mLoopClip;
+        }
+
+        public void setLoopClip(Clip clip) {
+            mLoopClip = clip;
+        }
+
+        public AudioFormat getAudioFormat() {
+            return mFormat;
+        }
+
+        public byte[] getData() {
+            return mData;
+        }
+
+        public long getBufferSize() {
+            return mLength;
+        }
+    }
+
     // Loads the AudioClip stored in the file specified by filename
     public AudioClip loadAudio(String filename) {
         try {
@@ -556,6 +696,8 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         }
     }
 
+    //------------------------------------------------------------------------------------------------ Math Helpers --//
+
     // TODO: Remove this in favor of built in Math class
     // Returns the length of a vector
     public double length(double x, double y) {
@@ -626,102 +768,5 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     public double atan2(double x, double y) {
         // Calculate and return atan2
         return Math.toDegrees(Math.atan2(x, y));
-    }
-
-    protected static class GameTimer extends Timer {
-        @Serial
-        private static final long serialVersionUID = 1L;
-        private int framerate;
-
-        protected GameTimer(int framerate, ActionListener listener) {
-            super(1000 / framerate, listener);
-            this.framerate = framerate;
-        }
-
-        @SuppressWarnings("unused")
-        protected int getFramerate() {
-            return framerate;
-        }
-
-        protected void setFramerate(int framerate) {
-            if (framerate < 1)
-                framerate = 1;
-            this.framerate = framerate;
-
-            int delay = 1000 / framerate;
-            setInitialDelay(0);
-            setDelay(delay);
-        }
-    }
-
-    protected class GamePanel extends JPanel {
-        @Serial
-        private static final long serialVersionUID = 1L;
-
-        // This gets called any time the Operating System tells the program to paint itself
-        public void paintComponent(Graphics graphics) {
-            // Get the graphics object
-            mGraphics = (Graphics2D) graphics;
-
-            // Reset all transforms
-            mTransforms.clear();
-            mTransforms.push(mGraphics.getTransform());
-
-            // Rendering settings
-            mGraphics.setRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
-
-            // Paint the game
-            if (initialised) {
-                GameEngine.this.paintComponent();
-            }
-        }
-    }
-
-    public static class AudioClip {
-        AudioFormat mFormat;
-
-        byte[] mData;
-
-        long mLength;
-
-        Clip mLoopClip;
-
-        public AudioClip(AudioInputStream stream) {
-            mFormat = stream.getFormat();
-
-            mLength = stream.getFrameLength() * mFormat.getFrameSize();
-
-            mData = new byte[(int) mLength];
-
-            try {
-                stream.read(mData);
-            } catch (Exception exception) {
-                System.out.println("Error reading Audio File\n");
-
-                System.exit(1);
-            }
-
-            mLoopClip = null;
-        }
-
-        public Clip getLoopClip() {
-            return mLoopClip;
-        }
-
-        public void setLoopClip(Clip clip) {
-            mLoopClip = clip;
-        }
-
-        public AudioFormat getAudioFormat() {
-            return mFormat;
-        }
-
-        public byte[] getData() {
-            return mData;
-        }
-
-        public long getBufferSize() {
-            return mLength;
-        }
     }
 }
