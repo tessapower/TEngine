@@ -1,13 +1,12 @@
 package graphics;
 
-import engine.GraphicsCtx;
 import java.awt.*;
 
 abstract public class TObject {
     protected Dimension dimension;
-    private TRotation rotation;
-    private TTranslation translation;
-    private TScale scale;
+    private final TRotation rotation;
+    private final TTranslation translation;
+    private final TScale scale;
 
     public TObject(Dimension dimension) {
         this.dimension = dimension;
@@ -16,13 +15,25 @@ abstract public class TObject {
         scale = TScale.identity();
     }
 
-    public Dimension getDimension() {
+    public Dimension dimension() {
         return dimension;
+    }
+
+    public int width() {
+        return dimension.width;
+    }
+
+    public int height() {
+        return dimension.height;
     }
 
     public void setOrigin(Point origin) {
         translation.dx = origin.x;
         translation.dy = origin.y;
+    }
+
+    public Point origin() {
+        return new Point(translation.dx, translation.dy);
     }
 
     public int x() {
@@ -31,10 +42,6 @@ abstract public class TObject {
 
     public int y() {
         return translation.dy;
-    }
-
-    public Point getOrigin() {
-        return new Point(translation.dx, translation.dy);
     }
 
     public void setRotation(double thetaDegrees) {

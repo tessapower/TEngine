@@ -1,7 +1,5 @@
 package graphics;
 
-import engine.GraphicsCtx;
-
 import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,8 +16,18 @@ public class TCompound extends TObject {
         return children.add(obj);
     }
 
+    public void addAll(TObject... objects) {
+        for (var obj : objects) {
+            add(obj);
+        }
+    }
+
     public boolean remove(TObject obj) {
         return children.remove(obj);
+    }
+
+    public void removeAll() {
+        children.clear();
     }
 
     public int numChildren() {
