@@ -1,7 +1,5 @@
 package graphics;
 
-import engine.GraphicsCtx;
-
 public class TScale implements TTransform {
     public double xScaleFactor;
     public double yScaleFactor;

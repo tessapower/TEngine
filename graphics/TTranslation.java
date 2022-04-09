@@ -1,7 +1,5 @@
 package graphics;
 
-import engine.GraphicsCtx;
-
 public class TTranslation implements TTransform {
     public int dx;
     public int dy;

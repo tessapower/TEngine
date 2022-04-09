@@ -1,7 +1,5 @@
 package graphics;
 
-import engine.GraphicsCtx;
-
 import java.awt.*;
 
 public class TOval extends TShape {

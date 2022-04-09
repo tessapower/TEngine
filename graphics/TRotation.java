@@ -1,7 +1,5 @@
 package graphics;
 
-import engine.GraphicsCtx;
-
 public class TRotation implements TTransform {
     double thetaDegrees;
 
