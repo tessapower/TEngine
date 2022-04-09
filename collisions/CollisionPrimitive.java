@@ -1,4 +1,4 @@
-package physics.collisions;
+package collisions;
 
 import java.awt.*;
 
