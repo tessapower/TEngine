@@ -23,7 +23,7 @@ public class GraphicsEngine {
     //------------------------------------------------------------------------------------------------------ Actors --//
 
     public void add(Actor actor) {
-        canvas.add(actor.sprite);
+        canvas.add(actor.sprite());
     }
 
     public void addAll(Actor... actors) {
@@ -34,7 +34,7 @@ public class GraphicsEngine {
 
     public void remove(Actor actor) {
         // What we really want here is something like actor.removeFromParent();
-        canvas.remove(actor.sprite);
+        canvas.remove(actor.sprite());
     }
 
     public void removeAll() {
