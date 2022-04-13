@@ -1,9 +1,10 @@
-package physics.kinematics;
+package physics;
 
 import actors.Actor;
-import collisions.CollisionDetector;
-import collisions.CollisionEvent;
-import collisions.CollisionEventNotifier;
+import physics.collisions.CollisionDetector;
+import physics.collisions.CollisionEvent;
+import physics.collisions.CollisionEventNotifier;
+import physics.kinematics.Velocity;
 
 import java.awt.*;
 import java.util.Collection;

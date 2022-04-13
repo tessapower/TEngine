@@ -1,4 +1,4 @@
-package collisions;
+package physics.collisions;
 
 public record Vector(int x, int y) {
     public Vector() {

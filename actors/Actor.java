@@ -1,8 +1,8 @@
 package actors;
 
-import collisions.CollisionPrimitive;
+import physics.collisions.CollisionShape;
 import graphics.TObject;
-import physics.kinematics.PhysicsProperties;
+import physics.PhysicsProperties;
 
 import java.awt.*;
 
@@ -39,7 +39,7 @@ public abstract class Actor {
         return physicsProps.origin.y;
     }
 
-    public CollisionPrimitive bounds() {
+    public CollisionShape bounds() {
         return physicsProps.bounds;
     }
 

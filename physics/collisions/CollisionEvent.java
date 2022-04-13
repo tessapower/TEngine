@@ -1,4 +1,4 @@
-package collisions;
+package physics.collisions;
 
 import actors.Actor;
 

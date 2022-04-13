@@ -1,4 +1,4 @@
-package collisions;
+package physics.collisions;
 
 import actors.Actor;
 
@@ -9,11 +9,11 @@ public class CollisionDetector {
     }
 
     public boolean collides(Actor a, Actor b) {
-        CollisionPrimitive bounds = a.bounds();
+        CollisionShape bounds = a.bounds();
         return bounds.collides(b.bounds());
     }
 
-    public boolean collides(CollisionPrimitive a, CollisionPrimitive b) {
+    public boolean collides(CollisionShape a, CollisionShape b) {
         return a.collides(b);
     }
 

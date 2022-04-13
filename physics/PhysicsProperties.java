@@ -1,6 +1,7 @@
-package physics.kinematics;
+package physics;
 
-import collisions.CollisionPrimitive;
+import physics.collisions.CollisionShape;
+import physics.kinematics.Velocity;
 
 import java.awt.*;
 
@@ -9,7 +10,7 @@ public class PhysicsProperties {
     public Velocity velocity;
     public boolean movable;
     public boolean hasCollisions;
-    public CollisionPrimitive bounds;
+    public CollisionShape bounds;
 
     public PhysicsProperties() {
         this(new Point(), new Velocity(), false, false, null);
@@ -17,7 +18,7 @@ public class PhysicsProperties {
 
     public PhysicsProperties(Point origin, Velocity velocity,
                              boolean movable, boolean hasCollisions,
-                             CollisionPrimitive bounds) {
+                             CollisionShape bounds) {
         this.origin = origin;
         this.velocity = velocity;
         this.movable = movable;

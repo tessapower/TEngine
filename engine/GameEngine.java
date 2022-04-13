@@ -1,10 +1,10 @@
 package engine;
 
 import actors.Actor;
-import collisions.CollisionDetector;
-import collisions.CollisionEvent;
+import physics.collisions.CollisionDetector;
+import physics.collisions.CollisionEvent;
 import graphics.GraphicsEngine;
-import physics.kinematics.PhysicsEngine;
+import physics.PhysicsEngine;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
