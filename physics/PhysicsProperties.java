@@ -3,26 +3,21 @@ package physics;
 import physics.collisions.CollisionShape;
 import physics.kinematics.Velocity;
 
-import java.awt.*;
-
 public class PhysicsProperties {
-    public Point origin;
     public Velocity velocity;
     public boolean movable;
     public boolean hasCollisions;
-    public CollisionShape bounds;
+    public CollisionShape collisionShape;
 
     public PhysicsProperties() {
-        this(new Point(), new Velocity(), false, false, null);
+        this(new Velocity(), false, null, false);
     }
 
-    public PhysicsProperties(Point origin, Velocity velocity,
-                             boolean movable, boolean hasCollisions,
-                             CollisionShape bounds) {
-        this.origin = origin;
+    public PhysicsProperties(Velocity velocity, boolean movable,
+                             CollisionShape collisionShape, boolean hasCollisions) {
         this.velocity = velocity;
         this.movable = movable;
+        this.collisionShape = collisionShape;
         this.hasCollisions = hasCollisions;
-        this.bounds = bounds;
     }
 }
