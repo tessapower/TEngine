@@ -7,8 +7,9 @@ import physics.PhysicsProperties;
 import java.awt.*;
 
 public abstract class Actor {
+    protected Point origin;
     protected PhysicsProperties physicsProps;
-    public TObject sprite;
+    protected TObject sprite;
 
     public Actor() {
         physicsProps = new PhysicsProperties();
@@ -16,31 +17,35 @@ public abstract class Actor {
     }
 
     public void setOrigin(Point origin) {
-        this.physicsProps.origin = origin;
+        this.origin = origin;
 
         if (sprite != null) {
             sprite.setOrigin(origin);
         }
 
-        if (this.physicsProps.bounds != null) {
-            physicsProps.bounds.setOrigin(origin);
+        if (this.physicsProps.collisionShape != null) {
+            physicsProps.collisionShape.setOrigin(origin);
         }
     }
 
     public Point origin() {
-        return physicsProps.origin;
+        return origin;
     }
 
     public int x() {
-        return physicsProps.origin.x;
+        return origin.x;
     }
 
     public int y() {
-        return physicsProps.origin.y;
+        return origin.y;
     }
 
     public CollisionShape bounds() {
-        return physicsProps.bounds;
+        return physicsProps.collisionShape;
+    }
+
+    public TObject sprite() {
+        return sprite;
     }
 
     public PhysicsProperties physicsProps() {
