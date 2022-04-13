@@ -1,7 +1,6 @@
 package engine;
 
 import actors.Actor;
-import actors.MovableActor;
 import collisions.CollisionDetector;
 import collisions.CollisionEvent;
 import graphics.GraphicsEngine;
@@ -33,7 +32,6 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
 
     GraphicsEngine graphicsEngine;
     Set<Actor> actors;
-    Set<MovableActor> movableActors;
     CollisionDetector collisionDetector;
 
     long time = 0, oldTime = 0;
@@ -59,7 +57,6 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         mTransforms = new Stack<>();
 
         actors = new HashSet<>();
-        movableActors = new HashSet<>();
         collisionDetector = new CollisionDetector();
 
         SwingUtilities.invokeLater(() -> setupWindow(new Dimension(500, 500), "Window"));
@@ -251,9 +248,6 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
 
     public void addActor(Actor actor) {
         actors.add(actor);
-        if (actor instanceof MovableActor) {
-            movableActors.add((MovableActor) actor);
-        }
         graphicsEngine.add(actor);
     }
 
@@ -272,10 +266,6 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
        for (var actor : actors) {
            destroyActor(actor);
        }
-    }
-
-    private void updateMovingActors() {
-        movableActors.forEach(MovableActor::move);
     }
 
     public void onCollision(CollisionEvent e) {

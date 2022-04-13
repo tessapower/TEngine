@@ -2,45 +2,48 @@ package actors;
 
 import collisions.CollisionPrimitive;
 import graphics.TObject;
+import physics.kinematics.PhysicsProperties;
 
 import java.awt.*;
 
 public abstract class Actor {
-    protected Point origin;
-    protected CollisionPrimitive bounds;
+    protected PhysicsProperties physicsProps;
     public TObject sprite;
 
     public Actor() {
-        origin = new Point(0, 0);
-        bounds = null;
+        physicsProps = new PhysicsProperties();
         sprite = null;
     }
 
     public void setOrigin(Point origin) {
-        this.origin = origin;
+        this.physicsProps.origin = origin;
 
         if (sprite != null) {
             sprite.setOrigin(origin);
         }
 
-        if (bounds != null) {
-            bounds.setOrigin(origin);
+        if (this.physicsProps.bounds != null) {
+            physicsProps.bounds.setOrigin(origin);
         }
     }
 
     public Point origin() {
-        return origin;
+        return physicsProps.origin;
     }
 
     public int x() {
-        return origin.x;
+        return physicsProps.origin.x;
     }
 
     public int y() {
-        return origin.y;
+        return physicsProps.origin.y;
     }
 
     public CollisionPrimitive bounds() {
-        return bounds;
+        return physicsProps.bounds;
+    }
+
+    public PhysicsProperties physicsProps() {
+        return physicsProps;
     }
 }
