@@ -4,6 +4,7 @@ import actors.Actor;
 import collisions.CollisionDetector;
 import collisions.CollisionEvent;
 import graphics.GraphicsEngine;
+import physics.kinematics.PhysicsEngine;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
@@ -31,6 +32,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     Stack<AffineTransform> mTransforms;
 
     GraphicsEngine graphicsEngine;
+    PhysicsEngine physicsEngine;
     Set<Actor> actors;
     CollisionDetector collisionDetector;
 
@@ -58,6 +60,8 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
 
         actors = new HashSet<>();
         collisionDetector = new CollisionDetector();
+        physicsEngine = new PhysicsEngine();
+        physicsEngine.setCollisionEventNotifier(this::onCollision);
 
         SwingUtilities.invokeLater(() -> setupWindow(new Dimension(500, 500), "Window"));
     }
@@ -199,15 +203,11 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     //------------------------------------------------------------------------------- Abstract & Overridden Methods --//
 
     public void update(double dt) {
-        updateMovingActors();
-        // Detect collisions
-        // if (!collisions.isEmpty()) {
-        // collisions.forEach(collision -> onCollision(collision);
+        physicsEngine.update();
     }
 
     public void paintComponent() {
         clearBackground(mWidth, mHeight);
-
         graphicsEngine.update();
     }
 
@@ -249,6 +249,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     public void addActor(Actor actor) {
         actors.add(actor);
         graphicsEngine.add(actor);
+        physicsEngine.add(actor);
     }
 
     public void addActors(Actor... actors) {
@@ -260,6 +261,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     public void destroyActor(Actor actor) {
         actors.remove(actor);
         graphicsEngine.remove(actor);
+        physicsEngine.remove(actor);
     }
 
     public void destroyActors(Actor... actors) {

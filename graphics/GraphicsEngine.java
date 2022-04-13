@@ -17,7 +17,6 @@ public class GraphicsEngine {
     }
 
     public void update() {
-
         canvas.update(this.graphicsCtx);
     }
 
