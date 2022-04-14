@@ -2,10 +2,8 @@ package physics.collisions;
 
 import physics.PhysicsBody;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.awt.*;
+import java.util.Objects;
 
 public class CollisionEvent {
     private final PhysicsBody movingObj;
@@ -32,11 +30,34 @@ public class CollisionEvent {
         return staticObj;
     }
 
-    public void setCollisionVector(Vector collisionVector) {
-        this.collisionVector = collisionVector;
+    public void setImpactVector(Vector impactVector) {
+        this.impactVector = impactVector;
     }
 
-    public Vector collisionVector() {
-        return collisionVector;
+    public Vector impactVector() {
+        return impactVector;
+    }
+
+    public void setImpactSide(Point impactSide) {
+        this.impactSide = impactSide;
+    }
+
+    public Point impactSide() {
+        return impactSide;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CollisionEvent other)) return false;
+        return movingObj == other.movingObj
+                && staticObj == other.staticObj
+                && Objects.equals(impactVector, other.impactVector)
+                && Objects.equals(impactSide, other.impactSide);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(movingObj, staticObj, impactVector, impactSide);
     }
 }
