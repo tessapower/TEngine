@@ -24,9 +24,9 @@ public class PhysicsEngine {
     public void update() {
         // Step 1: Move everything that can move
         for (var actor : actors) {
-            if (actor.physicsProps().movable) {
+            if (actor.physicsBody().isStatic) {
                 Point origin = actor.origin();
-                Velocity velocity = actor.physicsProps().velocity;
+                Velocity velocity = actor.physicsBody().velocity;
                 origin.translate(velocity.dx(), velocity.dy());
                 actor.setOrigin(origin);
             }

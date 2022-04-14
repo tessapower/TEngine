@@ -1,6 +1,6 @@
 package physics.collisions;
 
-import actors.Actor;
+import physics.PhysicsBody;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -8,28 +8,28 @@ import java.util.List;
 import java.util.Set;
 
 public class CollisionEvent {
-    private final Actor movingActor;
-    private final Set<Actor> staticActors;
-    private Vector collisionVector;
+    private final PhysicsBody movingObj;
+    private final PhysicsBody staticObj;
+    private Vector impactVector;
+    private Point impactSide;
 
-    public CollisionEvent(Actor movingActor, Actor staticActor) {
-        this.collisionVector = null;
-        this.movingActor = movingActor;
-        staticActors = new HashSet<>();
-        add(staticActor);
+    public CollisionEvent(PhysicsBody p1, PhysicsBody p2) {
+        this(p1, p2, new Vector(), new Point());
     }
 
-    public void add(Actor... staticActors) {
-        this.staticActors.addAll(List.of(staticActors));
-        // calculate distance between moving actor origin and static actor origins
+    public CollisionEvent(PhysicsBody p1, PhysicsBody p2, Vector impactVector, Point impactSide) {
+        movingObj = p1;
+        staticObj = p2;
+        this.impactVector = impactVector;
+        this.impactSide = impactSide;
     }
 
-    public Actor movingActor() {
-        return movingActor;
+    public PhysicsBody movingObj() {
+        return movingObj;
     }
 
-    public Set<Actor> staticActors() {
-        return Collections.unmodifiableSet(staticActors);
+    public PhysicsBody staticObj() {
+        return staticObj;
     }
 
     public void setCollisionVector(Vector collisionVector) {

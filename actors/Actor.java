@@ -2,17 +2,17 @@ package actors;
 
 import physics.collisions.CollisionShape;
 import graphics.TObject;
-import physics.PhysicsProperties;
+import physics.PhysicsBody;
 
 import java.awt.*;
 
 public abstract class Actor {
     protected Point origin;
-    protected PhysicsProperties physicsProps;
+    protected PhysicsBody physicsBody;
     protected TObject sprite;
 
     public Actor() {
-        physicsProps = new PhysicsProperties();
+        physicsBody = new PhysicsBody();
         sprite = null;
     }
 
@@ -23,8 +23,8 @@ public abstract class Actor {
             sprite.setOrigin(origin);
         }
 
-        if (this.physicsProps.collisionShape != null) {
-            physicsProps.collisionShape.setOrigin(origin);
+        if (this.physicsBody.collisionShape != null) {
+            physicsBody.collisionShape.setOrigin(origin);
         }
     }
 
@@ -41,7 +41,7 @@ public abstract class Actor {
     }
 
     public CollisionShape bounds() {
-        return physicsProps.collisionShape;
+        return physicsBody.collisionShape;
     }
 
     public TObject sprite() {
