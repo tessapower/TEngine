@@ -13,6 +13,11 @@ public class TCompound extends TObject {
     }
 
     public boolean add(TObject obj) {
+        if (this == obj) {
+            throw new IllegalStateException("parent cannot be child of itself.");
+        }
+
+        obj.setParent(this);
         return children.add(obj);
     }
 

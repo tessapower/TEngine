@@ -14,6 +14,7 @@ abstract public class TObject {
         rotation = TRotation.identity();
         translation = TTranslation.identity();
         scale = TScale.identity();
+        parent = null;
     }
 
     public Dimension dimension() {
@@ -52,6 +53,21 @@ abstract public class TObject {
     public void setScale(double scaleFactor) {
         scale.xScaleFactor = scaleFactor;
         scale.yScaleFactor = scaleFactor;
+    }
+
+    void setParent(TCompound parent) {
+        this.parent = parent;
+    }
+
+    public TCompound parent() {
+        return parent;
+    }
+
+    public void removeFromParent() {
+        if (parent != null) {
+            parent.remove(this);
+            parent = null;
+        }
     }
 
     public final void update(GraphicsCtx ctx) {
