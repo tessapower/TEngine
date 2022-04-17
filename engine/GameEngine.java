@@ -18,8 +18,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serial;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.List;
 import java.util.Stack;
 
@@ -33,7 +31,6 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
 
     GraphicsEngine graphicsEngine;
 //    PhysicsEngine physicsEngine;
-    Set<Actor> actors;
     CollisionDetector collisionDetector;
 
     long time = 0, oldTime = 0;
@@ -58,7 +55,6 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     public GameEngine() {
         mTransforms = new Stack<>();
 
-        actors = new HashSet<>();
         collisionDetector = new CollisionDetector();
 //        physicsEngine = new PhysicsEngine();
 //        physicsEngine.setCollisionEventNotifier(this::onCollision);
@@ -248,7 +244,6 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     //------------------------------------------------------------------------------------------------------ Actors --//
 
     public void addActor(Actor actor) {
-        actors.add(actor);
         graphicsEngine.add(actor);
 //        physicsEngine.add(actor);
     }
@@ -264,7 +259,6 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     }
 
     public void destroyActor(Actor actor) {
-        actors.remove(actor);
         graphicsEngine.remove(actor);
 //        physicsEngine.remove(actor);
     }
@@ -276,7 +270,6 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     }
 
     public void destroyAllActors() {
-        actors.clear();
         graphicsEngine.removeAll();
     }
 
