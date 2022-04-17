@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class World {
-    List<Actor> actors;
-    GameEngine engine;
+    protected List<Actor> actors;
+    protected GameEngine engine;
 
     public World(GameEngine engine) {
         actors = new ArrayList<>();
