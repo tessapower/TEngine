@@ -1,8 +1,9 @@
 package actors;
 
-import physics.collisions.CollisionShape;
+import graphics.GraphicsEngine;
 import graphics.TObject;
 import physics.PhysicsBody;
+import physics.collisions.CollisionShape;
 
 import java.awt.*;
 import java.util.Objects;
@@ -11,10 +12,13 @@ public abstract class Actor {
     protected Point origin;
     protected PhysicsBody physicsBody;
     protected TObject sprite;
+    protected World world;
 
     public Actor() {
+        origin = new Point();
         physicsBody = new PhysicsBody();
         sprite = null;
+        world = null;
     }
 
     public void setOrigin(Point origin) {
@@ -45,14 +49,6 @@ public abstract class Actor {
         return physicsBody.collisionShape;
     }
 
-    public TObject sprite() {
-        return sprite;
-    }
-
-    public PhysicsBody physicsBody() {
-        return physicsBody;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -63,5 +59,21 @@ public abstract class Actor {
     @Override
     public int hashCode() {
         return Objects.hash(origin, physicsBody, sprite);
+    }
+
+    public void removeFromWorld() {
+        world.remove(this);
+    }
+
+    void setWorld(World world, GraphicsEngine graphicsEngine) {
+        graphicsEngine.add(sprite);
+        // TODO: Eventually include PhysicsEngine.add(physicsBody)
+        this.world = world;
+    }
+
+    void destroy() {
+        sprite.removeFromParent();
+        // TODO: Eventually include physicsBody.removeFromSystem()
+        world = null;
     }
 }
