@@ -6,10 +6,10 @@ import java.awt.*;
 
 // Wraps and adapts the Massey GameEngine to conform to our GraphicsCtx interface.
 // Later this can be thrown away, and we can simply use the built-in Graphics2D library.
-public class TGraphicsCtx implements GraphicsCtx {
+public class MasseyGraphicsCtx implements GraphicsCtx {
     GameEngine masseyCtx;
 
-    public TGraphicsCtx(GameEngine masseyCtx) {
+    public MasseyGraphicsCtx(GameEngine masseyCtx) {
         this.masseyCtx = masseyCtx;
     }
 

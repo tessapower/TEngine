@@ -11,7 +11,7 @@ public class GraphicsEngine {
 //    private final Color backgroundColor;
 
     public GraphicsEngine(GameEngine engine) {
-        graphicsCtx = new TGraphicsCtx(engine);
+        graphicsCtx = new MasseyGraphicsCtx(engine);
         canvas = new TCompound(new Dimension(engine.windowWidth(), engine.windowHeight()));
 //        backgroundColor = null;
     }
