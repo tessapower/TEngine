@@ -124,6 +124,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     //------------------------------------------------------------------------------------------------------ Window --//
 
     public void setupWindow(Dimension dimension, String title) {
+        // TODO: Eventually replace with graphicsEngine = new GraphicsEngine(Graphics2D)
         graphicsEngine = new GraphicsEngine(this);
 
         mFrame = new JFrame();
@@ -186,7 +187,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         return mHeight;
     }
 
-    // Initialises and starts the game loop with the given framerate
+    // Initialise and start the game loop with the given framerate
     public void startGameLoop(int framerate) {
         initialised = true; // assume init has been called or won't be called
 
@@ -197,7 +198,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         timer.start();
     }
 
-    //------------------------------------------------------------------------------- Abstract & Overridden Methods --//
+    //------------------------------------------------------------------------------ Methods that can be overridden --//
 
     public void update(double dt) {
 //        physicsEngine.update();
@@ -282,7 +283,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         @Serial
         private static final long serialVersionUID = 1L;
 
-        // This gets called any time the Operating System tells the program to paint itself
+        // Called each time the OS instructs the program to paint itself
         public void paintComponent(Graphics graphics) {
             // Get the graphics object
             mGraphics = (Graphics2D) graphics;
@@ -301,62 +302,37 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         }
     }
 
-    // Changes the background Color to the color c
-    public void changeBackgroundColor(Color c) {
-        mGraphics.setBackground(c);
+    /**
+     * Change the background color of the canvas to the specified color.
+     */
+    public void changeBackgroundColor(Color color) {
+        mGraphics.setBackground(color);
     }
 
-    // Changes the background Color to the color (red, green, blue)
-    public void changeBackgroundColor(int red, int green, int blue) {
-        mGraphics.setBackground(clampColor(red, green, blue));
-    }
-
-    private Color clampColor(int red, int green, int blue) {
-        if (red < 0) {
-            red = 0;
-        }
-        if (red > 255) {
-            red = 255;
-        }
-
-        if (green < 0) {
-            green = 0;
-        }
-        if (green > 255) {
-            green = 255;
-        }
-
-        if (blue < 0) {
-            blue = 0;
-        }
-        if (blue > 255) {
-            blue = 255;
-        }
-
-        return new Color(red, green, blue);
-    }
-
-    // Clears the background, makes the whole window whatever the background color is
+    /**
+     * Clear the canvas and set the background color, if there is one.
+     */
     public void clearBackground(int width, int height) {
         mGraphics.clearRect(0, 0, width, height);
     }
 
-    // Changes the drawing Color to the color c
-    public void changeColor(Color c) {
-        mGraphics.setColor(c);
+    /**
+     * Change the drawing color to the specified color.
+     */
+    public void changeColor(Color color) {
+        mGraphics.setColor(color);
     }
 
-    // Changes the drawing Color to the color (red, green, blue)
-    public void changeColor(int red, int green, int blue) {
-        mGraphics.setColor(clampColor(red, green, blue));
-    }
-
-    // Draws a line from (x1, y2) to (x2, y2)
+    /**
+     * Draw a line from (x1, y2) to (x2, y2).
+     */
     public void drawLine(double x1, double y1, double x2, double y2) {
         mGraphics.draw(new Line2D.Double(x1, y1, x2, y2));
     }
 
-    // Draws a line from (x1, y2) to (x2, y2) with width l
+    /**
+     * Draw a line from (x1, y2) to (x2, y2) with width l.
+     */
     public void drawLine(double x1, double y1, double x2, double y2, double l) {
         // Set the stroke
         mGraphics.setStroke(new BasicStroke((float) l));
@@ -367,12 +343,37 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         mGraphics.setStroke(new BasicStroke(1.0f));
     }
 
-    // This function draws a rectangle at (x, y) with width and height (w,h)
+    /**
+     * Draw a line from <code>p1</code> to <code>p2</code>.
+     */
+    public void drawLine(Point p1, Point p2) {
+
+        mGraphics.draw(new Line2D.Double(p1.x, p1.y, p2.x, p2.y));
+    }
+
+    /**
+     * Draw a line from <code>p1</code> to <code>p2</code> with width l.
+     */
+    public void drawLine(Point p1, Point p2, double l) {
+        // Set the stroke
+        mGraphics.setStroke(new BasicStroke((float) l));
+
+        mGraphics.draw(new Line2D.Double(p1.x, p1.y, p2.x, p2.y));
+
+        // Reset the stroke
+        mGraphics.setStroke(new BasicStroke(1.0f));
+    }
+
+    /**
+     * Draw a rectangle at (x, y) with width and height (w, h).
+     */
     public void drawRectangle(double x, double y, double w, double h) {
         mGraphics.draw(new Rectangle2D.Double(x, y, w, h));
     }
 
-    // This function draws a rectangle at (x, y) with width and height (w, h) with a line of width l
+    /**
+     * Draw a rectangle at (x, y) with width and height (w, h) with a line of width l.
+     */
     public void drawRectangle(double x, double y, double w, double h, double l) {
         // Set the stroke
         mGraphics.setStroke(new BasicStroke((float) l));
@@ -383,17 +384,23 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         mGraphics.setStroke(new BasicStroke(1.0f));
     }
 
-    // This function fills in a rectangle at (x,y) with width and height (w,h)
+    /**
+     * Draw a filled rectangle at (x, y) with width and height (w, h).
+     */
     public void drawSolidRectangle(double x, double y, double w, double h) {
         mGraphics.fill(new Rectangle2D.Double(x, y, w, h));
     }
 
-    // This function draws a circle at (x,y) with radius
+    /**
+     * Draw a circle at (x, y) with radius
+     */
     public void drawCircle(double x, double y, double radius) {
         mGraphics.draw(new Ellipse2D.Double(x - radius, y - radius, radius * 2, radius * 2));
     }
 
-    // This function draws a circle at (x,y) with radius with a line of width l
+    /**
+     * Draw a circle at (x, y) with radius with a line of width l.
+     */
     public void drawCircle(double x, double y, double radius, double l) {
         // Set the stroke
         mGraphics.setStroke(new BasicStroke((float) l));
@@ -404,36 +411,48 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         mGraphics.setStroke(new BasicStroke(1.0f));
     }
 
-    // This function draws a circle at (x,y) with radius
+    /**
+     * Draw a filled circle at (x, y) with radius.
+     */
     public void drawSolidCircle(double x, double y, double radius) {
         mGraphics.fill(new Ellipse2D.Double(x - radius, y - radius, radius * 2, radius * 2));
     }
 
-    // This function draws text on the screen at (x,y)
+    /**
+     * Draw bold text on the screen at (x, y).
+     */
     public void drawText(double x, double y, String s) {
         mGraphics.setFont(new Font("Arial", Font.PLAIN, 40));
         mGraphics.drawString(s, (int) x, (int) y);
     }
 
-    // This function draws bold text on the screen at (x,y)
+    /**
+     * Draw bold text on the screen at (x, y).
+     */
     public void drawBoldText(double x, double y, String s) {
         mGraphics.setFont(new Font("Arial", Font.BOLD, 40));
         mGraphics.drawString(s, (int) x, (int) y);
     }
 
-    // This function draws text on the screen at (x,y) with Font (font,size)
+    /**
+     * Draw text on the screen at (x, y) with Font (font, size).
+     */
     public void drawText(double x, double y, String s, String font, int size) {
         mGraphics.setFont(new Font(font, Font.PLAIN, size));
         mGraphics.drawString(s, (int) x, (int) y);
     }
 
-    // This function draws bold text on the screen at (x,y) with Font (font,size)
+    /**
+     * Draw bold text on the screen at (x, y) with Font (font, size).
+     */
     public void drawBoldText(double x, double y, String s, String font, int size) {
         mGraphics.setFont(new Font(font, Font.BOLD, size));
         mGraphics.drawString(s, (int) x, (int) y);
     }
 
-    // Loads an image from file
+    /**
+     * Load an image from file.
+     */
     public Image loadImage(String filename) {
         try {
             // Load and return Image
@@ -446,7 +465,9 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         return null;
     }
 
-    // Loads a sub-image out of an image
+    /**
+     * Load a sub-image out of an image.
+     */
     public Image subImage(Image source, int x, int y, int w, int h) {
         if (source == null) {
             System.out.println("Error: cannot extract a subImage from a null image.\n");
@@ -461,7 +482,9 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         return buffered.getSubimage(x, y, w, h);
     }
 
-    // Draws an image on the screen at position (x,y)
+    /**
+     * Draw an image on the screen at position (x, y).
+     */
     public void drawImage(Image image, double x, double y) {
         if (image == null) {
             System.out.println("Error: cannot draw null image.\n");
@@ -471,7 +494,9 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         mGraphics.drawImage(image, (int) x, (int) y, null);
     }
 
-    // Draws an image on the screen at position (x,y)
+    /**
+     * Draw an image on the screen at position (x, y).
+     */
     public void drawImage(Image image, double x, double y, double w, double h) {
         if (image == null) {
             System.out.println("Error: cannot draw null image.\n");
@@ -480,12 +505,18 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         mGraphics.drawImage(image, (int) x, (int) y, (int) w, (int) h, null);
     }
 
-    // Save the current transform
+    // ------------------------------------------------------------------------------------------------- Transforms --//
+
+    /**
+     * Save the current transform.
+     */
     public void saveCurrentTransform() {
         mTransforms.push(mGraphics.getTransform());
     }
 
-    // Restores the last transform
+    /**
+     * Restore the last transform.
+     */
     public void restoreLastTransform() {
         // Set current transform to the top of the stack.
         mGraphics.setTransform(mTransforms.peek());
@@ -497,22 +528,30 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         }
     }
 
-    // This function translates the drawing context by (x, y)
-    public void translate(double x, double y) {
-        mGraphics.translate(x, y);
+    /**
+     * Translate the drawing context by (dx, dy).
+     */
+    public void translate(double dx, double dy) {
+        mGraphics.translate(dx, dy);
     }
 
-    // This function rotates the drawing context by a degrees
-    public void rotate(double a) {
-        mGraphics.rotate(Math.toRadians(a));
+    /**
+     * Rotate the drawing context by <code>thetaDegrees</code>.
+     */
+    public void rotate(double thetaDegrees) {
+        mGraphics.rotate(Math.toRadians(thetaDegrees));
     }
 
-    // This function scales the drawing context by (x, y)
+    /**
+     * Scale the drawing context by (x, y)
+     */
     public void scale(double x, double y) {
         mGraphics.scale(x, y);
     }
 
-    // This function shears the drawing context by (x, y)
+    /**
+     * Shear the drawing context by (x, y)
+     */
     public void shear(double x, double y) {
         mGraphics.shear(x, y);
     }
@@ -567,7 +606,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         }
     }
 
-    // Loads the AudioClip stored in the file specified by filename
+    // Load the AudioClip stored in the file specified by filename
     public AudioClip loadAudio(String filename) {
         try {
             File file = new File(filename);
@@ -581,7 +620,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         return null;
     }
 
-    // Plays an AudioClip
+    // Play an AudioClip
     public void playAudio(AudioClip audioClip) {
         if (audioClip == null) {
             System.out.println("Error: audioClip is null\n");
@@ -599,7 +638,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         }
     }
 
-    // Plays an AudioClip with a volume in decibels
+    // Play an AudioClip with a volume in decibels
     public void playAudio(AudioClip audioClip, float volume) {
         if (audioClip == null) {
             System.out.println("Error: audioClip is null\n");
@@ -620,7 +659,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         }
     }
 
-    // Starts playing an AudioClip on loop
+    // Start playing an AudioClip on loop
     public void startAudioLoop(AudioClip audioClip) {
         if (audioClip == null) {
             System.out.println("Error: audioClip is null\n");
@@ -651,7 +690,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         clip.start();
     }
 
-    // Starts playing an AudioClip on loop with a volume in decibels
+    // Start playing an AudioClip on loop with a volume in decibels
     public void startAudioLoop(AudioClip audioClip, float volume) {
         if (audioClip == null) {
             System.out.println("Error: audioClip is null\n");
@@ -682,7 +721,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         clip.start();
     }
 
-    // Stops an AudioClip playing
+    // Stop an AudioClip playing
     public void stopAudioLoop(AudioClip audioClip) {
         Clip clip = audioClip.getLoopClip();
 
@@ -694,72 +733,72 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     //------------------------------------------------------------------------------------------------ Math Helpers --//
 
     // TODO: Remove this in favor of built in Math class
-    // Returns the length of a vector
+    // Return the length of a vector
     public double length(double x, double y) {
         // Calculate and return the sqrt
         return Math.sqrt(x * x + y * y);
     }
 
-    // Returns the distance between two points (x1,y1) and (x2,y2)
+    // Return the distance between two points (x1,y1) and (x2,y2)
     public double distance(double x1, double y1, double x2, double y2) {
         return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
     }
 
-    // Converts an angle in radians to degrees
+    // Convert an angle in radians to degrees
     public double toDegrees(double radians) {
         // Calculate and return the degrees
         return Math.toDegrees(radians);
     }
 
-    // Converts an angle in degrees to radians
+    // Convert an angle in degrees to radians
     public double toRadians(double degrees) {
         // Calculate and return the radians
         return Math.toRadians(degrees);
     }
 
-    // Returns the absolute value of the parameter
+    // Return the absolute value of the parameter
     public int abs(int value) {
         // Calculate and return abs
         return Math.abs(value);
     }
 
-    // Returns the cos of value
+    // Return the cos of value
     public double cos(double value) {
         // Calculate and return cos
         return Math.cos(Math.toRadians(value));
     }
 
-    // Returns the acos of value
+    // Return the acos of value
     public double acos(double value) {
         // Calculate and return acos
         return Math.toDegrees(Math.acos(value));
     }
 
-    // Returns the sin of value
+    // Return the sin of value
     public double sin(double value) {
         // Calculate and return sin
         return Math.sin(Math.toRadians(value));
     }
 
-    // Returns the asin of value
+    // Return the asin of value
     public double asin(double value) {
         // Calculate and return asin
         return Math.toDegrees(Math.asin(value));
     }
 
-    // Returns the tan of value
+    // Return the tan of value
     public double tan(double value) {
         // Calculate and return tan
         return Math.tan(Math.toRadians(value));
     }
 
-    // Returns the atan of value
+    // Return the atan of value
     public double atan(double value) {
         // Calculate and return atan
         return Math.toDegrees(Math.atan(value));
     }
 
-    // Returns the atan2 of value
+    // Return the atan2 of value
     public double atan2(double x, double y) {
         // Calculate and return atan2
         return Math.toDegrees(Math.atan2(x, y));
