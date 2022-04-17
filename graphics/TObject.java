@@ -77,7 +77,6 @@ abstract public class TObject {
     }
 
     protected abstract void paint(GraphicsCtx ctx);
-
     public abstract boolean equals(Object o);
     public abstract int hashCode();
 }
