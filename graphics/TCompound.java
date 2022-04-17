@@ -2,6 +2,7 @@ package graphics;
 
 import java.awt.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class TCompound extends TObject {
@@ -49,5 +50,18 @@ public class TCompound extends TObject {
                 child.update(ctx);
             }
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TCompound other)) return false;
+
+        return children.equals(other.children);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(children);
     }
 }

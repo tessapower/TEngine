@@ -1,5 +1,7 @@
 package graphics;
 
+import java.util.Objects;
+
 public class TScale implements TTransform {
     public double xScaleFactor;
     public double yScaleFactor;
@@ -16,5 +18,21 @@ public class TScale implements TTransform {
     @Override
     public void apply(GraphicsCtx ctx) {
         ctx.scale(xScaleFactor, yScaleFactor);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof TScale other))
+            return false;
+
+        return this.xScaleFactor == other.xScaleFactor
+                && this.yScaleFactor == other.yScaleFactor;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(xScaleFactor, yScaleFactor);
     }
 }
