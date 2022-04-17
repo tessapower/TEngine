@@ -1,6 +1,5 @@
 package graphics;
 
-import actors.Actor;
 import engine.GameEngine;
 
 import java.awt.*;
@@ -22,19 +21,18 @@ public class GraphicsEngine {
 
     //------------------------------------------------------------------------------------------------------ Actors --//
 
-    public void add(Actor actor) {
-        canvas.add(actor.sprite());
+    public void add(TObject tObject) {
+        canvas.add(tObject);
     }
 
-    public void addAll(Actor... actors) {
-        for (var actor : actors) {
-            add(actor);
+    public void addAll(TObject... tObjects) {
+        for (var tObject : tObjects) {
+            add(tObject);
         }
     }
 
-    public void remove(Actor actor) {
-        // What we really want here is something like actor.removeFromParent();
-        canvas.remove(actor.sprite());
+    public void remove(TObject tObject) {
+        tObject.removeFromParent();
     }
 
     public void removeAll() {
