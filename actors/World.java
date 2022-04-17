@@ -1,22 +1,22 @@
 package actors;
 
-import graphics.GraphicsEngine;
+import engine.GameEngine;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class World {
     List<Actor> actors;
-    GraphicsEngine graphicsEngine;
+    GameEngine engine;
 
-    public World(GraphicsEngine graphicsEngine) {
+    public World(GameEngine engine) {
         actors = new ArrayList<>();
-        this.graphicsEngine = graphicsEngine;
+        this.engine = engine;
     }
 
     public void add(Actor actor) {
         actors.add(actor);
-        actor.setWorld(this, graphicsEngine);
+        actor.setWorld(this, engine.graphics());
     }
 
     public void add(Actor... actors) {

@@ -66,6 +66,10 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         createGame(game, 30);
     }
 
+    public GraphicsEngine graphics() {
+        return graphicsEngine;
+    }
+
     protected static class GameTimer extends Timer {
         @Serial
         private static final long serialVersionUID = 1L;
