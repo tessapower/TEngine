@@ -24,7 +24,8 @@ public class TGraphicsCtx implements GraphicsCtx {
     @Override
     public void drawCircle(Dimension dimension, Color color) {
         masseyCtx.changeColor(color);
-        masseyCtx.drawCircle(0, 0, dimension.width * 0.5);
+        // TODO: See note in drawFilledCircle
+        masseyCtx.drawCircle(dimension.width / 2.0, dimension.height / 2.0, dimension.width * 0.5);
     }
 
     @Override
@@ -36,7 +37,11 @@ public class TGraphicsCtx implements GraphicsCtx {
     @Override
     public void drawFilledCircle(Dimension dimension, Color color) {
         masseyCtx.changeColor(color);
-        masseyCtx.drawSolidCircle(0, 0, dimension.width * 0.5);
+        // The Massey GameEngine strangely treats the center of the circle as the origin for drawing a circle,
+        // which is odd as all other shapes consider the top left as the origin. A rect with the same
+        // dimensions and position as a circle would not enclose the circle.
+        // TODO: Set drawing coordinates back to 0, 0 when replacing Massey GameEngine!
+        masseyCtx.drawSolidCircle(dimension.width / 2.0, dimension.height / 2.0, dimension.width * 0.5);
     }
 
     //-------------------------------------------------------------------------------------------------- Transforms --//
