@@ -4,9 +4,10 @@ import java.awt.*;
 
 abstract public class TObject {
     protected Dimension dimension;
-    private final TRotation rotation;
-    private final TTranslation translation;
-    private final TScale scale;
+    protected final TRotation rotation;
+    protected final TTranslation translation;
+    protected final TScale scale;
+    protected TCompound parent;
 
     public TObject(Dimension dimension) {
         this.dimension = dimension;
