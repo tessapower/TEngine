@@ -6,6 +6,7 @@ import physics.kinematics.Velocity;
 import java.util.Objects;
 
 public class PhysicsBody {
+    public PhysicsEngine system;
     public Velocity velocity;
     public boolean isStatic;
     public boolean hasCollisions;
@@ -22,6 +23,15 @@ public class PhysicsBody {
         this.isStatic = isStatic;
         this.collisionShape = collisionShape;
         this.hasCollisions = hasCollisions;
+    }
+
+    void setSystem(PhysicsEngine system) {
+        this.system = system;
+    }
+
+    public void removeFromSystem() {
+        // TODO: implement this when finishing PhysicsEngine
+        throw new RuntimeException("implement me!");
     }
 
     @Override

@@ -1,24 +1,19 @@
 package physics;
 
-import actors.Actor;
 import physics.collisions.CollisionDetector;
-import physics.collisions.CollisionEvent;
 import physics.collisions.CollisionEventNotifier;
-import physics.kinematics.Velocity;
 
-import java.awt.*;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 public class PhysicsEngine {
     CollisionDetector collisionDetector;
-    Set<Actor> actors;
+    Set<PhysicsBody> physicsBodies;
     CollisionEventNotifier collisionEventNotifier;
 
     public PhysicsEngine() {
         collisionDetector = new CollisionDetector();
-        actors = new HashSet<>();
+        physicsBodies = new HashSet<>();
     }
 
     public void update() {
@@ -49,21 +44,21 @@ public class PhysicsEngine {
         collisionEventNotifier = eventNotifier;
     }
 
-    public void add(Actor actor) {
-        actors.add(actor);
+    public void add(PhysicsBody physicsBody) {
+        physicsBodies.add(physicsBody);
     }
 
-    public void addAll(Actor... actors) {
-        for (var actor : actors) {
-            add(actor);
+    public void addAll(PhysicsBody... physicsBodies) {
+        for (var body : physicsBodies) {
+            add(body);
         }
     }
 
-    public void remove(Actor actor) {
-        actors.remove(actor);
+    public void remove(PhysicsBody physicsBody) {
+        physicsBodies.remove(physicsBody);
     }
 
     public void removeAll() {
-        actors.clear();
+        physicsBodies.clear();
     }
 }
