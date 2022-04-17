@@ -22,26 +22,27 @@ public class PhysicsEngine {
     }
 
     public void update() {
+        throw new RuntimeException("implement me!");
         // Step 1: Move everything that can move
-        for (var actor : actors) {
-            if (actor.physicsBody().isStatic) {
-                Point origin = actor.origin();
-                Velocity velocity = actor.physicsBody().velocity;
-                origin.translate(velocity.dx(), velocity.dy());
-                actor.setOrigin(origin);
-            }
-        }
+//        for (var body : physicsBodies) {
+//            if (body.isStatic) {
+//                Point origin = body.origin;
+//                Velocity velocity = actor.physicsBody().velocity;
+//                origin.translate(velocity.dx(), velocity.dy());
+//                actor.setOrigin(origin);
+//            }
+//        }
 
         // Step 2: Detect collisions
-         Collection<CollisionEvent> collisions = collisionDetector.detectCollisions(actors);
+//         Collection<CollisionEvent> collisions = collisionDetector.detectCollisions(actors);
 
         // Step 3: Resolve collisions
         // resolveCollisions(collisions);
 
         // Step 4: Notify collisions
-        if (collisionEventNotifier != null) {
-             collisions.forEach(event -> collisionEventNotifier.notifyCollision(event));
-        }
+//        if (collisionEventNotifier != null) {
+//             collisions.forEach(event -> collisionEventNotifier.notifyCollision(event));
+//        }
     }
 
     public void setCollisionEventNotifier(CollisionEventNotifier eventNotifier) {
