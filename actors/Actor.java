@@ -24,9 +24,9 @@ public abstract class Actor {
             sprite.setOrigin(origin);
         }
 
-        if (this.physicsBody.collisionShape != null) {
-            physicsBody.collisionShape.setOrigin(origin);
-        }
+//        if (this.physicsBody.collisionShape != null) {
+//            physicsBody.collisionShape.setOrigin(origin);
+//        }
     }
 
     public Point origin() {

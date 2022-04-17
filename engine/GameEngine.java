@@ -1,10 +1,9 @@
 package engine;
 
 import actors.Actor;
+import graphics.GraphicsEngine;
 import physics.collisions.CollisionDetector;
 import physics.collisions.CollisionEvent;
-import graphics.GraphicsEngine;
-import physics.PhysicsEngine;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
@@ -21,6 +20,7 @@ import java.io.IOException;
 import java.io.Serial;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.List;
 import java.util.Stack;
 
 public abstract class GameEngine implements KeyListener, MouseListener, MouseMotionListener {
@@ -32,7 +32,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     Stack<AffineTransform> mTransforms;
 
     GraphicsEngine graphicsEngine;
-    PhysicsEngine physicsEngine;
+//    PhysicsEngine physicsEngine;
     Set<Actor> actors;
     CollisionDetector collisionDetector;
 
@@ -60,8 +60,8 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
 
         actors = new HashSet<>();
         collisionDetector = new CollisionDetector();
-        physicsEngine = new PhysicsEngine();
-        physicsEngine.setCollisionEventNotifier(this::onCollision);
+//        physicsEngine = new PhysicsEngine();
+//        physicsEngine.setCollisionEventNotifier(this::onCollision);
 
         SwingUtilities.invokeLater(() -> setupWindow(new Dimension(500, 500), "Window"));
     }
@@ -137,6 +137,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         mHeight = dimension.height;
 
         mFrame.setSize(mWidth, mHeight);
+        mFrame.setResizable(false);
         mFrame.setLocation(200, 200);
         mFrame.setTitle(title);
         mFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -203,7 +204,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     //------------------------------------------------------------------------------- Abstract & Overridden Methods --//
 
     public void update(double dt) {
-        physicsEngine.update();
+//        physicsEngine.update();
     }
 
     public void paintComponent() {
@@ -249,7 +250,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     public void addActor(Actor actor) {
         actors.add(actor);
         graphicsEngine.add(actor);
-        physicsEngine.add(actor);
+//        physicsEngine.add(actor);
     }
 
     public void addActors(Actor... actors) {
@@ -258,16 +259,25 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         }
     }
 
+    public void addActors(List<Actor> actors) {
+        actors.forEach(this::addActor);
+    }
+
     public void destroyActor(Actor actor) {
         actors.remove(actor);
         graphicsEngine.remove(actor);
-        physicsEngine.remove(actor);
+//        physicsEngine.remove(actor);
     }
 
     public void destroyActors(Actor... actors) {
        for (var actor : actors) {
            destroyActor(actor);
        }
+    }
+
+    public void destroyAllActors() {
+        actors.clear();
+        graphicsEngine.removeAll();
     }
 
     public void onCollision(CollisionEvent e) {
