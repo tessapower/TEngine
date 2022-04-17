@@ -3,7 +3,6 @@ package graphics;
 import java.awt.*;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 public class TCompound extends TObject {
@@ -67,10 +66,5 @@ public class TCompound extends TObject {
         if (!(o instanceof TCompound other)) return false;
 
         return children.equals(other.children);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(children);
     }
 }
