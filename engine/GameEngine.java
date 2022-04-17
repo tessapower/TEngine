@@ -1,8 +1,6 @@
 package engine;
 
-import actors.Actor;
 import graphics.GraphicsEngine;
-import physics.collisions.CollisionDetector;
 import physics.collisions.CollisionEvent;
 
 import javax.imageio.ImageIO;
@@ -18,7 +16,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serial;
-import java.util.List;
 import java.util.Stack;
 
 public abstract class GameEngine implements KeyListener, MouseListener, MouseMotionListener {
@@ -31,7 +28,6 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
 
     GraphicsEngine graphicsEngine;
 //    PhysicsEngine physicsEngine;
-    CollisionDetector collisionDetector;
 
     long time = 0, oldTime = 0;
     // Main Loop of the game. Runs continuously and calls all the updates
@@ -40,7 +36,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         @Override
         public void actionPerformed(ActionEvent e) {
             double passedTime = measureTime();
-            double dt = passedTime / 1000.;
+            double dt = passedTime / 1000;
 
             // Update the Game
             update(dt);
@@ -55,7 +51,6 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     public GameEngine() {
         mTransforms = new Stack<>();
 
-        collisionDetector = new CollisionDetector();
 //        physicsEngine = new PhysicsEngine();
 //        physicsEngine.setCollisionEventNotifier(this::onCollision);
 
@@ -240,38 +235,6 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     }
 
     public void mouseDragged(MouseEvent event) {
-    }
-
-    //------------------------------------------------------------------------------------------------------ Actors --//
-
-    public void addActor(Actor actor) {
-        graphicsEngine.add(actor);
-//        physicsEngine.add(actor);
-    }
-
-    public void addActors(Actor... actors) {
-        for (var actor : actors) {
-            addActor(actor);
-        }
-    }
-
-    public void addActors(List<Actor> actors) {
-        actors.forEach(this::addActor);
-    }
-
-    public void destroyActor(Actor actor) {
-        graphicsEngine.remove(actor);
-//        physicsEngine.remove(actor);
-    }
-
-    public void destroyActors(Actor... actors) {
-       for (var actor : actors) {
-           destroyActor(actor);
-       }
-    }
-
-    public void destroyAllActors() {
-        graphicsEngine.removeAll();
     }
 
     public void onCollision(CollisionEvent e) {
