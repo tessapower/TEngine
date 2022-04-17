@@ -1,6 +1,7 @@
 package graphics;
 
 import java.awt.*;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -13,13 +14,21 @@ public class TCompound extends TObject {
         children = new HashSet<>();
     }
 
-    public boolean add(TObject obj) {
+    public Set<TObject> children() {
+        return Collections.unmodifiableSet(children);
+    }
+
+    public int numChildren() {
+        return children.size();
+    }
+
+    public void add(TObject obj) {
         if (this == obj) {
-            throw new IllegalStateException("parent cannot be child of itself.");
+            throw new IllegalStateException("parent cannot be child of itself");
         }
 
         obj.setParent(this);
-        return children.add(obj);
+        children.add(obj);
     }
 
     public void addAll(TObject... objects) {
@@ -28,16 +37,16 @@ public class TCompound extends TObject {
         }
     }
 
-    public boolean remove(TObject obj) {
-        return children.remove(obj);
+    public void remove(TObject obj) {
+        if (children.contains(obj)) {
+            obj.setParent(null);
+            children.remove(obj);
+        }
     }
 
     public void removeAll() {
+        children.forEach(child -> child.setParent(null));
         children.clear();
-    }
-
-    public int numChildren() {
-        return children.size();
     }
 
     // TODO: This is confusing, update and paint aren't really the right names for what's going on.

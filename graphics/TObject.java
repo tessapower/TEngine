@@ -66,7 +66,6 @@ abstract public class TObject {
     public void removeFromParent() {
         if (parent != null) {
             parent.remove(this);
-            parent = null;
         }
     }
 
