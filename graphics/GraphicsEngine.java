@@ -5,7 +5,7 @@ import engine.GameEngine;
 import java.awt.*;
 
 public class GraphicsEngine {
-    private final GraphicsCtx graphicsCtx;
+    private final MasseyGraphicsCtx graphicsCtx;
     private final TGraphicCompound canvas;
 //    private final Color backgroundColor;
 

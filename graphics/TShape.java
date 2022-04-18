@@ -15,8 +15,6 @@ abstract public class TShape extends TGraphicObject {
         isFilled = false;
     }
 
-    abstract protected void paint(GraphicsCtx ctx);
-
     @Override
     public boolean equals(Object o) {
         if (this == o)

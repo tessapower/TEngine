@@ -52,7 +52,7 @@ public class TGraphicCompound extends TGraphicObject {
     //   We should find language that expresses applying the transforms and drawing the shape on the canvas
     //   while in it's current context
     @Override
-    public void paint(GraphicsCtx ctx) {
+    public void paint(MasseyGraphicsCtx ctx) {
         if (!children.isEmpty()) {
             for (TGraphicObject child : children) {
                 child.update(ctx);

@@ -69,13 +69,13 @@ abstract public class TGraphicObject {
         }
     }
 
-    public final void update(GraphicsCtx ctx) {
+    public final void update(MasseyGraphicsCtx ctx) {
         ctx.pushCurrentTransform();
         ctx.setTransforms(rotation, translation, scale);
         paint(ctx);
         ctx.popTransform();
     }
 
-    protected abstract void paint(GraphicsCtx ctx);
+    protected abstract void paint(MasseyGraphicsCtx ctx);
     public abstract boolean equals(Object o);
 }
