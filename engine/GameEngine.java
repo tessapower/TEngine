@@ -413,7 +413,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         try {
             return ImageIO.read(new File(filename));
         } catch (IOException e) {
-            System.out.println("Error: could not load image " + filename);
+            System.err.println("Error: could not load image " + filename);
             System.exit(1);
         }
 
@@ -425,7 +425,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
      */
     public Image subImage(Image source, int x, int y, int w, int h) {
         if (source == null) {
-            System.out.println("Error: cannot extract a subImage from a null image.\n");
+            System.err.println("Error: cannot extract a sub image from a null image.");
 
             return null;
         }
@@ -440,7 +440,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
      */
     public void drawImage(Image image, double x, double y) {
         if (image == null) {
-            System.out.println("Error: cannot draw null image.\n");
+            System.err.println("Error: cannot draw null image.");
             return;
         }
 
@@ -452,7 +452,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
      */
     public void drawImage(Image image, double x, double y, double w, double h) {
         if (image == null) {
-            System.out.println("Error: cannot draw null image.\n");
+            System.err.println("Error: cannot draw null image.");
             return;
         }
         mGraphics.drawImage(image, (int) x, (int) y, (int) w, (int) h, null);
@@ -530,7 +530,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
             try {
                 stream.read(mData);
             } catch (Exception exception) {
-                System.out.println("Error reading Audio File\n");
+                System.err.println("Error: reading audio file");
 
                 System.exit(1);
             }
@@ -567,7 +567,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
 
             return new AudioClip(audio);
         } catch (Exception e) {
-            System.out.println("Error: cannot open Audio File " + filename + "\n");
+            System.err.println("Error: cannot open audio file " + filename);
         }
 
         return null;
@@ -576,7 +576,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     // Play an AudioClip
     public void playAudio(AudioClip audioClip) {
         if (audioClip == null) {
-            System.out.println("Error: audioClip is null\n");
+            System.err.println("Error: audioClip is null");
 
             return;
         }
@@ -587,14 +587,14 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
 
             clip.start();
         } catch (Exception exception) {
-            System.out.println("Error playing Audio Clip\n");
+            System.err.println("Error: playing audio clip");
         }
     }
 
     // Play an AudioClip with a volume in decibels
     public void playAudio(AudioClip audioClip, float volume) {
         if (audioClip == null) {
-            System.out.println("Error: audioClip is null\n");
+            System.err.println("Error: audioClip is null");
 
             return;
         }
@@ -608,14 +608,14 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
 
             clip.start();
         } catch (Exception exception) {
-            System.out.println("Error: could not play Audio Clip\n");
+            System.err.println("Error: could not play audio clip");
         }
     }
 
     // Start playing an AudioClip on loop
     public void startAudioLoop(AudioClip audioClip) {
         if (audioClip == null) {
-            System.out.println("Error: audioClip is null\n");
+            System.err.println("Error: audioClip is null");
 
             return;
         }
@@ -632,7 +632,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
 
                 audioClip.setLoopClip(clip);
             } catch (Exception exception) {
-                System.out.println("Error: could not play Audio Clip\n");
+                System.err.println("Error: could not play audio clip");
             }
         }
 
@@ -646,7 +646,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     // Start playing an AudioClip on loop with a volume in decibels
     public void startAudioLoop(AudioClip audioClip, float volume) {
         if (audioClip == null) {
-            System.out.println("Error: audioClip is null\n");
+            System.err.println("Error: audioClip is null");
 
             return;
         }
@@ -664,7 +664,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
                 clip.loop(Clip.LOOP_CONTINUOUSLY);
                 audioClip.setLoopClip(clip);
             } catch (Exception exception) {
-                System.out.println("Error: could not play Audio Clip\n");
+                System.err.println("Error: could not play audio clip");
             }
         }
 
