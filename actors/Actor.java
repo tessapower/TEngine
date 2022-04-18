@@ -1,6 +1,5 @@
 package actors;
 
-import graphics.GraphicsEngine;
 import graphics.TGraphicObject;
 import physics.PhysicsBody;
 import physics.collisions.CollisionShape;
@@ -65,8 +64,8 @@ public abstract class Actor {
         world.remove(this);
     }
 
-    void setWorld(World world, GraphicsEngine graphicsEngine) {
-        graphicsEngine.add(graphicObject);
+    void setWorld(World world) {
+        world.graphicsEngine().add(graphicObject);
         // TODO: Eventually include PhysicsEngine.add(physicsBody)
         this.world = world;
     }

@@ -1,6 +1,7 @@
 package actors;
 
 import engine.GameEngine;
+import graphics.GraphicsEngine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +15,13 @@ public class World {
         this.engine = engine;
     }
 
+    public GraphicsEngine graphicsEngine() {
+        return engine.graphicsEngine();
+    }
+
     public void add(Actor actor) {
         actors.add(actor);
-        actor.setWorld(this, engine.graphicsEngine());
+        actor.setWorld(this);
     }
 
     public void add(Actor... actors) {
