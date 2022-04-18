@@ -6,12 +6,12 @@ import java.awt.*;
 
 public class GraphicsEngine {
     private final GraphicsCtx graphicsCtx;
-    private final TCompound canvas;
+    private final TGraphicCompound canvas;
 //    private final Color backgroundColor;
 
     public GraphicsEngine(GameEngine engine) {
         graphicsCtx = new MasseyGraphicsCtx(engine);
-        canvas = new TCompound(new Dimension(engine.windowWidth(), engine.windowHeight()));
+        canvas = new TGraphicCompound(new Dimension(engine.windowWidth(), engine.windowHeight()));
 //        backgroundColor = null;
     }
 
@@ -21,18 +21,18 @@ public class GraphicsEngine {
 
     //------------------------------------------------------------------------------------------------------ Actors --//
 
-    public void add(TObject tObject) {
-        canvas.add(tObject);
+    public void add(TGraphicObject tGraphicObject) {
+        canvas.add(tGraphicObject);
     }
 
-    public void addAll(TObject... tObjects) {
-        for (var tObject : tObjects) {
+    public void addAll(TGraphicObject... tGraphicObjects) {
+        for (var tObject : tGraphicObjects) {
             add(tObject);
         }
     }
 
-    public void remove(TObject tObject) {
-        tObject.removeFromParent();
+    public void remove(TGraphicObject tGraphicObject) {
+        tGraphicObject.removeFromParent();
     }
 
     public void removeAll() {

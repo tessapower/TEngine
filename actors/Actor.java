@@ -1,7 +1,7 @@
 package actors;
 
 import graphics.GraphicsEngine;
-import graphics.TObject;
+import graphics.TGraphicObject;
 import physics.PhysicsBody;
 import physics.collisions.CollisionShape;
 
@@ -11,7 +11,7 @@ import java.util.Objects;
 public abstract class Actor {
     protected Point origin;
     protected PhysicsBody physicsBody;
-    protected TObject sprite;
+    protected TGraphicObject sprite;
     protected World world;
 
     public Actor() {

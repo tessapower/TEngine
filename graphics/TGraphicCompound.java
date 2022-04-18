@@ -5,15 +5,15 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-public class TCompound extends TObject {
-    private final Set<TObject> children;
+public class TGraphicCompound extends TGraphicObject {
+    private final Set<TGraphicObject> children;
 
-    public TCompound(Dimension dimension) {
+    public TGraphicCompound(Dimension dimension) {
         super(dimension);
         children = new HashSet<>();
     }
 
-    public Set<TObject> children() {
+    public Set<TGraphicObject> children() {
         return Collections.unmodifiableSet(children);
     }
 
@@ -21,7 +21,7 @@ public class TCompound extends TObject {
         return children.size();
     }
 
-    public void add(TObject obj) {
+    public void add(TGraphicObject obj) {
         if (this == obj) {
             throw new IllegalStateException("parent cannot be child of itself");
         }
@@ -30,13 +30,13 @@ public class TCompound extends TObject {
         children.add(obj);
     }
 
-    public void addAll(TObject... objects) {
+    public void addAll(TGraphicObject... objects) {
         for (var obj : objects) {
             add(obj);
         }
     }
 
-    public void remove(TObject obj) {
+    public void remove(TGraphicObject obj) {
         if (children.contains(obj)) {
             obj.setParent(null);
             children.remove(obj);
@@ -54,7 +54,7 @@ public class TCompound extends TObject {
     @Override
     public void paint(GraphicsCtx ctx) {
         if (!children.isEmpty()) {
-            for (TObject child : children) {
+            for (TGraphicObject child : children) {
                 child.update(ctx);
             }
         }
@@ -63,7 +63,7 @@ public class TCompound extends TObject {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof TCompound other)) return false;
+        if (!(o instanceof TGraphicCompound other)) return false;
 
         return children.equals(other.children);
     }

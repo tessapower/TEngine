@@ -2,14 +2,14 @@ package graphics;
 
 import java.awt.*;
 
-abstract public class TObject {
+abstract public class TGraphicObject {
     protected Dimension dimension;
     protected final TRotation rotation;
     protected final TTranslation translation;
     protected final TScale scale;
-    protected TCompound parent;
+    protected TGraphicCompound parent;
 
-    public TObject(Dimension dimension) {
+    public TGraphicObject(Dimension dimension) {
         this.dimension = dimension;
         rotation = TRotation.identity();
         translation = TTranslation.identity();
@@ -55,11 +55,11 @@ abstract public class TObject {
         scale.yScaleFactor = scaleFactor;
     }
 
-    void setParent(TCompound parent) {
+    void setParent(TGraphicCompound parent) {
         this.parent = parent;
     }
 
-    public TCompound parent() {
+    public TGraphicCompound parent() {
         return parent;
     }
 

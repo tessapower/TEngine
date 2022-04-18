@@ -3,7 +3,7 @@ package graphics;
 import java.awt.*;
 import java.util.Objects;
 
-abstract public class TShape extends TObject {
+abstract public class TShape extends TGraphicObject {
     public Color outlineColor;
     public Color fillColor;
     public boolean isFilled;
