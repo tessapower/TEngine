@@ -422,7 +422,6 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
      */
     public Image loadImage(String filename) {
         try {
-            // Load and return Image
             return ImageIO.read(new File(filename));
         } catch (IOException e) {
             System.out.println("Error: could not load image " + filename);
@@ -442,10 +441,8 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
             return null;
         }
 
-        // Convert to a buffered image
         BufferedImage buffered = (BufferedImage) source;
 
-        // Extract and return sub image
         return buffered.getSubimage(x, y, w, h);
     }
 
