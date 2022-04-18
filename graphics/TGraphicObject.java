@@ -78,7 +78,7 @@ abstract public class TGraphicObject {
 
     protected abstract void draw(GraphicsCtx ctx);
 
-    public void update(double dt) {
+    public void update(double dtMillis) {
         // No-op
     }
 }

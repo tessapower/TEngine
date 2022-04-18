@@ -187,9 +187,9 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
 
     //------------------------------------------------------------------------------ Methods that can be overridden --//
 
-    public void update(double dt) {
-//        physicsEngine.update(dt);
-        graphicsEngine.update(dt);
+    public void update(double dtMillis) {
+//        physicsEngine.update(dtMillis);
+        graphicsEngine.update(dtMillis);
     }
 
     public void paintComponent() {

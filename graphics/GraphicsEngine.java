@@ -39,7 +39,7 @@ public class GraphicsEngine {
         canvas.removeAll();
     }
 
-    public void update(double dt) {
-        canvas.update(dt);
+    public void update(double dtMillis) {
+        canvas.update(dtMillis);
     }
 }

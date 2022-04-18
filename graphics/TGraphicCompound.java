@@ -49,9 +49,9 @@ public class TGraphicCompound extends TGraphicObject {
     }
 
     @Override
-    public void update(double dt) {
+    public void update(double dtMillis) {
         for (TGraphicObject child : children) {
-            child.update(dt);
+            child.update(dtMillis);
         }
     }
 
