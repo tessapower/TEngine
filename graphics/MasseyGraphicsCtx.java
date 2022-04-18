@@ -44,6 +44,19 @@ public class MasseyGraphicsCtx implements GraphicsCtx {
         masseyCtx.drawSolidCircle(dimension.width / 2.0, dimension.height / 2.0, dimension.width * 0.5);
     }
 
+
+    //---------------------------------------------------------------------------------------------- Drawing Images --//
+
+    @Override
+    public void drawImage(Image image) {
+        masseyCtx.drawImage(image, 0, 0);
+    }
+
+    @Override
+    public void drawImage(Image image, Dimension dimension) {
+        masseyCtx.drawImage(image, 0, 0, dimension.width, dimension.height);
+    }
+
     //-------------------------------------------------------------------------------------------------- Transforms --//
     @Override
     public void setTransforms(TTransform... transforms) {
