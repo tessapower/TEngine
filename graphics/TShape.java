@@ -17,10 +17,8 @@ abstract public class TShape extends TGraphicObject {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (!(o instanceof TShape other))
-            return false;
+        if (this == o) return true;
+        if (!(o instanceof TShape other)) return false;
 
         return this.dimension == other.dimension
                 && this.rotation == other.rotation
