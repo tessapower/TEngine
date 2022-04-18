@@ -20,10 +20,9 @@ public class TRotation implements TTransform {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (!(o instanceof TRotation other))
-            return false;
+        // TODO: compare negative rotations & mod super massive rotations?
+        if (this == o) return true;
+        if (!(o instanceof TRotation other)) return false;
 
         return this.thetaDegrees == other.thetaDegrees;
     }

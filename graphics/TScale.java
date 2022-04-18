@@ -22,13 +22,10 @@ public class TScale implements TTransform {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (!(o instanceof TScale other))
-            return false;
+        if (this == o) return true;
+        if (!(o instanceof TScale other)) return false;
 
-        return this.xScaleFactor == other.xScaleFactor
-                && this.yScaleFactor == other.yScaleFactor;
+        return this.xScaleFactor == other.xScaleFactor && this.yScaleFactor == other.yScaleFactor;
     }
 
     @Override

@@ -21,13 +21,10 @@ public class TTranslation implements TTransform {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (!(o instanceof TTranslation other))
-            return false;
+        if (this == o) return true;
+        if (!(o instanceof TTranslation other)) return false;
 
-        return this.dx == other.dx
-                && this.dy == other.dy;
+        return this.dx == other.dx && this.dy == other.dy;
     }
 
     @Override

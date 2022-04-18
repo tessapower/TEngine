@@ -5,7 +5,6 @@ import physics.PhysicsBody;
 import physics.collisions.CollisionShape;
 
 import java.awt.*;
-import java.util.Objects;
 
 public abstract class Actor {
     protected Point origin;
@@ -46,18 +45,6 @@ public abstract class Actor {
 
     public CollisionShape bounds() {
         return physicsBody.collisionShape;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Actor other)) return false;
-        return Objects.equals(origin, other.origin) && Objects.equals(physicsBody, other.physicsBody) && Objects.equals(graphicObject, other.graphicObject);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(origin, physicsBody, graphicObject);
     }
 
     public void removeFromWorld() {
