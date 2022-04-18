@@ -29,17 +29,21 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     GraphicsEngine graphicsEngine;
 //    PhysicsEngine physicsEngine;
 
-    long time = 0, oldTime = 0;
+    long lastUpdateMillis = 0;
     // Main Loop of the game. Runs continuously and calls all the updates
     // of the game and tells the game to display a new frame.
     GameTimer timer = new GameTimer(30, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            double passedTime = measureTime();
-            double dt = passedTime / 1000;
+            long now = System.currentTimeMillis();
+            if (lastUpdateMillis == 0) {
+                lastUpdateMillis = now;
+            }
+            double elapsedSecs = (now - lastUpdateMillis) / 1000.0;
+            lastUpdateMillis = now;
 
             // Update the Game
-            update(dt);
+            update(elapsedSecs);
 
             // Tell the Game to draw
             mPanel.repaint();
@@ -96,28 +100,12 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         }
     }
 
-    // Returns the time in milliseconds
-    public long getTime() {
-        return System.currentTimeMillis();
-    }
-
     public void sleep(double ms) {
         try {
             Thread.sleep((long) ms);
         } catch (Exception e) {
             // Do Nothing
         }
-    }
-
-    // Returns the time passed since this function was last called.
-    public long measureTime() {
-        time = getTime();
-        if (oldTime == 0) {
-            oldTime = time;
-        }
-        long passed = time - oldTime;
-        oldTime = time;
-        return passed;
     }
 
     //------------------------------------------------------------------------------------------------------ Window --//
