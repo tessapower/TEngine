@@ -5,7 +5,7 @@ import engine.GameEngine;
 import java.awt.*;
 
 public class GraphicsEngine {
-    private final MasseyGraphicsCtx graphicsCtx;
+    private final GraphicsCtx graphicsCtx;
     private final TGraphicCompound canvas;
 //    private final Color backgroundColor;
 
@@ -15,8 +15,8 @@ public class GraphicsEngine {
 //        backgroundColor = null;
     }
 
-    public void update() {
-        canvas.update(this.graphicsCtx);
+    public void paint() {
+        canvas.paint(this.graphicsCtx);
     }
 
     //--------------------------------------------------------------------------------------------- Graphic Objects --//
@@ -37,5 +37,9 @@ public class GraphicsEngine {
 
     public void removeAll() {
         canvas.removeAll();
+    }
+
+    public void update(double dt) {
+        canvas.update(dt);
     }
 }

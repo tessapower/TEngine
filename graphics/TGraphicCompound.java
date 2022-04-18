@@ -48,23 +48,27 @@ public class TGraphicCompound extends TGraphicObject {
         children.clear();
     }
 
-    // TODO: This is confusing, update and paint aren't really the right names for what's going on.
-    //   We should find language that expresses applying the transforms and drawing the shape on the canvas
-    //   while in it's current context
     @Override
-    public void paint(MasseyGraphicsCtx ctx) {
-        if (!children.isEmpty()) {
-            for (TGraphicObject child : children) {
-                child.update(ctx);
-            }
+    public void update(double dt) {
+        for (TGraphicObject child : children) {
+            child.update(dt);
         }
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof TGraphicCompound other)) return false;
+    public void paint(GraphicsCtx ctx) {
+        ctx.pushCurrentTransform();
+        ctx.setTransforms(rotation, translation, scale);
 
-        return children.equals(other.children);
+        for (TGraphicObject child : children) {
+            child.paint(ctx);
+        }
+
+        ctx.popTransform();
+    }
+
+    @Override
+    protected void draw(GraphicsCtx ctx) {
+        // No-op
     }
 }

@@ -12,7 +12,7 @@ public class TRect extends TShape {
     }
 
     @Override
-    protected void paint(MasseyGraphicsCtx ctx) {
+    protected void draw(GraphicsCtx ctx) {
         if (isFilled) {
             ctx.drawFilledRect(dimension, fillColor);
         } else {

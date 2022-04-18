@@ -12,7 +12,7 @@ public class TOval extends TShape {
     }
 
     @Override
-    protected void paint(MasseyGraphicsCtx ctx) {
+    protected void draw(GraphicsCtx ctx) {
         if (isFilled) {
             ctx.drawFilledCircle(dimension, fillColor);
         } else {
