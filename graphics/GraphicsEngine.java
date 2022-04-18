@@ -19,7 +19,7 @@ public class GraphicsEngine {
         canvas.update(this.graphicsCtx);
     }
 
-    //------------------------------------------------------------------------------------------------------ Actors --//
+    //--------------------------------------------------------------------------------------------- Graphic Objects --//
 
     public void add(TGraphicObject tGraphicObject) {
         canvas.add(tGraphicObject);

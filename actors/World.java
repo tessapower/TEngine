@@ -16,7 +16,7 @@ public class World {
 
     public void add(Actor actor) {
         actors.add(actor);
-        actor.setWorld(this, engine.graphics());
+        actor.setWorld(this, engine.graphicsEngine());
     }
 
     public void add(Actor... actors) {

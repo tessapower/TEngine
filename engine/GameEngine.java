@@ -66,7 +66,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         createGame(game, 30);
     }
 
-    public GraphicsEngine graphics() {
+    public GraphicsEngine graphicsEngine() {
         return graphicsEngine;
     }
 
