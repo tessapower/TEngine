@@ -1,6 +1,6 @@
 package physics;
 
-import physics.collisions.CollisionRect;
+import physics.collisions.shapes.CollisionRect;
 import physics.kinematics.Velocity;
 
 import java.util.Objects;

@@ -1,6 +1,9 @@
 package graphics;
 
-import engine.GameEngine;
+import graphics.context.GraphicsCtx;
+import graphics.graphicsObjects.TGraphicCompound;
+import graphics.graphicsObjects.TGraphicObject;
+import main.GameEngine;
 
 import java.awt.*;
 

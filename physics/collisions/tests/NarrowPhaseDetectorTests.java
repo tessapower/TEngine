@@ -3,10 +3,10 @@ package physics.collisions.tests;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import physics.PhysicsBody;
-import physics.collisions.CollisionEvent;
-import physics.collisions.CollisionRect;
-import physics.collisions.NarrowPhaseDetector;
-import physics.collisions.Vector;
+import physics.collisions.detection.NarrowPhaseDetector;
+import physics.collisions.events.CollisionEvent;
+import physics.collisions.shapes.CollisionRect;
+import physics.kinematics.Vector;
 import physics.kinematics.Velocity;
 
 import java.awt.*;

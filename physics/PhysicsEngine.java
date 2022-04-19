@@ -1,7 +1,7 @@
 package physics;
 
-import physics.collisions.CollisionDetector;
-import physics.collisions.CollisionEventNotifier;
+import physics.collisions.detection.CollisionDetector;
+import physics.collisions.events.CollisionEventNotifier;
 
 import java.util.HashSet;
 import java.util.Set;
