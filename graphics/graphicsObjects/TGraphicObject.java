@@ -23,15 +23,16 @@ abstract public class TGraphicObject {
     }
 
     public Dimension dimension() {
-        return dimension;
+        return new Dimension((int) (scale.xScaleFactor * dimension.width),
+                (int) (scale.yScaleFactor * dimension.height));
     }
 
     public int width() {
-        return dimension.width;
+        return (int) (scale.xScaleFactor * dimension.width);
     }
 
     public int height() {
-        return dimension.height;
+        return (int) (scale.yScaleFactor * dimension.height);
     }
 
     public void setOrigin(Point origin) {
