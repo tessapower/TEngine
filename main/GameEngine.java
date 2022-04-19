@@ -29,7 +29,8 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     Stack<AffineTransform> mTransforms;
 
     GraphicsEngine graphicsEngine;
-//    PhysicsEngine physicsEngine;
+    // TODO: Reimplement the physics engine!
+    //   PhysicsEngine physicsEngine;
 
     long lastUpdateMillis = 0;
     // Main Loop of the game. Runs continuously and calls all the updates
@@ -57,8 +58,9 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     public GameEngine() {
         mTransforms = new Stack<>();
 
-//        physicsEngine = new PhysicsEngine();
-//        physicsEngine.setCollisionEventNotifier(this::onCollision);
+        // TODO: Reimplement the physics engine!
+        //   physicsEngine = new PhysicsEngine()
+        //   physicsEngine.setCollisionEventNotifier(this::onCollision)
 
         SwingUtilities.invokeLater(() -> setupWindow(new Dimension(500, 500)));
     }
@@ -84,11 +86,6 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         protected GameTimer(int framerate, ActionListener listener) {
             super(1000 / framerate, listener);
             this.framerate = framerate;
-        }
-
-        @SuppressWarnings("unused")
-        protected int getFramerate() {
-            return framerate;
         }
 
         protected void setFramerate(int framerate) {
@@ -204,16 +201,6 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     }
 
     //------------------------------------------------------------------------------ Methods that can be overridden --//
-
-    public void update(double dtMillis) {
-//        physicsEngine.update(dtMillis);
-        graphicsEngine.update(dtMillis);
-    }
-
-    public void paintComponent() {
-        clearBackground(mWidth, mHeight);
-        graphicsEngine.paint();
-    }
 
     public void init() {
     }
@@ -709,7 +696,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
 
     //------------------------------------------------------------------------------------------------ Math Helpers --//
 
-    // TODO: Remove this in favor of built in Math class
+    // TODO: Remove this in favor of built in Math class, create a helper class for degrees <-> radians conversions
     // Return the length of a vector
     public double length(double x, double y) {
         // Calculate and return the sqrt
