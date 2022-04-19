@@ -4,6 +4,7 @@ import graphics.GraphicsEngine;
 import graphics.context.GraphicsCtx;
 import graphics.context.MasseyGraphicsCtx;
 import physics.collisions.events.CollisionEvent;
+import world.World;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
@@ -101,6 +102,19 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         protected int framerate() {
             return framerate;
         }
+    }
+
+
+    //------------------------------------------------------------------------------------- World Loading/Unloading --//
+
+    public void loadWorld(World world) {
+        graphicsEngine.add(world.canvas());
+        // TODO: Physics counterpart
+    }
+
+    public void unloadWorld(World world) {
+        world.canvas().removeFromParent();
+        // TODO: Physics counterpart
     }
 
     //------------------------------------------------------------------------------------------------ Tick Methods --//

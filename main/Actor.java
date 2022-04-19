@@ -52,9 +52,7 @@ public abstract class Actor {
         world.remove(this);
     }
 
-    public void setWorld(World world) {
-        world.graphicsEngine().add(graphicObject);
-        // TODO: Eventually include PhysicsEngine.add(physicsBody)
+    public void addToWorld(World world) {
         this.world = world;
     }
 
@@ -62,5 +60,9 @@ public abstract class Actor {
         graphicObject.removeFromParent();
         // TODO: Eventually include physicsBody.removeFromSystem()
         world = null;
+    }
+
+    public TGraphicObject graphic() {
+        return graphicObject;
     }
 }
