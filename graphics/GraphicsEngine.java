@@ -3,23 +3,20 @@ package graphics;
 import graphics.context.GraphicsCtx;
 import graphics.graphicsObjects.TGraphicCompound;
 import graphics.graphicsObjects.TGraphicObject;
-import main.GameEngine;
 
 import java.awt.*;
 
 public class GraphicsEngine {
-    private final GraphicsCtx graphicsCtx;
     private final TGraphicCompound canvas;
 //    private final Color backgroundColor;
 
-    public GraphicsEngine(GameEngine engine) {
-        graphicsCtx = new MasseyGraphicsCtx(engine);
-        canvas = new TGraphicCompound(new Dimension(engine.windowWidth(), engine.windowHeight()));
+    public GraphicsEngine(Dimension dimension) {
+        canvas = new TGraphicCompound(dimension);
 //        backgroundColor = null;
     }
 
-    public void paint() {
-        canvas.paint(this.graphicsCtx);
+    public void paint(GraphicsCtx ctx) {
+        canvas.paint(ctx);
     }
 
     //--------------------------------------------------------------------------------------------- Graphic Objects --//

@@ -60,7 +60,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
 //        physicsEngine = new PhysicsEngine();
 //        physicsEngine.setCollisionEventNotifier(this::onCollision);
 
-        SwingUtilities.invokeLater(() -> setupWindow(new Dimension(500, 500), "Window"));
+        SwingUtilities.invokeLater(() -> setupWindow(new Dimension(500, 500)));
     }
 
     public static void createGame(GameEngine game, int framerate) {
@@ -100,6 +100,22 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
             setInitialDelay(0);
             setDelay(delay);
         }
+
+        protected int framerate() {
+            return framerate;
+        }
+    }
+
+    //------------------------------------------------------------------------------------------------ Tick Methods --//
+
+    public void update(double dtMillis) {
+        //        physicsEngine.update(dtMillis);
+        graphicsEngine.update(dtMillis);
+    }
+
+    public void paint(GraphicsCtx ctx) {
+        clearBackground(mWidth, mHeight);
+        graphicsEngine.paint(ctx);
     }
 
     public void sleep(double ms) {
@@ -114,7 +130,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
 
     public void setupWindow(Dimension dimension, String title) {
         // TODO: Eventually replace with graphicsEngine = new GraphicsEngine(Graphics2D)
-        graphicsEngine = new GraphicsEngine(this);
+        graphicsEngine = new GraphicsEngine(new Dimension(mWidth, mHeight));
 
         mFrame = new JFrame();
         mPanel = new GamePanel();
@@ -255,7 +271,13 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
 
             // Paint the game
             if (initialised) {
-                GameEngine.this.paintComponent();
+                // TODO: We should not be wrapping the entire engine,
+                //  we should only be wrapping (Java) Graphics context
+                //  Step 2: Introduce a Java Graphics Context which implements my
+                //  Graphics Context and wraps the passed Graphics object
+                //  Step 3: Remove Massey GameEngine
+                GraphicsCtx ctx = new MasseyGraphicsCtx(GameEngine.this);
+                GameEngine.this.paint(ctx);
             }
         }
     }
