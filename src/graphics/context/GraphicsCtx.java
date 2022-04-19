@@ -16,6 +16,7 @@ public interface GraphicsCtx {
     void pushCurrentTransform();
     void popTransform();
     void rotate(double thetaDegrees);
+    void rotate(double thetaDegrees, int dx, int dy);
     void translate(int dx, int dy);
     void scale(double xScaleFactor, double yScaleFactor);
 }

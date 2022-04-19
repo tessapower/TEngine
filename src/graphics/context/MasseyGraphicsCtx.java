@@ -89,6 +89,11 @@ public class MasseyGraphicsCtx implements GraphicsCtx {
     }
 
     @Override
+    public void rotate(double thetaDegrees, int dx, int dy) {
+        masseyCtx.rotate(thetaDegrees, dx, dy);
+    }
+
+    @Override
     public void translate(int dx, int dy) {
         masseyCtx.translate(dx, dy);
     }

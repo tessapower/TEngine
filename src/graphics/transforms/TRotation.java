@@ -6,6 +6,7 @@ import java.util.Objects;
 
 public class TRotation implements TTransform {
     public double thetaDegrees;
+    private TTranslation translation;
 
     public TRotation(double thetaDegrees) {
         this.thetaDegrees = thetaDegrees;
@@ -17,7 +18,7 @@ public class TRotation implements TTransform {
 
     @Override
     public void apply(GraphicsCtx ctx) {
-        ctx.rotate(thetaDegrees);
+        ctx.rotate(thetaDegrees, translation.dx, translation.dy);
     }
 
     @Override
@@ -32,5 +33,9 @@ public class TRotation implements TTransform {
     @Override
     public int hashCode() {
         return Objects.hash(thetaDegrees);
+    }
+
+    public void setTranslation(TTranslation translation) {
+        this.translation = translation;
     }
 }
