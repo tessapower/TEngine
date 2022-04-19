@@ -125,7 +125,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
 
     //------------------------------------------------------------------------------------------------------ Window --//
 
-    public void setupWindow(Dimension dimension, String title) {
+    private void setupWindow(Dimension dimension) {
         // TODO: Eventually replace with graphicsEngine = new GraphicsEngine(Graphics2D)
         graphicsEngine = new GraphicsEngine(new Dimension(mWidth, mHeight));
 
@@ -138,7 +138,6 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         mFrame.setSize(mWidth, mHeight);
         mFrame.setResizable(false);
         mFrame.setLocation(200, 200);
-        mFrame.setTitle(title);
         mFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mFrame.add(mPanel);
         mFrame.setVisible(true);
@@ -170,14 +169,15 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         mFrame.setSize(mWidth + insets.left + insets.right, mHeight + insets.top + insets.bottom);
     }
 
-    public void setWindowSize(final int width, final int height) {
+    public void setWindowProperties(Dimension dimension, String title) {
         SwingUtilities.invokeLater(() -> {
             // Resize the window (insets are just the borders that the Operating System puts on the board)
             Insets insets = mFrame.getInsets();
-            mWidth = width;
-            mHeight = height;
-            mFrame.setSize(width + insets.left + insets.right, height + insets.top + insets.bottom);
-            mPanel.setSize(width, height);
+            mWidth = dimension.width;
+            mHeight = dimension.height;
+            mFrame.setSize(mWidth + insets.left + insets.right, mHeight + insets.top + insets.bottom);
+            mPanel.setSize(mWidth, mHeight);
+            mFrame.setTitle(title);
         });
     }
 
