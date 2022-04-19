@@ -45,6 +45,14 @@ public class MasseyGraphicsCtx implements GraphicsCtx {
         masseyCtx.drawSolidCircle(dimension.width / 2.0, dimension.height / 2.0, dimension.width * 0.5);
     }
 
+    //------------------------------------------------------------------------------------------------ Drawing Text --//
+
+    @Override
+    public void drawText(Point origin, String text, Font font, Color color) {
+        masseyCtx.changeColor(color);
+        masseyCtx.drawText(origin.x, origin.y, text, font);
+    }
+
     //---------------------------------------------------------------------------------------------- Drawing Images --//
 
     @Override
