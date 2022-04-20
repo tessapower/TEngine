@@ -1,11 +1,11 @@
-import main.java.physics.PhysicsBody;
-import main.java.physics.collisions.detection.NarrowPhaseDetector;
-import main.java.physics.collisions.events.CollisionEvent;
-import main.java.physics.collisions.shapes.CollisionRect;
-import main.java.physics.kinematics.Vector;
-import main.java.physics.kinematics.Velocity;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import tengine.physics.PhysicsBody;
+import tengine.physics.collisions.detection.NarrowPhaseDetector;
+import tengine.physics.collisions.events.CollisionEvent;
+import tengine.physics.collisions.shapes.CollisionRect;
+import tengine.physics.kinematics.Vector;
+import tengine.physics.kinematics.Velocity;
 
 import java.awt.*;
 
