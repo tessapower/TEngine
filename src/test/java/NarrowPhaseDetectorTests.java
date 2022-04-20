@@ -1,5 +1,3 @@
-package main.java.physics.collisions.tests;
-
 import main.java.physics.PhysicsBody;
 import main.java.physics.collisions.detection.NarrowPhaseDetector;
 import main.java.physics.collisions.events.CollisionEvent;
