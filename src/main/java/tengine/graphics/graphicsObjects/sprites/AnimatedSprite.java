@@ -7,6 +7,7 @@ import tengine.world.GridSquare;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
+import java.util.function.Consumer;
 
 public class AnimatedSprite extends TGraphicObject {
     protected Image image;
@@ -14,6 +15,7 @@ public class AnimatedSprite extends TGraphicObject {
     protected int fps;
     protected SpriteSequence currentSequence;
     protected int currentFrame;
+    protected Consumer<SpriteSequence> sequenceEnd = null;
 
     protected AnimatedSprite(InputStream is, Dimension frameDimension, int fps, SpriteSequence currentSequence) {
         super(frameDimension);
@@ -30,7 +32,15 @@ public class AnimatedSprite extends TGraphicObject {
 
         if (currentSequence.loops() || currentFrame != currentSequence.lastFrame()) {
             int framesToSkip = (int) (elapsedSecs / (1.0 / fps));
+            if (!currentSequence.loops()) {
+                framesToSkip = Math.min(framesToSkip, currentSequence.lastFrame() - currentFrame);
+            }
             currentFrame = (currentFrame + framesToSkip) % currentSequence.numFrames();
+        }
+
+        // TODO: only notify once if not looping
+        if (currentFrame == currentSequence.lastFrame() && sequenceEnd != null) {
+            sequenceEnd.accept(currentSequence);
         }
 
         elapsedSecs %= (1.0 / fps);
@@ -45,6 +55,10 @@ public class AnimatedSprite extends TGraphicObject {
         Image frame = subImage(image, new Point(x, y), dimension);
 
         ctx.drawImage(frame, dimension);
+    }
+
+    public void setSequenceEndCallback(Consumer<SpriteSequence> onSequenceEnd) {
+        sequenceEnd = onSequenceEnd;
     }
 
     Image subImage(Image source, Point point, Dimension dimension) {
