@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public record GridSquare(int row, int col) {
     public String toString() {
-        return "[ row:" + row + ", col:" + col + "]";
+        return "row: " + row + ", col: " + col;
     }
 
     @Override
