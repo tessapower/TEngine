@@ -62,7 +62,7 @@ public class TLabel extends TGraphicObject {
 
     @Override
     protected void draw(GraphicsCtx ctx) {
-        ctx.drawText(origin(), text, font, color);
+        ctx.drawText(new Point(0, 0), text, font, color);
     }
 
     @Override
