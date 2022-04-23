@@ -1,6 +1,8 @@
 package tengine.graphics.context;
 
-import tengine.graphics.transforms.TTransform;
+import tengine.graphics.transforms.TRotation;
+import tengine.graphics.transforms.TScale;
+import tengine.graphics.transforms.TTranslation;
 
 import java.awt.*;
 
@@ -12,11 +14,7 @@ public interface GraphicsCtx {
     void drawText(Point origin, String text, Font font, Color color);
     void drawImage(Image image);
     void drawImage(Image image, Dimension dimension);
-    void setTransforms(TTransform... transforms);
+    void applyTransforms(TTranslation translation, TRotation rotation, TScale scale);
     void pushCurrentTransform();
     void popTransform();
-    void rotate(double thetaDegrees);
-    void rotate(double thetaDegrees, int dx, int dy);
-    void translate(int dx, int dy);
-    void scale(double xScaleFactor, double yScaleFactor);
 }

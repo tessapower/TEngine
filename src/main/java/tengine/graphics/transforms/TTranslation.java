@@ -1,10 +1,8 @@
 package tengine.graphics.transforms;
 
-import tengine.graphics.context.GraphicsCtx;
-
 import java.util.Objects;
 
-public class TTranslation implements TTransform {
+public class TTranslation {
     public int dx;
     public int dy;
 
@@ -15,10 +13,6 @@ public class TTranslation implements TTransform {
 
     public static TTranslation identity() {
         return new TTranslation(0, 0);
-    }
-
-    public void apply(GraphicsCtx ctx) {
-        ctx.translate(dx, dy);
     }
 
     @Override

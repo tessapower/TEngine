@@ -493,13 +493,6 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         graphics2D.translate(dx, dy);
     }
 
-    /**
-     * Rotate the drawing context by <code>thetaDegrees</code>.
-     */
-    public void rotate(double thetaDegrees) {
-        graphics2D.rotate(Math.toRadians(thetaDegrees));
-    }
-
     public void rotate(double thetaDegrees, int dx, int dy) {
         graphics2D.rotate(Math.toRadians(thetaDegrees), dx, dy);
     }

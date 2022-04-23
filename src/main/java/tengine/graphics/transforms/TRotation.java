@@ -1,24 +1,22 @@
 package tengine.graphics.transforms;
 
-import tengine.graphics.context.GraphicsCtx;
-
+import java.awt.*;
 import java.util.Objects;
 
-public class TRotation implements TTransform {
+public class TRotation {
     public double thetaDegrees;
-    private TTranslation translation;
+    public Point origin;
 
-    public TRotation(double thetaDegrees) {
+    /**
+     * Rotate <code>thetaDegrees</code> around <code>rotationOrigin</code>.
+     */
+    public TRotation(double thetaDegrees, Point rotationOrigin) {
         this.thetaDegrees = thetaDegrees;
+        this.origin = rotationOrigin;
     }
 
     public static TRotation identity() {
-        return new TRotation(0);
-    }
-
-    @Override
-    public void apply(GraphicsCtx ctx) {
-        ctx.rotate(thetaDegrees, translation.dx, translation.dy);
+        return new TRotation(0, new Point(0, 0));
     }
 
     @Override
@@ -27,15 +25,11 @@ public class TRotation implements TTransform {
         if (this == o) return true;
         if (!(o instanceof TRotation other)) return false;
 
-        return this.thetaDegrees == other.thetaDegrees;
+        return this.thetaDegrees == other.thetaDegrees && origin == other.origin;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(thetaDegrees);
-    }
-
-    public void setTranslation(TTranslation translation) {
-        this.translation = translation;
+        return Objects.hash(thetaDegrees, origin);
     }
 }

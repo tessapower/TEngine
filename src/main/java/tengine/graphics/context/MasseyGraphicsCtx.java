@@ -1,7 +1,9 @@
 package tengine.graphics.context;
 
 import tengine.GameEngine;
-import tengine.graphics.transforms.TTransform;
+import tengine.graphics.transforms.TRotation;
+import tengine.graphics.transforms.TScale;
+import tengine.graphics.transforms.TTranslation;
 
 import java.awt.*;
 
@@ -75,11 +77,17 @@ public class MasseyGraphicsCtx implements GraphicsCtx {
     }
 
     //-------------------------------------------------------------------------------------------------- Transforms --//
-    @Override
-    public void setTransforms(TTransform... transforms) {
-        for (var t : transforms) {
-            t.apply(this);
-        }
+
+    public void applyTransforms(TTranslation translation, TRotation rotation, TScale scale) {
+        // We must translate before rotating to account for the current context's total translation
+        masseyCtx.translate(translation.dx, translation.dy);
+
+        masseyCtx.rotate(rotation.thetaDegrees,
+                rotation.origin.x,
+                rotation.origin.y
+        );
+
+        masseyCtx.scale(scale.xScaleFactor, scale.yScaleFactor);
     }
 
     @Override
@@ -90,25 +98,5 @@ public class MasseyGraphicsCtx implements GraphicsCtx {
     @Override
     public void popTransform() {
         masseyCtx.restoreLastTransform();
-    }
-
-    @Override
-    public void rotate(double thetaDegrees) {
-        masseyCtx.rotate(thetaDegrees);
-    }
-
-    @Override
-    public void rotate(double thetaDegrees, int dx, int dy) {
-        masseyCtx.rotate(thetaDegrees, dx, dy);
-    }
-
-    @Override
-    public void translate(int dx, int dy) {
-        masseyCtx.translate(dx, dy);
-    }
-
-    @Override
-    public void scale(double xScaleFactor, double yScaleFactor) {
-        masseyCtx.scale(xScaleFactor, yScaleFactor);
     }
 }

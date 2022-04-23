@@ -52,8 +52,17 @@ abstract public class TGraphicObject {
         return translation.dy;
     }
 
+    public Point midPoint() {
+        return new Point(dimension.width / 2, dimension.height / 2);
+    }
+
     public void setRotation(double thetaDegrees) {
         rotation.thetaDegrees = thetaDegrees;
+    }
+
+    public void setRotation(double thetaDegrees, Point origin) {
+        rotation.thetaDegrees = thetaDegrees;
+        rotation.origin = origin;
     }
 
     public void setScale(double scaleFactor) {
@@ -77,9 +86,10 @@ abstract public class TGraphicObject {
 
     public void paint(GraphicsCtx ctx) {
         ctx.pushCurrentTransform();
-        rotation.setTranslation(translation);
-        ctx.setTransforms(rotation, translation, scale);
+
+        ctx.applyTransforms(translation, rotation, scale);
         draw(ctx);
+
         ctx.popTransform();
     }
 

@@ -60,9 +60,8 @@ public class TGraphicCompound extends TGraphicObject {
     @Override
     public void paint(GraphicsCtx ctx) {
         ctx.pushCurrentTransform();
-        rotation.setTranslation(translation);
-        ctx.setTransforms(rotation, translation, scale);
 
+        ctx.applyTransforms(translation, rotation, scale);
         for (TGraphicObject child : children) {
             child.paint(ctx);
         }

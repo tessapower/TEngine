@@ -1,10 +1,8 @@
 package tengine.graphics.transforms;
 
-import tengine.graphics.context.GraphicsCtx;
-
 import java.util.Objects;
 
-public class TScale implements TTransform {
+public class TScale {
     public double xScaleFactor;
     public double yScaleFactor;
 
@@ -15,11 +13,6 @@ public class TScale implements TTransform {
 
     public static TScale identity() {
         return new TScale(1, 1);
-    }
-
-    @Override
-    public void apply(GraphicsCtx ctx) {
-        ctx.scale(xScaleFactor, yScaleFactor);
     }
 
     @Override
