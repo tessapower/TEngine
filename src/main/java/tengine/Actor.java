@@ -1,7 +1,7 @@
 package tengine;
 
-import tengine.graphics.graphicsObjects.TGraphicObject;
-import tengine.physics.PhysicsBody;
+import tengine.graphics.entities.TGraphicObject;
+import tengine.physics.PhysicsEntity;
 import tengine.physics.collisions.shapes.CollisionShape;
 import tengine.world.World;
 
@@ -9,26 +9,26 @@ import java.awt.*;
 
 public abstract class Actor {
     protected Point origin;
-    protected PhysicsBody physicsBody;
-    protected TGraphicObject graphicObject;
+    protected PhysicsEntity physicsEntity;
+    protected TGraphicObject graphicEntity;
     protected World world;
 
     public Actor() {
         origin = new Point();
-        physicsBody = new PhysicsBody();
-        graphicObject = null;
+        physicsEntity = new PhysicsEntity();
+        graphicEntity = null;
         world = null;
     }
 
     public void setOrigin(Point origin) {
         this.origin = origin;
 
-        if (graphicObject != null) {
-            graphicObject.setOrigin(origin);
+        if (graphicEntity != null) {
+            graphicEntity.setOrigin(origin);
         }
 
-//        if (this.physicsBody.collisionShape != null) {
-//            physicsBody.collisionShape.setOrigin(origin);
+//        if (this.physicsEntity.collisionShape != null) {
+//            physicsEntity.collisionShape.setOrigin(origin);
 //        }
     }
 
@@ -45,7 +45,7 @@ public abstract class Actor {
     }
 
     public CollisionShape bounds() {
-        return physicsBody.collisionShape;
+        return physicsEntity.collisionShape;
     }
 
     public void removeFromWorld() {
@@ -57,12 +57,12 @@ public abstract class Actor {
     }
 
     public void destroy() {
-        graphicObject.removeFromParent();
-        // TODO: Eventually include physicsBody.removeFromSystem()
+        graphicEntity.removeFromParent();
+        // TODO: Eventually include physicsEntity.removeFromSystem()
         world = null;
     }
 
     public TGraphicObject graphic() {
-        return graphicObject;
+        return graphicEntity;
     }
 }

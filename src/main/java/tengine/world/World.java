@@ -1,7 +1,7 @@
 package tengine.world;
 
 import tengine.Actor;
-import tengine.graphics.graphicsObjects.TGraphicCompound;
+import tengine.graphics.entities.TGraphicCompound;
 
 import java.awt.*;
 import java.util.ArrayList;

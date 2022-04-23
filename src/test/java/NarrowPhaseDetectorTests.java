@@ -1,6 +1,6 @@
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import tengine.physics.PhysicsBody;
+import tengine.physics.PhysicsEntity;
 import tengine.physics.collisions.detection.NarrowPhaseDetector;
 import tengine.physics.collisions.events.CollisionEvent;
 import tengine.physics.collisions.shapes.CollisionRect;
@@ -13,10 +13,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * <code>NarrowPhaseDetector</code> tests involve testing the <code>CollisionEvent</code> that is produced by two
- * given <code>PhysicsBody</code>s, one that is moving and one that is static. We expect that the impact vector
- * indicates the path the moving <code>PhysicsBody</code> took up until colliding with the static
- * <code>PhysicsBody</code>, and that the impact side indicates the side of the moving <code>PhysicsBody</code>
- * collided with the static <code>PhysicsBody</code>.
+ * given <code>PhysicsEntity</code>s, one that is moving and one that is static. We expect that the impact vector
+ * indicates the path the moving <code>PhysicsEntity</code> took up until colliding with the static
+ * <code>PhysicsEntity</code>, and that the impact side indicates the side of the moving <code>PhysicsEntity</code>
+ * collided with the static <code>PhysicsEntity</code>.
  * <br><br>
  * <img src="../../../docs/impact_side.png" />
  */
@@ -28,7 +28,7 @@ class NarrowPhaseDetectorTests {
     @Test
     @DisplayName("Rect vs. Rect (+, 0)")
     void rectRect_PosX_ZeroY() {
-        PhysicsBody staticBody = new PhysicsBody(
+        PhysicsEntity staticBody = new PhysicsEntity(
                 new Velocity(),
                 true,
                 new CollisionRect(
@@ -38,7 +38,7 @@ class NarrowPhaseDetectorTests {
                 true
         );
 
-        PhysicsBody movingBody = new PhysicsBody(
+        PhysicsEntity movingBody = new PhysicsEntity(
                 new Velocity(15, 0),
                 false,
                 new CollisionRect(

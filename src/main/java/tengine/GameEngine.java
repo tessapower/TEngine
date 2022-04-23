@@ -36,8 +36,8 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     //   PhysicsEngine physicsEngine;
 
     long lastUpdateMillis = 0;
-    // Main Loop of the game. Runs continuously and calls all the updates
-    // of the game and tells the game to display a new frame.
+
+    // Main Loop of the game
     GameTimer timer = new GameTimer(30, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -48,15 +48,11 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
             double elapsedSecs = (now - lastUpdateMillis) / 1000.0;
             lastUpdateMillis = now;
 
-            // Update the Game
             update(elapsedSecs);
 
-            // Tell the Game to draw
             gamePanel.repaint();
         }
     });
-
-//    Random mRandom = new Random();
 
     public GameEngine() {
         transforms = new Stack<>();
@@ -123,21 +119,13 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     //------------------------------------------------------------------------------------------------ Tick Methods --//
 
     public void update(double dtMillis) {
-        //        physicsEngine.update(dtMillis);
+        // physicsEngine.update(dtMillis);
         graphicsEngine.update(dtMillis);
     }
 
     public void paint(GraphicsCtx ctx) {
         clearBackground(width, height);
         graphicsEngine.paint(ctx);
-    }
-
-    public void sleep(double ms) {
-        try {
-            Thread.sleep((long) ms);
-        } catch (Exception e) {
-            // Do Nothing
-        }
     }
 
     //------------------------------------------------------------------------------------------------------ Window --//
@@ -177,18 +165,17 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
                     GameEngine.this.keyTyped(e);
                     return false;
                 default:
-                    return false; // do not consume the event
+                    // do not consume the event
+                    return false;
             }
         });
 
-        // Resize the window (insets are just the borders that the Operating System puts on the board)
         Insets insets = jFrame.getInsets();
         jFrame.setSize(width + insets.left + insets.right, height + insets.top + insets.bottom);
     }
 
     public void setWindowProperties(Dimension dimension, String title) {
         SwingUtilities.invokeLater(() -> {
-            // Resize the window (insets are just the borders that the Operating System puts on the board)
             Insets insets = jFrame.getInsets();
             width = dimension.width;
             height = dimension.height;
@@ -196,7 +183,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
             gamePanel.setSize(width, height);
             jFrame.setTitle(title);
 
-            // TODO: Set the GraphicsEngine canvas
+            // TODO: Set the size of the GraphicsEngine canvas
         });
     }
 
@@ -208,9 +195,8 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         return height;
     }
 
-    // Initialise and start the game loop with the given framerate
     public void startGameLoop(int framerate) {
-        initialized = true; // assume init has been called or won't be called
+        initialized = true;
 
         timer.setFramerate(framerate);
         timer.setRepeats(true);
@@ -262,24 +248,18 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         @Serial
         private static final long serialVersionUID = 1L;
 
-        // Called each time the OS instructs the program to paint itself
         public void paintComponent(Graphics graphics) {
-            // Get the graphics object
             graphics2D = (Graphics2D) graphics;
 
-            // Reset all transforms
             transforms.clear();
             transforms.push(graphics2D.getTransform());
 
-            // Rendering settings
             graphics2D.setRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
 
-            // Paint the game
             if (initialized) {
-                // TODO: We should not be wrapping the entire engine,
-                //  we should only be wrapping (Java) Graphics context
-                //  Step 2: Introduce a Java Graphics Context which implements my
-                //  Graphics Context and wraps the passed Graphics object
+                // TODO: We should not be wrapping the entire engine, we should only be wrapping (Java) Graphics context
+                //  Step 2: Introduce a Java Graphics Context which implements
+                //  my Graphics Context and wraps the passed Graphics object
                 //  Step 3: Remove Massey GameEngine
                 GraphicsCtx ctx = new MasseyGraphicsCtx(GameEngine.this);
                 GameEngine.this.paint(ctx);
@@ -319,12 +299,10 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
      * Draw a line from (x1, y2) to (x2, y2) with width l.
      */
     public void drawLine(double x1, double y1, double x2, double y2, double l) {
-        // Set the stroke
         graphics2D.setStroke(new BasicStroke((float) l));
 
         graphics2D.draw(new Line2D.Double(x1, y1, x2, y2));
 
-        // Reset the stroke
         graphics2D.setStroke(new BasicStroke(1.0f));
     }
 
@@ -332,7 +310,6 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
      * Draw a line from <code>p1</code> to <code>p2</code>.
      */
     public void drawLine(Point p1, Point p2) {
-
         graphics2D.draw(new Line2D.Double(p1.x, p1.y, p2.x, p2.y));
     }
 
@@ -340,12 +317,10 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
      * Draw a line from <code>p1</code> to <code>p2</code> with width l.
      */
     public void drawLine(Point p1, Point p2, double l) {
-        // Set the stroke
         graphics2D.setStroke(new BasicStroke((float) l));
 
         graphics2D.draw(new Line2D.Double(p1.x, p1.y, p2.x, p2.y));
 
-        // Reset the stroke
         graphics2D.setStroke(new BasicStroke(1.0f));
     }
 
@@ -360,12 +335,10 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
      * Draw a rectangle at (x, y) with width and height (w, h) with a line of width l.
      */
     public void drawRectangle(double x, double y, double w, double h, double l) {
-        // Set the stroke
         graphics2D.setStroke(new BasicStroke((float) l));
 
         graphics2D.draw(new Rectangle2D.Double(x, y, w, h));
 
-        // Reset the stroke
         graphics2D.setStroke(new BasicStroke(1.0f));
     }
 
@@ -476,12 +449,9 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
      * Restore the last transform.
      */
     public void restoreLastTransform() {
-        // Set current transform to the top of the stack.
         graphics2D.setTransform(transforms.peek());
 
-        // If there is more than one transform on the stack
         if (transforms.size() > 1) {
-            // Pop a transform off the stack
             transforms.pop();
         }
     }
@@ -511,83 +481,5 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         graphics2D.shear(x, y);
     }
 
-    //------------------------------------------------------------------------------------------------ Math Helpers --//
-
-    // TODO: Remove these functions in favor of built in Math class,
-    //  create a helper class for degrees <-> radians conversions
-
-    /**
-     * Return the length of a vector.
-     */
-    public double length(double x, double y) {
-        // Calculate and return the sqrt
-        return Math.sqrt(x * x + y * y);
-    }
-
-    /**
-     * Return the distance between two points (x1, y1) and (x2, y2).
-     */
-    public double distance(Point p1, Point p2) {
-        return p1.distance(p2);
-    }
-
-    /**
-     * Convert an angle in radians to degrees.
-     */
-    public double toDegrees(double radians) {
-        // Calculate and return the degrees
-        return Math.toDegrees(radians);
-    }
-
-    /**
-     * Convert an angle in degrees to radians.
-     */
-    public double toRadians(double degrees) {
-        // Calculate and return the radians
-        return Math.toRadians(degrees);
-    }
-
-    /**
-     * Return the cos of value
-     */
-    public double cos(double value) {
-        // Calculate and return cos
-        return Math.cos(Math.toRadians(value));
-    }
-
-    // Return the acos of value
-    public double acos(double value) {
-        // Calculate and return acos
-        return Math.toDegrees(Math.acos(value));
-    }
-
-    // Return the sin of value
-    public double sin(double value) {
-        // Calculate and return sin
-        return Math.sin(Math.toRadians(value));
-    }
-
-    // Return the asin of value
-    public double asin(double value) {
-        // Calculate and return asin
-        return Math.toDegrees(Math.asin(value));
-    }
-
-    // Return the tan of value
-    public double tan(double value) {
-        // Calculate and return tan
-        return Math.tan(Math.toRadians(value));
-    }
-
-    // Return the atan of value
-    public double atan(double value) {
-        // Calculate and return atan
-        return Math.toDegrees(Math.atan(value));
-    }
-
-    // Return the atan2 of value
-    public double atan2(double x, double y) {
-        // Calculate and return atan2
-        return Math.toDegrees(Math.atan2(x, y));
-    }
+    // TODO: Create a helper class for degrees <-> radians conversions?
 }

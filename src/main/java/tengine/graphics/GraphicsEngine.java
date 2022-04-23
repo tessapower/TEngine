@@ -1,8 +1,8 @@
 package tengine.graphics;
 
 import tengine.graphics.context.GraphicsCtx;
-import tengine.graphics.graphicsObjects.TGraphicCompound;
-import tengine.graphics.graphicsObjects.TGraphicObject;
+import tengine.graphics.entities.TGraphicCompound;
+import tengine.graphics.entities.TGraphicObject;
 
 import java.awt.*;
 

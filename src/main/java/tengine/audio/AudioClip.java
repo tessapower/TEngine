@@ -1,4 +1,4 @@
-package tengine;
+package tengine.audio;
 
 import javax.sound.sampled.*;
 import java.io.BufferedInputStream;
@@ -69,6 +69,7 @@ public class AudioClip {
         }
     }
 
+    // TODO: Debug this, passing a volume doesn't seem to work
     public void play(float volume) {
         try {
             Clip clip = AudioSystem.getClip();
@@ -106,6 +107,7 @@ public class AudioClip {
         clip.start();
     }
 
+    // TODO: Debug this, passing a volume doesn't seem to work
     // Start playing an AudioClip on loop with a volume in decibels
     public void playOnLoop(float volume) {
         Clip clip = loopClip;

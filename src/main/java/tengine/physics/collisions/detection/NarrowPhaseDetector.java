@@ -1,6 +1,6 @@
 package tengine.physics.collisions.detection;
 
-import tengine.physics.PhysicsBody;
+import tengine.physics.PhysicsEntity;
 import tengine.physics.collisions.events.CollisionEvent;
 import tengine.physics.collisions.shapes.CollisionCircle;
 import tengine.physics.collisions.shapes.CollisionRect;
@@ -13,7 +13,7 @@ public class NarrowPhaseDetector {
     // Pre-conditions:
     //   p1: static = false, hasCollisions = true
     //   p2: static = true, hasCollisions = true
-    public static CollisionEvent detect(PhysicsBody movingObj, PhysicsBody staticObj) {
+    public static CollisionEvent detect(PhysicsEntity movingObj, PhysicsEntity staticObj) {
         // TODO: find the closest corner of moving object to the center of static object
         Point closestCorner = closestPointToCenter(movingObj.collisionShape, staticObj.collisionShape);
 

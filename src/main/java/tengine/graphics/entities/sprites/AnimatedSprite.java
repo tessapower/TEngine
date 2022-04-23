@@ -1,7 +1,7 @@
-package tengine.graphics.graphicsObjects.sprites;
+package tengine.graphics.entities.sprites;
 
 import tengine.graphics.context.GraphicsCtx;
-import tengine.graphics.graphicsObjects.TGraphicObject;
+import tengine.graphics.entities.TGraphicObject;
 import tengine.world.GridSquare;
 
 import java.awt.*;

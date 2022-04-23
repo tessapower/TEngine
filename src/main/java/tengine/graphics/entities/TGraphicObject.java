@@ -1,4 +1,4 @@
-package tengine.graphics.graphicsObjects;
+package tengine.graphics.entities;
 
 import tengine.graphics.context.GraphicsCtx;
 import tengine.graphics.transforms.TRotation;
