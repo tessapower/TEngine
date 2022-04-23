@@ -1,63 +1,67 @@
 package tengine;
 
 import javax.sound.sampled.*;
+import java.io.BufferedInputStream;
 import java.io.InputStream;
 
 public class AudioClip {
     private AudioInputStream audio;
-    private final AudioFormat mFormat;
-    private final byte[] mData;
-    private final long mLength;
-    private Clip mLoopClip;
+    private final AudioFormat format;
+    private final byte[] data;
+    private final long length;
+    private Clip loopClip;
 
     public AudioClip(InputStream inputStream) {
+        InputStream bufferedIn = new BufferedInputStream(inputStream);
+
         try {
-            audio = AudioSystem.getAudioInputStream(inputStream);
+            audio = AudioSystem.getAudioInputStream(bufferedIn);
         } catch (Exception e) {
-            System.err.println("Error: cannot open audio file " + inputStream);
+            System.err.println("Error: cannot read input stream: " + bufferedIn);
         }
 
-        mFormat = audio.getFormat();
-        mLength = audio.getFrameLength() * mFormat.getFrameSize();
-        mData = new byte[(int) mLength];
+        assert audio != null;
+
+        format = audio.getFormat();
+        length = audio.getFrameLength() * format.getFrameSize();
+        data = new byte[(int) length];
 
         // TODO: maybe rework this? It seems like a bit of a hack from Massey Engine authors
-        // Try reading the data and if there is an error, throw an exception
         try {
-            audio.read(mData);
+            audio.read(data);
         } catch (Exception exception) {
             System.err.println("Error: reading audio file");
 
             System.exit(1);
         }
 
-        mLoopClip = null;
+        loopClip = null;
     }
 
     public Clip getLoopClip() {
-        return mLoopClip;
+        return loopClip;
     }
 
     public void setLoopClip(Clip clip) {
-        mLoopClip = clip;
+        loopClip = clip;
     }
 
     public AudioFormat getAudioFormat() {
-        return mFormat;
+        return format;
     }
 
     public byte[] getData() {
-        return mData;
+        return data;
     }
 
     public long getBufferSize() {
-        return mLength;
+        return length;
     }
 
     public void play() {
         try {
             Clip clip = AudioSystem.getClip();
-            clip.open(mFormat, mData, 0, (int) mLength);
+            clip.open(format, data, 0, (int) length);
 
             clip.start();
         } catch (Exception exception) {
@@ -68,7 +72,7 @@ public class AudioClip {
     public void play(float volume) {
         try {
             Clip clip = AudioSystem.getClip();
-            clip.open(mFormat, mData, 0, (int) mLength);
+            clip.open(format, data, 0, (int) length);
 
             FloatControl control = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
             control.setValue(volume);
@@ -81,12 +85,12 @@ public class AudioClip {
 
     // Start playing an AudioClip on loop
     public void playOnLoop() {
-        Clip clip = mLoopClip;
+        Clip clip = loopClip;
 
         if (clip == null) {
             try {
                 clip = AudioSystem.getClip();
-                clip.open(mFormat, mData, 0, (int) mLength);
+                clip.open(format, data, 0, (int) length);
                 clip.loop(Clip.LOOP_CONTINUOUSLY);
 
                 this.setLoopClip(clip);
@@ -104,12 +108,12 @@ public class AudioClip {
 
     // Start playing an AudioClip on loop with a volume in decibels
     public void playOnLoop(float volume) {
-        Clip clip = mLoopClip;
+        Clip clip = loopClip;
 
         if (clip == null) {
             try {
                 clip = AudioSystem.getClip();
-                clip.open(mFormat, mData, 0, (int) mLength);
+                clip.open(format, data, 0, (int) length);
 
                 FloatControl control = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
                 control.setValue(volume);
@@ -127,9 +131,8 @@ public class AudioClip {
         clip.start();
     }
 
-    // Stop an AudioClip playing
     public void stopPlayingLoop() {
-        Clip clip = mLoopClip;
+        Clip clip = loopClip;
 
         if (clip != null) {
             clip.stop();
