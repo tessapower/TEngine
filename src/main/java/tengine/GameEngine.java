@@ -143,6 +143,9 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     //------------------------------------------------------------------------------------------------------ Window --//
 
     private void setupWindow(Dimension dimension) {
+        // TODO: Eventually replace with graphicsEngine = new GraphicsEngine(Graphics2D)
+        graphicsEngine = new GraphicsEngine(dimension);
+
         jFrame = new JFrame();
         gamePanel = new GamePanel();
 
@@ -155,9 +158,6 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.add(gamePanel);
         jFrame.setVisible(true);
-
-        // TODO: Eventually replace with graphicsEngine = new GraphicsEngine(Graphics2D)
-        graphicsEngine = new GraphicsEngine(new Dimension(width, height));
 
         gamePanel.setDoubleBuffered(true);
         gamePanel.addMouseListener(this);
