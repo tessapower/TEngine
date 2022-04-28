@@ -1,33 +1,33 @@
 package tengine.physics.collisions.events;
 
-import tengine.physics.PhysicsEntity;
+import tengine.physics.PhysicsComponent;
 import tengine.physics.kinematics.Vector;
 
 import java.awt.*;
 import java.util.Objects;
 
 public class CollisionEvent {
-    private final PhysicsEntity movingObj;
-    private final PhysicsEntity staticObj;
+    private final PhysicsComponent movingObj;
+    private final PhysicsComponent staticObj;
     private Vector impactVector;
     private Point impactSide;
 
-    public CollisionEvent(PhysicsEntity p1, PhysicsEntity p2) {
+    public CollisionEvent(PhysicsComponent p1, PhysicsComponent p2) {
         this(p1, p2, new Vector(), new Point());
     }
 
-    public CollisionEvent(PhysicsEntity p1, PhysicsEntity p2, Vector impactVector, Point impactSide) {
+    public CollisionEvent(PhysicsComponent p1, PhysicsComponent p2, Vector impactVector, Point impactSide) {
         movingObj = p1;
         staticObj = p2;
         this.impactVector = impactVector;
         this.impactSide = impactSide;
     }
 
-    public PhysicsEntity movingObj() {
+    public PhysicsComponent movingObj() {
         return movingObj;
     }
 
-    public PhysicsEntity staticObj() {
+    public PhysicsComponent staticObj() {
         return staticObj;
     }
 

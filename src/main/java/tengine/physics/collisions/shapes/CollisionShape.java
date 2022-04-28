@@ -7,7 +7,7 @@ public interface CollisionShape {
     Point origin();
     void setOrigin(Point origin);
     boolean contains(Point point);
-    Point center();
+    Point midpoint();
     boolean equals(Object o);
     int hashCode();
 }

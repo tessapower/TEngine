@@ -1,6 +1,6 @@
 package tengine.physics.collisions.detection;
 
-import tengine.physics.PhysicsEntity;
+import tengine.physics.PhysicsComponent;
 import tengine.physics.collisions.events.CollisionEvent;
 import tengine.physics.collisions.shapes.CollisionCircle;
 import tengine.physics.collisions.shapes.CollisionRect;
@@ -10,10 +10,12 @@ import tengine.physics.kinematics.Vector;
 import java.awt.*;
 
 public class NarrowPhaseDetector {
-    // Pre-conditions:
-    //   p1: static = false, hasCollisions = true
-    //   p2: static = true, hasCollisions = true
-    public static CollisionEvent detect(PhysicsEntity movingObj, PhysicsEntity staticObj) {
+    public static CollisionEvent detect(PhysicsComponent movingObj, PhysicsComponent staticObj) {
+        assert(!movingObj.isStatic);
+        assert(movingObj.hasCollisions);
+        assert(staticObj.isStatic);
+        assert(staticObj.hasCollisions);
+
         // TODO: find the closest corner of moving object to the center of static object
         Point closestCorner = closestPointToCenter(movingObj.collisionShape, staticObj.collisionShape);
 
@@ -30,12 +32,10 @@ public class NarrowPhaseDetector {
     }
 
     /**
-     * Finds the corner of <code>c1</code> that is the closest to the center of <code>c2</code>
-     *
-     * @return The corner of <code>c1</code> that is closest to the center of <code>c2</code> as a point.
+     * Finds the corner of <code>c1</code> that is the closest to the center of <code>c2</code>.
      */
     private static Point closestPointToCenter(CollisionShape c1, CollisionShape c2) {
-        Point c2Center = c2.center();
+        Point c2Center = c2.midpoint();
 
         int c1Width = c1.dimension().width;
         int c1Height = c1.dimension().height;

@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class PhysicsEngine {
     CollisionDetector collisionDetector;
-    Set<PhysicsEntity> physicsBodies;
+    Set<PhysicsComponent> physicsBodies;
     CollisionEventNotifier collisionEventNotifier;
 
     public PhysicsEngine() {
@@ -22,7 +22,7 @@ public class PhysicsEngine {
 //        for (var body : physicsBodies) {
 //            if (body.isStatic) {
 //                Point origin = body.origin;
-//                Velocity velocity = actor.physicsEntity().velocity;
+//                Velocity velocity = actor.physicsComponent().velocity;
 //                origin.translate(velocity.dx(), velocity.dy());
 //                actor.setOrigin(origin);
 //            }
@@ -44,18 +44,18 @@ public class PhysicsEngine {
         collisionEventNotifier = eventNotifier;
     }
 
-    public void add(PhysicsEntity physicsEntity) {
-        physicsBodies.add(physicsEntity);
+    public void add(PhysicsComponent physicsComponent) {
+        physicsBodies.add(physicsComponent);
     }
 
-    public void addAll(PhysicsEntity... physicsBodies) {
+    public void addAll(PhysicsComponent... physicsBodies) {
         for (var body : physicsBodies) {
             add(body);
         }
     }
 
-    public void remove(PhysicsEntity physicsEntity) {
-        physicsBodies.remove(physicsEntity);
+    public void remove(PhysicsComponent physicsComponent) {
+        physicsBodies.remove(physicsComponent);
     }
 
     public void removeAll() {

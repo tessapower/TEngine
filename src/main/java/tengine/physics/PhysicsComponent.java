@@ -5,7 +5,7 @@ import tengine.physics.kinematics.Velocity;
 
 import java.util.Objects;
 
-public class PhysicsEntity {
+public class PhysicsComponent {
     public PhysicsEngine system;
     public Velocity velocity;
     public boolean isStatic;
@@ -13,12 +13,12 @@ public class PhysicsEntity {
     // TODO: Generalise to use a CollisionShape
     public CollisionRect collisionShape;
 
-    public PhysicsEntity() {
+    public PhysicsComponent() {
         this(new Velocity(), true, null, false);
     }
 
-    public PhysicsEntity(Velocity velocity, boolean isStatic,
-                         CollisionRect collisionShape, boolean hasCollisions) {
+    public PhysicsComponent(Velocity velocity, boolean isStatic,
+                            CollisionRect collisionShape, boolean hasCollisions) {
         this.velocity = velocity;
         this.isStatic = isStatic;
         this.collisionShape = collisionShape;
@@ -38,7 +38,7 @@ public class PhysicsEntity {
     public boolean equals(Object o) {
         if (this == o)
             return true;
-        if (!(o instanceof PhysicsEntity other))
+        if (!(o instanceof PhysicsComponent other))
             return false;
         return isStatic == other.isStatic
                 && hasCollisions == other.hasCollisions

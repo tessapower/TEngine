@@ -1,7 +1,7 @@
 package tengine;
 
-import tengine.graphics.entities.TGraphicObject;
-import tengine.physics.PhysicsEntity;
+import tengine.graphics.components.TGraphicObject;
+import tengine.physics.PhysicsComponent;
 import tengine.physics.collisions.shapes.CollisionShape;
 import tengine.world.World;
 
@@ -9,13 +9,13 @@ import java.awt.*;
 
 public abstract class Actor {
     protected Point origin;
-    protected PhysicsEntity physicsEntity;
+    protected PhysicsComponent physicsComponent;
     protected TGraphicObject graphicEntity;
     protected World world;
 
     public Actor() {
         origin = new Point();
-        physicsEntity = new PhysicsEntity();
+        physicsComponent = new PhysicsComponent();
         graphicEntity = null;
         world = null;
     }
@@ -27,8 +27,8 @@ public abstract class Actor {
             graphicEntity.setOrigin(origin);
         }
 
-//        if (this.physicsEntity.collisionShape != null) {
-//            physicsEntity.collisionShape.setOrigin(origin);
+//        if (this.physicsComponent.collisionShape != null) {
+//            physicsComponent.collisionShape.setOrigin(origin);
 //        }
     }
 
@@ -45,7 +45,7 @@ public abstract class Actor {
     }
 
     public CollisionShape bounds() {
-        return physicsEntity.collisionShape;
+        return physicsComponent.collisionShape;
     }
 
     public void removeFromWorld() {
@@ -58,7 +58,7 @@ public abstract class Actor {
 
     public void destroy() {
         graphicEntity.removeFromParent();
-        // TODO: Eventually include physicsEntity.removeFromSystem()
+        // TODO: Eventually include physicsComponent.removeFromSystem()
         world = null;
     }
 

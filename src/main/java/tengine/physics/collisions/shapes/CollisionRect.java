@@ -36,7 +36,7 @@ public class CollisionRect implements CollisionShape {
     }
 
     @Override
-    public Point center() {
+    public Point midpoint() {
         return new Point((origin.x + dimension.width / 2), (origin.y + dimension.height / 2));
     }
 

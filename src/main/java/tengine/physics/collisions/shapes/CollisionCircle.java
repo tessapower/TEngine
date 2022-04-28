@@ -39,11 +39,11 @@ public class CollisionCircle implements CollisionShape {
     }
 
     public boolean contains(Point point) {
-        return center().distance(point) >= radius();
+        return midpoint().distance(point) >= radius();
     }
 
     @Override
-    public Point center() {
+    public Point midpoint() {
         return new Point((origin.x + radius()), (origin.y + radius()));
     }
 }
