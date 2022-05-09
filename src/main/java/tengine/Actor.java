@@ -10,21 +10,21 @@ import java.awt.*;
 public abstract class Actor {
     protected Point origin;
     protected PhysicsComponent physicsComponent;
-    protected TGraphicObject graphicEntity;
+    protected TGraphicObject graphic;
     protected World world;
 
     public Actor() {
         origin = new Point();
         physicsComponent = new PhysicsComponent();
-        graphicEntity = null;
+        graphic = null;
         world = null;
     }
 
     public void setOrigin(Point origin) {
         this.origin = origin;
 
-        if (graphicEntity != null) {
-            graphicEntity.setOrigin(origin);
+        if (graphic != null) {
+            graphic.setOrigin(origin);
         }
 
 //        if (this.physicsComponent.collisionShape != null) {
@@ -57,12 +57,12 @@ public abstract class Actor {
     }
 
     public void destroy() {
-        graphicEntity.removeFromParent();
+        graphic.removeFromParent();
         // TODO: Eventually include physicsComponent.removeFromSystem()
         world = null;
     }
 
     public TGraphicObject graphic() {
-        return graphicEntity;
+        return graphic;
     }
 }
