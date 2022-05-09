@@ -4,7 +4,7 @@ import tengine.graphics.context.GraphicsCtx;
 
 import java.awt.*;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class TGraphicCompound extends TGraphicObject {
@@ -12,7 +12,11 @@ public class TGraphicCompound extends TGraphicObject {
 
     public TGraphicCompound(Dimension dimension) {
         super(dimension);
-        children = new HashSet<>();
+
+        // Note that this implementation is not thread-safe, and is only a quick work-around to support
+        // drawing children in a specific order (similar to z-indexing) without changing the TGraphicObject
+        // API itself. Children will be drawn in order of insertion into the set.
+        children = new LinkedHashSet<>();
     }
 
     public Set<TGraphicObject> children() {
