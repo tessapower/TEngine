@@ -3,8 +3,6 @@ package tengine.physics;
 import tengine.physics.collisions.shapes.CollisionRect;
 import tengine.physics.kinematics.Velocity;
 
-import java.util.Objects;
-
 public class PhysicsComponent {
     public PhysicsEngine system;
     public Velocity velocity;
@@ -37,22 +35,5 @@ public class PhysicsComponent {
         if (system != null) {
             system.remove(this);
         }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (!(o instanceof PhysicsComponent other))
-            return false;
-        return isStatic == other.isStatic
-                && hasCollisions == other.hasCollisions
-                && velocity.equals(other.velocity)
-                && collisionShape == other.collisionShape;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(velocity, isStatic, hasCollisions, collisionShape);
     }
 }
