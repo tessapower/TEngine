@@ -29,9 +29,14 @@ public class PhysicsComponent {
         this.system = system;
     }
 
+    public PhysicsEngine system() {
+        return system;
+    }
+
     public void removeFromSystem() {
-        // TODO: implement this when finishing PhysicsEngine
-        throw new RuntimeException("implement me!");
+        if (system != null) {
+            system.remove(this);
+        }
     }
 
     @Override

@@ -3,17 +3,17 @@ package tengine.physics;
 import tengine.physics.collisions.detection.CollisionDetector;
 import tengine.physics.collisions.events.CollisionEventNotifier;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class PhysicsEngine {
     CollisionDetector collisionDetector;
-    Set<PhysicsComponent> physicsBodies;
+    Set<PhysicsComponent> physicsComponents;
     CollisionEventNotifier collisionEventNotifier;
 
     public PhysicsEngine() {
         collisionDetector = new CollisionDetector();
-        physicsBodies = new HashSet<>();
+        physicsComponents = new LinkedHashSet<>();
     }
 
     public void update() {
@@ -44,21 +44,26 @@ public class PhysicsEngine {
         collisionEventNotifier = eventNotifier;
     }
 
-    public void add(PhysicsComponent physicsComponent) {
-        physicsBodies.add(physicsComponent);
+    public void add(PhysicsComponent component) {
+        component.setSystem(this);
+        physicsComponents.add(component);
     }
 
-    public void addAll(PhysicsComponent... physicsBodies) {
-        for (var body : physicsBodies) {
+    public void addAll(PhysicsComponent... components) {
+        for (var body : components) {
             add(body);
         }
     }
 
-    public void remove(PhysicsComponent physicsComponent) {
-        physicsBodies.remove(physicsComponent);
+    public void remove(PhysicsComponent component) {
+        if (physicsComponents.contains(component)) {
+            component.setSystem(null);
+            physicsComponents.remove(component);
+        }
     }
 
     public void removeAll() {
-        physicsBodies.clear();
+        physicsComponents.forEach(body -> body.setSystem(null));
+        physicsComponents.clear();
     }
 }
