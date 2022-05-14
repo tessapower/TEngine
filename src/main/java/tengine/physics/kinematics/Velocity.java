@@ -1,8 +1,8 @@
 package tengine.physics.kinematics;
 
 public class Velocity {
-    double speed = 0;
-    Vector direction;
+    private double speed = 0;
+    private Vector direction;
 
     public Velocity() {
         this(0, new Vector(0, 0));
@@ -29,7 +29,23 @@ public class Velocity {
         this.speed = speed;
     }
 
+    public double speed() {
+        return speed;
+    }
+
     public void setDirection(Vector direction) {
         this.direction = direction;
+    }
+
+    public Vector direction() {
+        return direction;
+    }
+
+    public double dx() {
+        return direction.x();
+    }
+
+    public double dy() {
+        return direction.y();
     }
 }

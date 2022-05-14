@@ -10,11 +10,10 @@ import java.util.List;
 public class World {
     protected TGraphicCompound canvas;
     // TODO: Add PhysicsCompound
-    protected List<Actor> actors;
+    protected List<Actor> actors = new ArrayList<>();
 
     public World(Dimension dimension) {
         canvas = new TGraphicCompound(dimension);
-        actors = new ArrayList<>();
     }
 
     public void add(Actor actor) {

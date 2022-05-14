@@ -9,13 +9,13 @@ import java.awt.*;
 
 public abstract class Actor {
     protected Point origin;
-    protected PhysicsComponent physicsComponent;
+    protected PhysicsComponent physics;
     protected TGraphicObject graphic;
     protected World world;
 
     public Actor() {
         origin = new Point();
-        physicsComponent = new PhysicsComponent();
+        physics = new PhysicsComponent();
         graphic = null;
         world = null;
     }
@@ -27,10 +27,11 @@ public abstract class Actor {
             graphic.setOrigin(origin);
         }
 
-//        if (this.physicsComponent.collisionShape != null) {
-//            physicsComponent.collisionShape.setOrigin(origin);
-//        }
+        if (physics.collisionShape() != null) {
+            physics.setOrigin(origin);
+        }
     }
+
 
     public Point origin() {
         return origin;
@@ -45,7 +46,7 @@ public abstract class Actor {
     }
 
     public CollisionShape bounds() {
-        return physicsComponent.collisionShape;
+        return physics.collisionShape();
     }
 
     public void removeFromWorld() {
@@ -58,7 +59,7 @@ public abstract class Actor {
 
     public void destroy() {
         graphic.removeFromParent();
-        // TODO: Eventually include physicsComponent.removeFromSystem()
+        physics.removeFromSystem();
         world = null;
     }
 

@@ -16,9 +16,12 @@ public class PhysicsEngine {
         physicsComponents = new LinkedHashSet<>();
     }
 
-    public void update() {
-        throw new RuntimeException("implement me!");
+    public void update(double dtMillis) {
         // Step 1: Move everything that can move
+        for (var component : physicsComponents) {
+           component.update(dtMillis);
+        }
+
 //        for (var body : physicsBodies) {
 //            if (body.isStatic) {
 //                Point origin = body.origin;
