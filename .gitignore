@@ -125,5 +125,5 @@ buildNumber.properties
 .classpath
 
 # DrawIO
-
+*.svg.bkp
 *.dtmp
