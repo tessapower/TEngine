@@ -9,10 +9,9 @@ import java.util.List;
 public class PhysicsEngine {
     CollisionDetector collisionDetector = new CollisionDetector();
     List<TPhysicsComponent> components = new ArrayList<>();
-    CollisionEventNotifier collisionEventNotifier;
+    CollisionEventNotifier collisionEventNotifier = null;
 
-    public PhysicsEngine() {
-    }
+    public PhysicsEngine() {}
 
     public void update(double dtMillis) {
         for (var component : components) {

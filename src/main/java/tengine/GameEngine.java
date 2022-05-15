@@ -26,15 +26,15 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     private static final Dimension DEFAULT_WINDOW_DIMENSION = new Dimension(500, 500);
     private static final int DEFAULT_FRAMERATE = 30;
 
-    JFrame jFrame;
-    GamePanel gamePanel;
-    int width, height;
-    Graphics2D graphics2D;
-    boolean initialized = false;
-    Stack<AffineTransform> transforms;
+    private JFrame jFrame;
+    private GamePanel gamePanel;
+    private int width, height;
+    private Graphics2D graphics2D;
+    private boolean initialized = false;
+    private Stack<AffineTransform> transforms;
 
-    GraphicsEngine graphicsEngine;
-    PhysicsEngine physicsEngine = new PhysicsEngine();
+    private GraphicsEngine graphicsEngine;
+    private final PhysicsEngine physicsEngine = new PhysicsEngine();
 
     long lastUpdateMillis = 0;
 
