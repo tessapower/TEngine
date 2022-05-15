@@ -1,25 +1,22 @@
 package tengine.physics;
 
+import tengine.Actor;
 import tengine.physics.collisions.detection.CollisionDetector;
+import tengine.physics.collisions.events.CollisionEvent;
 import tengine.physics.collisions.events.CollisionEventNotifier;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class PhysicsEngine {
-    CollisionDetector collisionDetector = new CollisionDetector();
-    List<TPhysicsComponent> components = new ArrayList<>();
-    CollisionEventNotifier collisionEventNotifier = null;
+    private CollisionDetector collisionDetector = new CollisionDetector();
+    private CollisionEventNotifier collisionEventNotifier = null;
 
     public PhysicsEngine() {}
 
-    public void update(double dtMillis) {
-        for (var component : components) {
-           component.update(dtMillis);
-        }
-
+    public void processCollisions(List<Actor> actors, double dtMillis) {
         // Step 2: Detect collisions
-//         Collection<CollisionEvent> collisions = collisionDetector.detectCollisions(actors);
+         Collection<CollisionEvent> collisions = collisionDetector.detectCollisions(actors);
 
         // Step 3: Resolve collisions
         // resolveCollisions(collisions);
@@ -32,31 +29,5 @@ public class PhysicsEngine {
 
     public void setCollisionEventNotifier(CollisionEventNotifier eventNotifier) {
         collisionEventNotifier = eventNotifier;
-    }
-
-    public void add(TPhysicsComponent component) {
-        components.add(component);
-    }
-
-    public void addAll(TPhysicsComponent... components) {
-        for (var component : components) {
-            add(component);
-        }
-    }
-
-    public void addAll(List<TPhysicsComponent> components) {
-        components.forEach(this::add);
-    }
-
-    public void remove(TPhysicsComponent component) {
-        if (components.contains(component)) {
-            component.setSystem(null);
-            components.remove(component);
-        }
-    }
-
-    public void removeAll() {
-        components.forEach(component -> component.setSystem(null));
-        components.clear();
     }
 }
