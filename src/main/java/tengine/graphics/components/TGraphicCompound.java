@@ -8,15 +8,13 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class TGraphicCompound extends TGraphicObject {
-    private final Set<TGraphicObject> children;
+    // Note that this implementation is not thread-safe, and is only a quick work-around to support
+    // drawing children in a specific order (similar to z-indexing) without changing the TGraphicObject
+    // API itself. Children will be drawn in order of insertion into the set.
+    private final Set<TGraphicObject> children = new LinkedHashSet<>();
 
     public TGraphicCompound(Dimension dimension) {
         super(dimension);
-
-        // Note that this implementation is not thread-safe, and is only a quick work-around to support
-        // drawing children in a specific order (similar to z-indexing) without changing the TGraphicObject
-        // API itself. Children will be drawn in order of insertion into the set.
-        children = new LinkedHashSet<>();
     }
 
     public Set<TGraphicObject> children() {
