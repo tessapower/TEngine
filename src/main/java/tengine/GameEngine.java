@@ -132,6 +132,9 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     public void update(double dtMillis) {
         actors.forEach(actor -> {
             actor.physics().update(physicsEngine, dtMillis);
+            if (actor.destroyWhenOffScreen && !isOnScreen(actor)) {
+                activeWorld.remove(actor);
+            }
         });
         // Allow graphical objects, e.g. AnimatedSprite, to make time-based updates if necessary
         graphicsEngine.update(dtMillis);
@@ -214,6 +217,13 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         timer.setRepeats(true);
 
         timer.start();
+    }
+
+    private boolean isOnScreen(Actor actor) {
+        TPoint actorPos = actor.origin();
+        Dimension actorSize = actor.graphic().dimension();
+        return actorPos.x >= 0 && actorPos.x + actorSize.width <= windowWidth()
+            && actorPos.y >= 0 && actorPos.y + actorSize.height <= windowHeight();
     }
 
     //------------------------------------------------------------------------------ Methods that can be overridden --//

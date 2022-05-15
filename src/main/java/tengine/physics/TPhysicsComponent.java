@@ -8,7 +8,6 @@ public class TPhysicsComponent {
     private final Actor actor;
 
     private CollisionRect collisionShape;
-    private PhysicsEngine system;
     private boolean isStatic;
     private boolean hasCollisions;
 
@@ -23,22 +22,9 @@ public class TPhysicsComponent {
         this.hasCollisions = hasCollisions;
     }
 
-    public void setSystem(PhysicsEngine system) {
-        this.system = system;
-    }
-
-    public PhysicsEngine system() {
-        return system;
-    }
-
-    public void removeFromSystem() {
-        if (system != null) {
-            system.remove(this);
-        }
-    }
-
-    public void update(double dtMillis) {
+    public void update(PhysicsEngine system, double dtMillis) {
         // Actor will take care of updating the origin of the graphic and collision shape
+
         actor.setOrigin(actor.origin().translate(
             actor.velocity().dx() * dtMillis,
             actor.velocity().dy() * dtMillis

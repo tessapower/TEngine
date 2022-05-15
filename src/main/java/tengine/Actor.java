@@ -56,6 +56,14 @@ public abstract class Actor {
         return physics.collisionShape();
     }
 
+    public void setDestroyWhenOffScreen(boolean b) {
+        destroyWhenOffScreen = b;
+    }
+
+    public boolean shouldDestroyWhenOffScreen() {
+        return destroyWhenOffScreen;
+    }
+
     public void removeFromWorld() {
         world.remove(this);
     }
