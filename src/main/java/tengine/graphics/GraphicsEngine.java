@@ -19,8 +19,6 @@ public class GraphicsEngine {
         canvas.paint(ctx);
     }
 
-    //--------------------------------------------------------------------------------------------- Graphic Objects --//
-
     public void add(TGraphicObject tGraphicObject) {
         canvas.add(tGraphicObject);
     }

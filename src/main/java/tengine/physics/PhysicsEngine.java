@@ -3,33 +3,21 @@ package tengine.physics;
 import tengine.physics.collisions.detection.CollisionDetector;
 import tengine.physics.collisions.events.CollisionEventNotifier;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PhysicsEngine {
-    CollisionDetector collisionDetector;
-    Set<PhysicsComponent> physicsComponents;
+    CollisionDetector collisionDetector = new CollisionDetector();
+    List<TPhysicsComponent> components = new ArrayList<>();
     CollisionEventNotifier collisionEventNotifier;
 
     public PhysicsEngine() {
-        collisionDetector = new CollisionDetector();
-        physicsComponents = new LinkedHashSet<>();
     }
 
     public void update(double dtMillis) {
-        // Step 1: Move everything that can move
-        for (var component : physicsComponents) {
+        for (var component : components) {
            component.update(dtMillis);
         }
-
-//        for (var body : physicsBodies) {
-//            if (body.isStatic) {
-//                Point origin = body.origin;
-//                Velocity velocity = actor.physicsComponent().velocity;
-//                origin.translate(velocity.dx(), velocity.dy());
-//                actor.setOrigin(origin);
-//            }
-//        }
 
         // Step 2: Detect collisions
 //         Collection<CollisionEvent> collisions = collisionDetector.detectCollisions(actors);
@@ -47,26 +35,29 @@ public class PhysicsEngine {
         collisionEventNotifier = eventNotifier;
     }
 
-    public void add(PhysicsComponent component) {
-        component.setSystem(this);
-        physicsComponents.add(component);
+    public void add(TPhysicsComponent component) {
+        components.add(component);
     }
 
-    public void addAll(PhysicsComponent... components) {
-        for (var body : components) {
-            add(body);
+    public void addAll(TPhysicsComponent... components) {
+        for (var component : components) {
+            add(component);
         }
     }
 
-    public void remove(PhysicsComponent component) {
-        if (physicsComponents.contains(component)) {
+    public void addAll(List<TPhysicsComponent> components) {
+        components.forEach(this::add);
+    }
+
+    public void remove(TPhysicsComponent component) {
+        if (components.contains(component)) {
             component.setSystem(null);
-            physicsComponents.remove(component);
+            components.remove(component);
         }
     }
 
     public void removeAll() {
-        physicsComponents.forEach(body -> body.setSystem(null));
-        physicsComponents.clear();
+        components.forEach(component -> component.setSystem(null));
+        components.clear();
     }
 }

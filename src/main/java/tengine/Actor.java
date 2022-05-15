@@ -14,9 +14,9 @@ public abstract class Actor {
     protected TPoint origin;
     protected World world;
 
+
     public Actor() {
-        origin = new Point();
-        physics = new PhysicsComponent();
+        physics = null;
         graphic = null;
         velocity = null;
         origin = new TPoint();
@@ -33,8 +33,8 @@ public abstract class Actor {
             graphic.setOrigin(origin);
         }
 
-        if (physics.collisionShape() != null) {
-            physics.setOrigin(origin);
+        if (physics != null) {
+            physics.collisionShape().setOrigin(origin);
         }
     }
 

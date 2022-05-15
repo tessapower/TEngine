@@ -6,11 +6,12 @@ import tengine.physics.TPhysicsComponent;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class World {
     protected TGraphicCompound canvas;
-    // TODO: Add PhysicsCompound
+    protected List<TPhysicsComponent> physicsComponents = new ArrayList<>();
     protected List<Actor> actors = new ArrayList<>();
 
     public World(Dimension dimension) {
@@ -18,9 +19,10 @@ public class World {
     }
 
     public void add(Actor actor) {
-        actors.add(actor);
         actor.addToWorld(this);
+        actors.add(actor);
         canvas.add(actor.graphic());
+        physicsComponents.add(actor.physics());
     }
 
     public void add(Actor... actors) {
@@ -35,10 +37,15 @@ public class World {
 
     public void remove(Actor actor) {
         actors.remove(actor);
+        physicsComponents.remove(actor.physics());
         actor.destroy();
     }
 
     public TGraphicCompound canvas() {
         return canvas;
+    }
+
+    public List<TPhysicsComponent> physicsComponents() {
+        return Collections.unmodifiableList(physicsComponents);
     }
 }

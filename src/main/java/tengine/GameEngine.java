@@ -34,8 +34,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     Stack<AffineTransform> transforms;
 
     GraphicsEngine graphicsEngine;
-    // TODO: Reimplement the physics engine!
-    //   PhysicsEngine physicsEngine;
+    PhysicsEngine physicsEngine = new PhysicsEngine();
 
     long lastUpdateMillis = 0;
 
@@ -59,9 +58,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     public GameEngine() {
         transforms = new Stack<>();
 
-        // TODO: Reimplement the physics engine!
-        //   physicsEngine = new PhysicsEngine()
-        //   physicsEngine.setCollisionEventNotifier(this::onCollision)
+        physicsEngine.setCollisionEventNotifier(this::onCollision);
 
         SwingUtilities.invokeLater(() -> setupWindow(DEFAULT_WINDOW_DIMENSION));
     }
@@ -77,6 +74,10 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
 
     public GraphicsEngine graphicsEngine() {
         return graphicsEngine;
+    }
+
+    public PhysicsEngine physicsEngine() {
+        return physicsEngine;
     }
 
     protected static class GameTimer extends Timer {
@@ -105,23 +106,25 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         }
     }
 
-
     //------------------------------------------------------------------------------------- World Loading/Unloading --//
 
     public void loadWorld(World world) {
         graphicsEngine.add(world.canvas());
-        // TODO: Physics counterpart
+        physicsEngine.addAll(world.physicsComponents());
     }
 
     public void unloadWorld(World world) {
         world.canvas().removeFromParent();
-        // TODO: Physics counterpart
+        var components = world.physicsComponents();
+        components.forEach(TPhysicsComponent::removeFromSystem);
     }
 
     //------------------------------------------------------------------------------------------------ Tick Methods --//
 
     public void update(double dtMillis) {
-        // physicsEngine.update(dtMillis);
+         physicsEngine.update(dtMillis);
+
+        // Allow graphical objects, e.g. AnimatedSprite, to make time-based updates if necessary
         graphicsEngine.update(dtMillis);
     }
 
