@@ -48,4 +48,8 @@ public class World {
     public List<TPhysicsComponent> physicsComponents() {
         return Collections.unmodifiableList(physicsComponents);
     }
+
+    public List<Actor> actors() {
+        return actors;
+    }
 }

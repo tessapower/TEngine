@@ -1,10 +1,10 @@
 package tengine;
 
+import tengine.geom.TPoint;
 import tengine.graphics.GraphicsEngine;
 import tengine.graphics.context.GraphicsCtx;
 import tengine.graphics.context.MasseyGraphicsCtx;
 import tengine.physics.PhysicsEngine;
-import tengine.physics.TPhysicsComponent;
 import tengine.physics.collisions.events.CollisionEvent;
 import tengine.world.World;
 
@@ -20,6 +20,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serial;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 public abstract class GameEngine implements KeyListener, MouseListener, MouseMotionListener {
@@ -35,6 +37,8 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
 
     private GraphicsEngine graphicsEngine;
     private final PhysicsEngine physicsEngine = new PhysicsEngine();
+    private List<Actor> actors = new ArrayList<>();
+    private World activeWorld = null;
 
     long lastUpdateMillis = 0;
 
@@ -109,21 +113,26 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     //------------------------------------------------------------------------------------- World Loading/Unloading --//
 
     public void loadWorld(World world) {
+        if (activeWorld != null) {
+            unloadWorld();
+        }
+        activeWorld = world;
+        actors = world.actors();
         graphicsEngine.add(world.canvas());
-        physicsEngine.addAll(world.physicsComponents());
     }
 
-    public void unloadWorld(World world) {
-        world.canvas().removeFromParent();
-        var components = world.physicsComponents();
-        components.forEach(TPhysicsComponent::removeFromSystem);
+    public void unloadWorld() {
+        actors.clear();
+        activeWorld.canvas().removeFromParent();
+        activeWorld = null;
     }
 
     //------------------------------------------------------------------------------------------------ Tick Methods --//
 
     public void update(double dtMillis) {
-         physicsEngine.update(dtMillis);
-
+        actors.forEach(actor -> {
+            actor.physics().update(physicsEngine, dtMillis);
+        });
         // Allow graphical objects, e.g. AnimatedSprite, to make time-based updates if necessary
         graphicsEngine.update(dtMillis);
     }

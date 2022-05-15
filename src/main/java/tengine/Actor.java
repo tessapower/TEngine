@@ -66,7 +66,6 @@ public abstract class Actor {
 
     public void destroy() {
         graphic.removeFromParent();
-        physics.removeFromSystem();
         world = null;
     }
 
