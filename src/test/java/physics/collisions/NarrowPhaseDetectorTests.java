@@ -2,12 +2,12 @@
 //
 //import org.junit.jupiter.api.DisplayName;
 //import org.junit.jupiter.api.Test;
-//import tengine.physics.PhysicsComponent;
+//import tengine.physics.TPhysicsComponent;
 //import tengine.physics.collisions.detection.NarrowPhaseDetector;
 //import tengine.physics.collisions.events.CollisionEvent;
 //import tengine.physics.collisions.shapes.CollisionRect;
-//import tengine.physics.kinematics.Vector;
-//import tengine.physics.kinematics.Velocity;
+//import tengine.physics.kinematics.TVector;
+//import tengine.physics.kinematics.TVelocity;
 //
 //import java.awt.*;
 //
@@ -15,10 +15,10 @@
 //
 ///**
 // * <code>NarrowPhaseDetector</code> tests involve testing the <code>CollisionEvent</code> that is produced by two
-// * given <code>PhysicsComponent</code>s, one that is moving and one that is static. We expect that the impact vector
-// * indicates the path the moving <code>PhysicsComponent</code> took up until colliding with the static
-// * <code>PhysicsComponent</code>, and that the impact side indicates the side of the moving <code>PhysicsComponent</code>
-// * collided with the static <code>PhysicsComponent</code>.
+// * given <code>TPhysicsComponent</code>s, one that is moving and one that is static. We expect that the impact vector
+// * indicates the path the moving <code>TPhysicsComponent</code> took up until colliding with the static
+// * <code>TPhysicsComponent</code>, and that the impact side indicates the side of the moving <code>TPhysicsComponent</code>
+// * collided with the static <code>TPhysicsComponent</code>.
 // * <br><br>
 // * <img src="doc-files/impact_side.png" />
 // */

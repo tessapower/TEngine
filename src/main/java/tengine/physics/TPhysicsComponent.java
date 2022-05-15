@@ -1,24 +1,23 @@
 package tengine.physics;
 
+import tengine.Actor;
 import tengine.physics.collisions.shapes.CollisionRect;
 import tengine.physics.collisions.shapes.CollisionShape;
-import tengine.physics.kinematics.Velocity;
 
-import java.awt.*;
+public class TPhysicsComponent {
+    private final Actor actor;
 
-public class PhysicsComponent {
+    private CollisionRect collisionShape;
     private PhysicsEngine system;
-    private Velocity velocity;
     private boolean isStatic;
     private boolean hasCollisions;
-    private final CollisionRect collisionShape;
 
-    public PhysicsComponent() {
-        this(new Velocity(), true, null, false);
+    public TPhysicsComponent(Actor actor) {
+        this(actor, true, null, false);
     }
 
-    public PhysicsComponent(Velocity velocity, boolean isStatic, CollisionRect collisionShape, boolean hasCollisions) {
-        this.velocity = velocity;
+    public TPhysicsComponent(Actor actor, boolean isStatic, CollisionRect collisionShape, boolean hasCollisions) {
+        this.actor = actor;
         this.isStatic = isStatic;
         this.collisionShape = collisionShape;
         this.hasCollisions = hasCollisions;
@@ -39,25 +38,19 @@ public class PhysicsComponent {
     }
 
     public void update(double dtMillis) {
-        Point origin = collisionShape.origin();
-        origin.translate((int)(velocity.dx() * dtMillis), (int)(velocity.dy() * dtMillis));
-        collisionShape.setOrigin(origin);
+        // Actor will take care of updating the origin of the graphic and collision shape
+        actor.setOrigin(actor.origin().translate(
+            actor.velocity().dx() * dtMillis,
+            actor.velocity().dy() * dtMillis
+        ));
     }
 
     public CollisionShape collisionShape() {
         return collisionShape;
     }
 
-    public void setOrigin(Point origin) {
-        collisionShape.setOrigin(origin);
-    }
-
-    public void setVelocity(Velocity velocity) {
-        this.velocity = velocity;
-    }
-
-    public Velocity velocity() {
-        return this.velocity;
+    public void setCollisionShape(CollisionRect collisionShape) {
+        this.collisionShape = collisionShape;
     }
 
     public void setStatic(boolean b) {

@@ -1,12 +1,14 @@
 package tengine.physics.collisions.shapes;
 
+import tengine.geom.TPoint;
+
 import java.awt.*;
 
 public class CollisionCircle implements CollisionShape {
-    protected Point origin;
+    protected TPoint origin;
     protected final Dimension dimension;
 
-    public CollisionCircle(Point origin, Dimension dimension) {
+    public CollisionCircle(TPoint origin, Dimension dimension) {
         this.origin = origin;
         this.dimension = dimension;
     }
@@ -15,11 +17,11 @@ public class CollisionCircle implements CollisionShape {
         return dimension.width / 2;
     }
 
-    public int x() {
+    public double x() {
        return origin.x;
     }
 
-    public int y() {
+    public double y() {
         return origin.y;
     }
 
@@ -29,21 +31,21 @@ public class CollisionCircle implements CollisionShape {
     }
 
     @Override
-    public Point origin() {
+    public TPoint origin() {
         return origin;
     }
 
     @Override
-    public void setOrigin(Point origin) {
+    public void setOrigin(TPoint origin) {
         this.origin = origin;
     }
 
-    public boolean contains(Point point) {
+    public boolean contains(TPoint point) {
         return midpoint().distance(point) >= radius();
     }
 
     @Override
-    public Point midpoint() {
-        return new Point((origin.x + radius()), (origin.y + radius()));
+    public TPoint midpoint() {
+        return new TPoint((origin.x + radius()), (origin.y + radius()));
     }
 }

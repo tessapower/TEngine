@@ -1,5 +1,6 @@
 package tengine.graphics.components.text;
 
+import tengine.geom.TPoint;
 import tengine.graphics.components.TGraphicObject;
 import tengine.graphics.context.GraphicsCtx;
 
@@ -15,10 +16,10 @@ public class TLabel extends TGraphicObject {
     private Color color = DEFAULT_COLOR;
 
     public TLabel(String text) {
-        this(text, new Point(0, 0));
+        this(text, new TPoint(0, 0));
     }
 
-    public TLabel(String text, Point origin) {
+    public TLabel(String text, TPoint origin) {
         super(new Dimension());
         setText(text);
         setOrigin(origin);

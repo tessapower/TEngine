@@ -1,26 +1,32 @@
 package tengine;
 
+import tengine.geom.TPoint;
 import tengine.graphics.components.TGraphicObject;
-import tengine.physics.PhysicsComponent;
+import tengine.physics.TPhysicsComponent;
 import tengine.physics.collisions.shapes.CollisionShape;
+import tengine.physics.kinematics.TVelocity;
 import tengine.world.World;
 
-import java.awt.*;
-
 public abstract class Actor {
-    protected Point origin;
-    protected PhysicsComponent physics;
+    protected TPhysicsComponent physics;
     protected TGraphicObject graphic;
+    protected TVelocity velocity;
+    protected TPoint origin;
     protected World world;
 
     public Actor() {
         origin = new Point();
         physics = new PhysicsComponent();
         graphic = null;
+        velocity = null;
+        origin = new TPoint();
         world = null;
     }
 
-    public void setOrigin(Point origin) {
+    /**
+     * Use this method when you want to manually set the origin of the Actor and its components.
+     */
+    public void setOrigin(TPoint origin) {
         this.origin = origin;
 
         if (graphic != null) {
@@ -32,17 +38,24 @@ public abstract class Actor {
         }
     }
 
-
-    public Point origin() {
+    public TPoint origin() {
         return origin;
     }
 
-    public int x() {
+    public double x() {
         return origin.x;
     }
 
-    public int y() {
+    public double y() {
         return origin.y;
+    }
+
+    public TVelocity velocity() {
+        return velocity;
+    }
+
+    public void setVelocity(TVelocity velocity) {
+        this.velocity = velocity;
     }
 
     public CollisionShape bounds() {
@@ -65,5 +78,9 @@ public abstract class Actor {
 
     public TGraphicObject graphic() {
         return graphic;
+    }
+
+    public TPhysicsComponent physics() {
+        return physics;
     }
 }

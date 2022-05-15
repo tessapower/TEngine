@@ -3,6 +3,8 @@ package tengine;
 import tengine.graphics.GraphicsEngine;
 import tengine.graphics.context.GraphicsCtx;
 import tengine.graphics.context.MasseyGraphicsCtx;
+import tengine.physics.PhysicsEngine;
+import tengine.physics.TPhysicsComponent;
 import tengine.physics.collisions.events.CollisionEvent;
 import tengine.world.World;
 

@@ -1,12 +1,12 @@
 package tengine.physics.collisions.detection;
 
-import tengine.physics.PhysicsComponent;
+import tengine.physics.TPhysicsComponent;
 import tengine.physics.collisions.shapes.CollisionCircle;
 import tengine.physics.collisions.shapes.CollisionRect;
 import tengine.physics.collisions.shapes.CollisionShape;
 
 public class BroadPhaseDetector {
-    public static boolean detect(PhysicsComponent p1, PhysicsComponent p2) {
+    public static boolean detect(TPhysicsComponent p1, TPhysicsComponent p2) {
         // TODO: implement broad phase collision detection (overlapping objects)
         // switch over of collision shapes
 

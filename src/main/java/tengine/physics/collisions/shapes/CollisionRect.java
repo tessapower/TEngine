@@ -1,13 +1,15 @@
 package tengine.physics.collisions.shapes;
 
+import tengine.geom.TPoint;
+
 import java.awt.*;
 import java.util.Objects;
 
 public class CollisionRect implements CollisionShape {
-    protected Point origin;
+    protected TPoint origin;
     protected Dimension dimension;
 
-    public CollisionRect(Point origin, Dimension dimension) {
+    public CollisionRect(TPoint origin, Dimension dimension) {
         this.origin = origin;
         this.dimension = dimension;
     }
@@ -18,17 +20,17 @@ public class CollisionRect implements CollisionShape {
     }
 
     @Override
-    public Point origin() {
+    public TPoint origin() {
         return origin;
     }
 
     @Override
-    public void setOrigin(Point origin) {
+    public void setOrigin(TPoint origin) {
         this.origin = origin;
     }
 
     @Override
-    public boolean contains(Point point) {
+    public boolean contains(TPoint point) {
         return point.x >= origin.x
                 && point.y >= origin.y
                 && point.x < origin.x + dimension.width
@@ -36,8 +38,8 @@ public class CollisionRect implements CollisionShape {
     }
 
     @Override
-    public Point midpoint() {
-        return new Point((origin.x + dimension.width / 2), (origin.y + dimension.height / 2));
+    public TPoint midpoint() {
+        return new TPoint((origin.x + dimension.width / 2), (origin.y + dimension.height / 2));
     }
 
     @Override

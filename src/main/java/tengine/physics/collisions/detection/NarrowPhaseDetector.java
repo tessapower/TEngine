@@ -1,10 +1,10 @@
 package tengine.physics.collisions.detection;
 
-import tengine.physics.PhysicsComponent;
+import tengine.physics.TPhysicsComponent;
 import tengine.physics.collisions.events.CollisionEvent;
 
 public class NarrowPhaseDetector {
-    public static CollisionEvent detect(PhysicsComponent movingObj, PhysicsComponent staticObj) {
+    public static CollisionEvent detect(TPhysicsComponent movingObj, TPhysicsComponent staticObj) {
         return null;
     }
 }

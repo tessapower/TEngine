@@ -2,6 +2,7 @@ package tengine.world;
 
 import tengine.Actor;
 import tengine.graphics.components.TGraphicCompound;
+import tengine.physics.TPhysicsComponent;
 
 import java.awt.*;
 import java.util.ArrayList;

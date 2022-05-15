@@ -1,5 +1,6 @@
 package tengine.graphics.components;
 
+import tengine.geom.TPoint;
 import tengine.graphics.context.GraphicsCtx;
 import tengine.graphics.transforms.TRotation;
 import tengine.graphics.transforms.TScale;
@@ -35,9 +36,9 @@ abstract public class TGraphicObject {
         return (int) (scale.yScaleFactor * dimension.height);
     }
 
-    public void setOrigin(Point origin) {
-        translation.dx = origin.x;
-        translation.dy = origin.y;
+    public void setOrigin(TPoint origin) {
+        translation.dx = (int) origin.x;
+        translation.dy = (int) origin.y;
     }
 
     public Point origin() {

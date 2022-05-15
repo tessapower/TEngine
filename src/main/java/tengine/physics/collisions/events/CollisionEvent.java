@@ -1,49 +1,49 @@
 package tengine.physics.collisions.events;
 
-import tengine.physics.PhysicsComponent;
-import tengine.physics.kinematics.Vector;
+import tengine.geom.TPoint;
+import tengine.physics.TPhysicsComponent;
+import tengine.physics.kinematics.TVector;
 
-import java.awt.*;
 import java.util.Objects;
 
 public class CollisionEvent {
-    private final PhysicsComponent movingObj;
-    private final PhysicsComponent staticObj;
-    private Vector impactVector;
-    private Point impactSide;
+    private final TPhysicsComponent movingObj;
+    private final TPhysicsComponent staticObj;
+    private TVector impactVector;
+    private TPoint impactSide;
 
-    public CollisionEvent(PhysicsComponent p1, PhysicsComponent p2) {
-        this(p1, p2, new Vector(), new Point());
+    public CollisionEvent(TPhysicsComponent p1, TPhysicsComponent p2) {
+        this(p1, p2, new TVector(), new TPoint());
     }
 
-    public CollisionEvent(PhysicsComponent p1, PhysicsComponent p2, Vector impactVector, Point impactSide) {
+    public CollisionEvent(TPhysicsComponent p1, TPhysicsComponent p2, TVector impactVector, TPoint impactSide) {
         movingObj = p1;
         staticObj = p2;
         this.impactVector = impactVector;
         this.impactSide = impactSide;
     }
 
-    public PhysicsComponent movingObj() {
+    public TPhysicsComponent movingObj() {
         return movingObj;
     }
 
-    public PhysicsComponent staticObj() {
+    public TPhysicsComponent staticObj() {
         return staticObj;
     }
 
-    public void setImpactVector(Vector impactVector) {
+    public void setImpactVector(TVector impactVector) {
         this.impactVector = impactVector;
     }
 
-    public Vector impactVector() {
+    public TVector impactVector() {
         return impactVector;
     }
 
-    public void setImpactSide(Point impactSide) {
+    public void setImpactSide(TPoint impactSide) {
         this.impactSide = impactSide;
     }
 
-    public Point impactSide() {
+    public TPoint impactSide() {
         return impactSide;
     }
 
