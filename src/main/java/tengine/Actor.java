@@ -8,20 +8,14 @@ import tengine.physics.kinematics.TVelocity;
 import tengine.world.World;
 
 public abstract class Actor {
-    protected TPhysicsComponent physics;
-    protected TGraphicObject graphic;
-    protected TVelocity velocity;
-    protected TPoint origin;
-    protected World world;
+    protected TPhysicsComponent physics = null;
+    protected TGraphicObject graphic = null;
+    protected TVelocity velocity = null;
+    protected TPoint origin = new TPoint();
+    protected World world = null;
+    protected boolean destroyWhenOffScreen = false;
 
-
-    public Actor() {
-        physics = null;
-        graphic = null;
-        velocity = null;
-        origin = new TPoint();
-        world = null;
-    }
+    public Actor() {}
 
     /**
      * Use this method when you want to manually set the origin of the Actor and its components.
