@@ -136,6 +136,8 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
                 activeWorld.remove(actor);
             }
         });
+
+        physicsEngine.processCollisions(actors, dtMillis);
         // Allow graphical objects, e.g. AnimatedSprite, to make time-based updates if necessary
         graphicsEngine.update(dtMillis);
     }

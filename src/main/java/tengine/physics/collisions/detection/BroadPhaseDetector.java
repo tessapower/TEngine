@@ -1,45 +1,24 @@
 package tengine.physics.collisions.detection;
 
+import tengine.geom.TPoint;
 import tengine.physics.TPhysicsComponent;
-import tengine.physics.collisions.shapes.CollisionCircle;
 import tengine.physics.collisions.shapes.CollisionRect;
-import tengine.physics.collisions.shapes.CollisionShape;
+
+import java.awt.*;
 
 public class BroadPhaseDetector {
-    public static boolean detect(TPhysicsComponent p1, TPhysicsComponent p2) {
-        // TODO: implement broad phase collision detection (overlapping objects)
-        // switch over of collision shapes
+    public static boolean detect(TPhysicsComponent physicsComponentA, TPhysicsComponent physicsComponentB) {
+        CollisionRect rectA = physicsComponentA.collisionShape();
+        TPoint rectAOrigin = rectA.origin();
+        Dimension rectASize = rectA.dimension();
 
-        return false;
-    }
+        CollisionRect rectB = physicsComponentB.collisionShape();
+        TPoint rectBOrigin = rectB.origin();
+        Dimension rectBSize = rectB.dimension();
 
-    // Generic vs. Generic
-    private static boolean collides(CollisionShape a, CollisionShape b) {
-        return false;
-    }
-
-    // Rect vs. Generic
-    private static boolean collides(CollisionRect a, CollisionShape b) {
-        return false;
-    }
-
-    // Circle vs. Generic
-    private static boolean collides(CollisionCircle a, CollisionShape b) {
-        return false;
-    }
-
-    // Rect vs. Rect
-    private static boolean collides(CollisionRect a, CollisionRect b) {
-        return false;
-    }
-
-    // Rect vs. Circle
-    private static boolean collides(CollisionRect a, CollisionCircle b) {
-        return false;
-    }
-
-    // Circle vs. Circle
-    private static boolean collides(CollisionCircle a, CollisionCircle b) {
-        return false;
+        return !(rectAOrigin.x + rectASize.width < rectBOrigin.x      // rectA is to the left of rectB
+                || rectAOrigin.x > rectBOrigin.x + rectBSize.width    // rectA is to the right of rectB
+                || rectAOrigin.y + rectASize.height < rectBOrigin.y   // rectA is above rectB
+                || rectAOrigin.y > rectBOrigin.y + rectBSize.height); // rectA is below rectB
     }
 }

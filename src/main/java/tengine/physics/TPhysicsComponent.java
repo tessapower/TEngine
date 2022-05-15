@@ -2,7 +2,6 @@ package tengine.physics;
 
 import tengine.Actor;
 import tengine.physics.collisions.shapes.CollisionRect;
-import tengine.physics.collisions.shapes.CollisionShape;
 
 public class TPhysicsComponent {
     private final Actor actor;
@@ -23,15 +22,16 @@ public class TPhysicsComponent {
     }
 
     public void update(PhysicsEngine system, double dtMillis) {
-        // Actor will take care of updating the origin of the graphic and collision shape
-
-        actor.setOrigin(actor.origin().translate(
-            actor.velocity().dx() * dtMillis,
-            actor.velocity().dy() * dtMillis
-        ));
+        if (!isStatic) {
+            // Actor will take care of updating the origin of the graphic and collision shape
+            actor.setOrigin(actor.origin().translate(
+                actor.velocity().dx() * dtMillis,
+                actor.velocity().dy() * dtMillis
+            ));
+        }
     }
 
-    public CollisionShape collisionShape() {
+    public CollisionRect collisionShape() {
         return collisionShape;
     }
 
