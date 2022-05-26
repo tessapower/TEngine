@@ -72,4 +72,9 @@ public class AnimatedSprite extends TGraphicObject {
 
         return buffered.getSubimage(point.x, point.y, dimension.width, dimension.height);
     }
+
+    public void resetAnimation() {
+        currentFrame = 0;
+    }
+
 }
