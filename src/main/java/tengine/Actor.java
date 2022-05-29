@@ -14,6 +14,7 @@ public abstract class Actor {
     protected TPoint origin = new TPoint();
     protected World world = null;
     protected boolean destroyWhenOffScreen = false;
+    protected boolean pendingDestroy = false;
 
     public Actor() {}
 
@@ -64,16 +65,25 @@ public abstract class Actor {
         return destroyWhenOffScreen;
     }
 
-    public void removeFromWorld() {
-        world.remove(this);
+    /**
+     * Mark this Actor to be destroyed on the next update.
+     */
+    public void markPendingDestroy() {
+       pendingDestroy = true;
     }
 
-    public void addToWorld(World world) {
+    public void setWorld(World world) {
         this.world = world;
     }
 
+    /**
+     * Remove this Actor's graphic from anywhere it is displayed, and remove it from the assigned world if necessary.
+     */
     public void destroy() {
         graphic.removeFromParent();
+        if (world != null) {
+            world.remove(this);
+        }
         world = null;
     }
 

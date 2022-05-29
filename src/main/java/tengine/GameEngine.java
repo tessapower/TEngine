@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serial;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
 
@@ -37,7 +38,6 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
 
     private GraphicsEngine graphicsEngine;
     private final PhysicsEngine physicsEngine = new PhysicsEngine();
-    private List<Actor> actors = new ArrayList<>();
     private World activeWorld = null;
 
     long lastUpdateMillis = 0;
@@ -117,29 +117,37 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
             unloadWorld();
         }
         activeWorld = world;
-        actors = world.actors();
         graphicsEngine.add(world.canvas());
     }
 
     public void unloadWorld() {
-        actors.clear();
-        activeWorld.canvas().removeFromParent();
         activeWorld = null;
     }
 
     //------------------------------------------------------------------------------------------------ Tick Methods --//
 
-    public void update(double dtMillis) {
-        actors.forEach(actor -> {
-            actor.physics().update(physicsEngine, dtMillis);
-            if (actor.destroyWhenOffScreen && !isOnScreen(actor)) {
-                activeWorld.remove(actor);
-            }
-        });
+    public void update(double dtSec) {
+        if (activeWorld != null) {
+            List<Actor> actors = new ArrayList<>(activeWorld.actors());
+            for (Iterator<Actor> iterator = actors.iterator(); iterator.hasNext(); ) {
+                Actor actor = iterator.next();
+                if (actor.destroyWhenOffScreen && !isOnScreen(actor)) {
+                    actor.markPendingDestroy();
+                }
 
-        physicsEngine.processCollisions(actors, dtMillis);
+                if (actor.pendingDestroy) {
+                    iterator.remove();
+                    actor.destroy();
+                    continue;
+                }
+                actor.physics().update(physicsEngine, dtSec);
+            }
+
+            physicsEngine.processCollisions(actors, dtSec);
+        }
+
         // Allow graphical objects, e.g. AnimatedSprite, to make time-based updates if necessary
-        graphicsEngine.update(dtMillis);
+        graphicsEngine.update(dtSec);
     }
 
     public void paint(GraphicsCtx ctx) {

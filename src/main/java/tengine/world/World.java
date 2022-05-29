@@ -4,19 +4,19 @@ import tengine.Actor;
 import tengine.graphics.components.TGraphicCompound;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class World {
     protected TGraphicCompound canvas;
-    protected List<Actor> actors = new ArrayList<>();
+    protected List<Actor> actors = new CopyOnWriteArrayList<>();
 
     public World(Dimension dimension) {
         canvas = new TGraphicCompound(dimension);
     }
 
     public void add(Actor actor) {
-        actor.addToWorld(this);
+        actor.setWorld(this);
         actors.add(actor);
         canvas.add(actor.graphic());
     }
@@ -33,7 +33,6 @@ public class World {
 
     public void remove(Actor actor) {
         actors.remove(actor);
-        actor.destroy();
     }
 
     public TGraphicCompound canvas() {
