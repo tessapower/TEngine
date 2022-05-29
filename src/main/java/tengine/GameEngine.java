@@ -39,6 +39,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     private GraphicsEngine graphicsEngine;
     private final PhysicsEngine physicsEngine = new PhysicsEngine();
     private World activeWorld = null;
+    private boolean isPaused = false;
 
     long lastUpdateMillis = 0;
 
@@ -127,7 +128,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     //------------------------------------------------------------------------------------------------ Tick Methods --//
 
     public void update(double dtSec) {
-        if (activeWorld != null) {
+        if (activeWorld != null && !isPaused) {
             List<Actor> actors = new ArrayList<>(activeWorld.actors());
             for (Iterator<Actor> iterator = actors.iterator(); iterator.hasNext(); ) {
                 Actor actor = iterator.next();
@@ -234,6 +235,12 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         Dimension actorSize = actor.graphic().dimension();
         return actorPos.x >= 0 && actorPos.x + actorSize.width <= windowWidth()
             && actorPos.y >= 0 && actorPos.y + actorSize.height <= windowHeight();
+    }
+
+    //----------------------------------------------------------------------------------------------- Game Settings --//
+
+    public void setPaused(boolean isPaused) {
+        this.isPaused = isPaused;
     }
 
     //------------------------------------------------------------------------------ Methods that can be overridden --//
