@@ -159,7 +159,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     //------------------------------------------------------------------------------------------------------ Window --//
 
     private void setupWindow(Dimension dimension) {
-        // TODO: Eventually replace with graphicsEngine = new GraphicsEngine(Graphics2D)
+        // TODO: Eventually construct GraphicsEngine by passing the Graphics2D context.
         graphicsEngine = new GraphicsEngine(dimension);
 
         jFrame = new JFrame();
@@ -530,6 +530,4 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     public void shear(double x, double y) {
         graphics2D.shear(x, y);
     }
-
-    // TODO: Create a helper class for degrees <-> radians conversions?
 }

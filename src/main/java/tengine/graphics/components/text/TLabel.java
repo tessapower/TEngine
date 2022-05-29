@@ -32,7 +32,7 @@ public class TLabel extends TGraphicObject {
     public void setText(String text) {
         // TODO: calculate and update dimension based on width and height of text
         //   Font.getStringBounds(String str, FontRenderContext frc) would let us easily
-        //   the get the bounds of the text and set the TLabel dimension. To get the FontRenderContext
+        //   get the bounds of the text and set the TLabel dimension. To get the FontRenderContext
         //   we need to be able to call Graphics2D.getFontRenderContext() on the current context.
         this.text = text;
     }

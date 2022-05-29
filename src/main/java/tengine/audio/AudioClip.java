@@ -26,7 +26,7 @@ public class AudioClip {
         length = audio.getFrameLength() * format.getFrameSize();
         data = new byte[(int) length];
 
-        // TODO: maybe rework this? It seems like a bit of a hack from Massey Engine authors
+        // TODO: maybe rework this? It seems like a bit of a hack from the Massey Engine authors
         try {
             audio.read(data);
         } catch (Exception exception) {

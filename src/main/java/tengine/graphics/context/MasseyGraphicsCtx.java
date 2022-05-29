@@ -7,8 +7,9 @@ import tengine.graphics.transforms.TTranslation;
 
 import java.awt.*;
 
-// Wraps and adapts the Massey GameEngine to conform to our GraphicsCtx interface.
-// Later this can be thrown away, and we can simply use the built-in Graphics2D library.
+// Wraps and adapts the Massey GameEngine (provided by Massey's 159.261 Games Programming course)
+// to conform to our GraphicsCtx interface. Later this can be thrown away, and we can simply use
+// the built-in Graphics2D library.
 public class MasseyGraphicsCtx implements GraphicsCtx {
     GameEngine masseyCtx;
 
