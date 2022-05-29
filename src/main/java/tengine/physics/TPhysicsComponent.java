@@ -21,12 +21,12 @@ public class TPhysicsComponent {
         this.hasCollisions = hasCollisions;
     }
 
-    public void update(PhysicsEngine system, double dtMillis) {
+    public void update(PhysicsEngine system, double dtSec) {
         if (!isStatic) {
             // Actor will take care of updating the origin of the graphic and collision shape
             actor.setOrigin(actor.origin().translate(
-                actor.velocity().dx() * dtMillis,
-                actor.velocity().dy() * dtMillis
+                actor.velocity().dx() * dtSec,
+                actor.velocity().dy() * dtSec
             ));
         }
     }

@@ -14,7 +14,7 @@ public class PhysicsEngine {
 
     public PhysicsEngine() {}
 
-    public void processCollisions(List<Actor> actors, double dtMillis) {
+    public void processCollisions(List<Actor> actors, double dtSec) {
         // Step 2: Detect collisions
          Set<CollisionEvent> collisions = collisionDetector.detectCollisions(actors);
 

@@ -34,7 +34,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     private Dimension dimension = DEFAULT_WINDOW_DIMENSION;
     private Graphics2D graphics2D;
     private boolean initialized = false;
-    private Stack<AffineTransform> transforms;
+    private final Stack<AffineTransform> transforms;
 
     private GraphicsEngine graphicsEngine;
     private final PhysicsEngine physicsEngine = new PhysicsEngine();
@@ -51,10 +51,10 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
             if (lastUpdateMillis == 0) {
                 lastUpdateMillis = now;
             }
-            double elapsedSecs = (now - lastUpdateMillis) / 1000.0;
+            double elapsedSec = (now - lastUpdateMillis) / 1000.0;
             lastUpdateMillis = now;
 
-            update(elapsedSecs);
+            update(elapsedSec);
 
             gamePanel.repaint();
         }
