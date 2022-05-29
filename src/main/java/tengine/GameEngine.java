@@ -248,33 +248,43 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     public void init() {
     }
 
+    @Override
     public void keyPressed(KeyEvent event) {
     }
 
+    @Override
     public void keyReleased(KeyEvent event) {
     }
 
+    @Override
     public void keyTyped(KeyEvent event) {
     }
 
+    @Override
     public void mouseClicked(MouseEvent event) {
     }
 
+    @Override
     public void mousePressed(MouseEvent event) {
     }
 
+    @Override
     public void mouseReleased(MouseEvent event) {
     }
 
+    @Override
     public void mouseEntered(MouseEvent event) {
     }
 
+    @Override
     public void mouseExited(MouseEvent event) {
     }
 
+    @Override
     public void mouseMoved(MouseEvent event) {
     }
 
+    @Override
     public void mouseDragged(MouseEvent event) {
     }
 
@@ -287,6 +297,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         @Serial
         private static final long serialVersionUID = 1L;
 
+        @Override
         public void paintComponent(Graphics graphics) {
             graphics2D = (Graphics2D) graphics;
 
