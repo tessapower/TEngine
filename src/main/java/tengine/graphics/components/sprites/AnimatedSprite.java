@@ -20,7 +20,7 @@ public class AnimatedSprite extends TGraphicObject {
     protected int currentFrame;
     protected Consumer<SpriteSequence> sequenceEnd = null;
 
-    protected AnimatedSprite(InputStream is, Dimension frameDimension, int fps, SpriteSequence currentSequence) {
+    AnimatedSprite(InputStream is, Dimension frameDimension, int fps, SpriteSequence currentSequence) {
         super(frameDimension);
         image = ImageLoader.loadImage(is);
         this.fps = fps;
