@@ -7,6 +7,12 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+/**
+ * A compound graphical object that can be drawn to the screen. Use to group together multiple
+ * <code>TGraphicObject</code>s, including <code>TLabel</code>s and <code>AnimatedSprites</code>.
+ * Any transformations applied to a TGraphicCompound will be propagated to its children as well.
+ * Children are drawn in insertion order.
+ */
 public class TGraphicCompound extends TGraphicObject {
     // Note that this implementation is not thread-safe, and is only a quick work-around to support
     // drawing children in a specific order (similar to z-indexing) without changing the TGraphicObject
@@ -71,6 +77,9 @@ public class TGraphicCompound extends TGraphicObject {
         ctx.popTransform();
     }
 
+    /**
+     * Do not call this method on a TGraphicCompound, instead call <code>paint()</code>.
+     */
     @Override
     protected void draw(GraphicsCtx ctx) {
         // No-op

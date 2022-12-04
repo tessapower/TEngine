@@ -8,6 +8,9 @@ import tengine.graphics.transforms.TTranslation;
 
 import java.awt.*;
 
+/**
+ * A generic graphical object that can be drawn to the screen.
+ */
 abstract public class TGraphicObject {
     protected Dimension dimension;
     protected final TRotation rotation;
@@ -61,6 +64,9 @@ abstract public class TGraphicObject {
         rotation.thetaDegrees = thetaDegrees;
     }
 
+    /**
+     * Set the rotation of this <code>TGraphicObject</code> around the given <code>origin</code>.
+     */
     public void setRotation(double thetaDegrees, Point origin) {
         rotation.thetaDegrees = thetaDegrees;
         rotation.origin = origin;
@@ -79,6 +85,9 @@ abstract public class TGraphicObject {
         return parent;
     }
 
+    /**
+     * Remove this <code>TGraphicObject</code> from its parent <code>TGraphicCompound</code> if it has one.
+     */
     public void removeFromParent() {
         if (parent != null) {
             parent.remove(this);
@@ -94,9 +103,17 @@ abstract public class TGraphicObject {
         ctx.popTransform();
     }
 
+    /**
+     * Override this method to specify how to draw this graphical object to the screen with the
+     * given <code>GraphicsCtx</code>.
+     */
     protected abstract void draw(GraphicsCtx ctx);
 
-    public void update(double dtMillis) {
+    /**
+     * Give this <code>TGraphicObject</code> a chance to update since the last frame was updated
+     * <code>dtSec</code> ago.
+     */
+    public void update(double dtSec) {
         // No-op
     }
 }
