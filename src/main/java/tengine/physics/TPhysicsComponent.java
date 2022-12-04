@@ -13,11 +13,7 @@ public class TPhysicsComponent {
     private boolean isStatic;
     private boolean hasCollisions;
 
-    public TPhysicsComponent(Actor actor) {
-        this(actor, true, null, false);
-    }
-
-    public TPhysicsComponent(Actor actor, boolean isStatic, CollisionRect collisionShape, boolean hasCollisions) {
+    TPhysicsComponent(Actor actor, boolean isStatic, CollisionRect collisionShape, boolean hasCollisions) {
         this.actor = actor;
         this.isStatic = isStatic;
         this.collisionShape = collisionShape;
