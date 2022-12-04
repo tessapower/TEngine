@@ -7,6 +7,7 @@ import tengine.graphics.transforms.TScale;
 import tengine.graphics.transforms.TTranslation;
 
 import java.awt.*;
+import java.util.Optional;
 
 /**
  * A generic graphical object that can be drawn to the screen.
@@ -79,8 +80,8 @@ abstract public class TGraphicObject {
         this.parent = parent;
     }
 
-    public TGraphicCompound parent() {
-        return parent;
+    public Optional<TGraphicCompound> parent() {
+        return Optional.ofNullable(parent);
     }
 
     /**
