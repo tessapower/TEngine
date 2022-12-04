@@ -13,17 +13,15 @@ import java.awt.*;
  */
 abstract public class TGraphicObject {
     protected Dimension dimension;
-    protected final TRotation rotation;
-    protected final TTranslation translation;
-    protected final TScale scale;
-    protected TGraphicCompound parent;
+
+    protected final TRotation rotation = TRotation.identity();
+    protected final TTranslation translation = TTranslation.identity();
+    protected final TScale scale = TScale.identity();
+
+    protected TGraphicCompound parent = null;
 
     public TGraphicObject(Dimension dimension) {
         this.dimension = dimension;
-        rotation = TRotation.identity();
-        translation = TTranslation.identity();
-        scale = TScale.identity();
-        parent = null;
     }
 
     public Dimension dimension() {
