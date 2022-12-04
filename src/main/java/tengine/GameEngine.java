@@ -200,18 +200,6 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         jFrame.setSize(dimension.width + insets.left + insets.right, dimension.height + insets.top + insets.bottom);
     }
 
-    public void setWindowProperties(Dimension dimension, String title) {
-        SwingUtilities.invokeLater(() -> {
-            Insets insets = jFrame.getInsets();
-            this.dimension = dimension;
-            jFrame.setSize(dimension.width + insets.left + insets.right, dimension.height + insets.top + insets.bottom);
-            gamePanel.setSize(dimension.width, dimension.height);
-            jFrame.setTitle(title);
-
-            // TODO: Set the size of the GraphicsEngine canvas
-        });
-    }
-
     public int windowWidth() {
         return dimension.width;
     }
@@ -237,6 +225,18 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     }
 
     //----------------------------------------------------------------------------------------------- Game Settings --//
+
+    public void setWindowProperties(Dimension dimension, String title) {
+        SwingUtilities.invokeLater(() -> {
+            Insets insets = jFrame.getInsets();
+            this.dimension = dimension;
+            jFrame.setSize(dimension.width + insets.left + insets.right, dimension.height + insets.top + insets.bottom);
+            gamePanel.setSize(dimension.width, dimension.height);
+            jFrame.setTitle(title);
+
+            // TODO: Set the size of the GraphicsEngine canvas
+        });
+    }
 
     public void setPaused(boolean isPaused) {
         this.isPaused = isPaused;
