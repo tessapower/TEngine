@@ -1,8 +1,8 @@
 package tengine.physics.kinematics;
 
 /**
- * Represents a velocity with a direction vector and a speed. The magnitude of the x and y values of the direction do
- * not influence the speed.
+ * Represents a velocity with a direction vector and a speed. The magnitude of the x and y
+ * components in the direction vector do not influence the speed.
  */
 public class TVelocity {
     private double speed;

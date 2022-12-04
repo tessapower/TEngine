@@ -5,6 +5,9 @@ import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * A helper class used to load images.
+ */
 class ImageLoader {
     static Image loadImage(InputStream is) {
         try {

@@ -3,6 +3,9 @@ package tengine.physics;
 import tengine.Actor;
 import tengine.physics.collisions.shapes.CollisionRect;
 
+/**
+ * Represents the physical component of an <code>Actor</code>.
+ */
 public class TPhysicsComponent {
     private final Actor actor;
 

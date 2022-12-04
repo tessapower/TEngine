@@ -6,6 +6,9 @@ import tengine.graphics.context.GraphicsCtx;
 import java.awt.*;
 import java.io.InputStream;
 
+/**
+ * Represents a two-dimensional image that can be drawn to the screen.
+ */
 public class Sprite extends TGraphicObject {
     protected Image image;
 

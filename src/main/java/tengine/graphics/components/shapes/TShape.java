@@ -4,6 +4,9 @@ import tengine.graphics.components.TGraphicObject;
 
 import java.awt.*;
 
+/**
+ * A graphical representation of a generic shape.
+ */
 abstract public class TShape extends TGraphicObject {
     public Color outlineColor;
     public Color fillColor;

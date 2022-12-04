@@ -22,7 +22,7 @@ public class TRotation {
 
     @Override
     public boolean equals(Object o) {
-        // TODO: compare negative rotations & mod super massive rotations?
+        // TODO: compare negative rotations & mod super massive rotations
         if (this == o) return true;
         if (!(o instanceof TRotation other)) return false;
 

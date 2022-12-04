@@ -9,6 +9,9 @@ import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.util.function.Consumer;
 
+/**
+ * A sprite, but it's animated!
+ */
 public class AnimatedSprite extends TGraphicObject {
     protected Image image;
     protected double elapsedSecs;

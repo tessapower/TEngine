@@ -52,15 +52,14 @@ public class MasseyGraphicsCtx implements GraphicsCtx {
 
     @Override
     public void drawText(Point origin, String text, Font font, Color color) {
-    /*
-     * Doesn't currently support multiline strings, we need to know about the context before we can
-     * query the line height to do something like this:
-     *     private void drawString(Graphics g, String text, Point origin) {
-     *         int lineHeight = g.getFontMetrics().getHeight();
-     *         for (var line : text.split("\n"))
-     *             g.drawString(line, origin.x, origin.y += lineHeight);
-     *     }
-     */
+        // Doesn't currently support multiline strings, we need to know about the context before we can
+        // query the line height to do something like this:
+        //     private void drawString(Graphics g, String text, Point origin) {
+        //         int lineHeight = g.getFontMetrics().getHeight();
+        //         for (var line : text.split("\n"))
+        //             g.drawString(line, origin.x, origin.y += lineHeight);
+        //     }
+        //
         masseyCtx.changeColor(color);
         masseyCtx.drawText(origin.x, origin.y, text, font);
     }

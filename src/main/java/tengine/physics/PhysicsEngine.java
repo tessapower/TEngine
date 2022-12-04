@@ -18,6 +18,7 @@ public class PhysicsEngine {
         // Step 2: Detect collisions
          Set<CollisionEvent> collisions = collisionDetector.detectCollisions(actors);
 
+        // TODO: Handle resolving collisions
         // Step 3: Resolve collisions
         // resolveCollisions(collisions);
 

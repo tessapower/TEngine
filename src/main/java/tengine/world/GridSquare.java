@@ -2,6 +2,9 @@ package tengine.world;
 
 import java.util.Objects;
 
+/**
+ * A single square in a 2D grid of squares, well suited for tile-based or board games.
+ */
 public record GridSquare(int row, int col) {
     public String toString() {
         return "row: " + row + ", col: " + col;
