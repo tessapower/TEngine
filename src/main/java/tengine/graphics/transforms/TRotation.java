@@ -1,22 +1,23 @@
 package tengine.graphics.transforms;
 
-import java.awt.*;
+import tengine.geom.TPoint;
+
 import java.util.Objects;
 
 public class TRotation {
     public double thetaDegrees;
-    public Point origin;
+    public TPoint origin;
 
     /**
      * Rotate <code>thetaDegrees</code> around <code>rotationOrigin</code>.
      */
-    public TRotation(double thetaDegrees, Point rotationOrigin) {
+    public TRotation(double thetaDegrees, TPoint rotationOrigin) {
         this.thetaDegrees = thetaDegrees;
         this.origin = rotationOrigin;
     }
 
     public static TRotation identity() {
-        return new TRotation(0, new Point(0, 0));
+        return new TRotation(0, new TPoint(0, 0));
     }
 
     @Override

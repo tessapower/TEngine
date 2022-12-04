@@ -83,10 +83,7 @@ public class MasseyGraphicsCtx implements GraphicsCtx {
         // We must translate before rotating to account for the current context's total translation
         masseyCtx.translate(translation.dx, translation.dy);
 
-        masseyCtx.rotate(rotation.thetaDegrees,
-                rotation.origin.x,
-                rotation.origin.y
-        );
+        masseyCtx.rotate(rotation.thetaDegrees, (int)rotation.origin.x, (int) rotation.origin.y);
 
         masseyCtx.scale(scale.xScaleFactor, scale.yScaleFactor);
     }
