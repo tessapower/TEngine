@@ -105,10 +105,6 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
             setInitialDelay(0);
             setDelay(delay);
         }
-
-        protected int framerate() {
-            return framerate;
-        }
     }
 
     //------------------------------------------------------------------------------------- World Loading/Unloading --//

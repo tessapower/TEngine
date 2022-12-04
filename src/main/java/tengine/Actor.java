@@ -7,19 +7,33 @@ import tengine.physics.collisions.shapes.CollisionShape;
 import tengine.physics.kinematics.TVelocity;
 import tengine.world.World;
 
+import java.util.Optional;
+
 public abstract class Actor {
     protected TPhysicsComponent physics = null;
     protected TGraphicObject graphic = null;
+
     protected TVelocity velocity = null;
     protected TPoint origin = new TPoint();
+
     protected World world = null;
+
     protected boolean destroyWhenOffScreen = false;
     protected boolean pendingDestroy = false;
 
+    /**
+     * An <code>Actor</code> is a game object that the player can control or interact with.
+     * By default, an actor does not have a graphical (<code>TGraphicsComponent</code>) or physical
+     * (<code>TPhysicsComponent</code>) representation. These should be created and associated with
+     * the <code>Actor</code> in the overriding class constructor before the <code>Actor</code> can
+     * be used. You can also choose not to have a physical component, if it's not necessary.
+     * Having a graphical component for an <code>Actor</code> is always necessary, however.
+     */
     public Actor() {}
 
     /**
-     * Use this method when you want to manually set the origin of the Actor and its components.
+     * Use this method when you want to manually set the origin of the <code>Actor</code> and
+     * its graphical and physical components.
      */
     public void setOrigin(TPoint origin) {
         this.origin = origin;
@@ -57,16 +71,16 @@ public abstract class Actor {
         return physics.collisionShape();
     }
 
-    public void setDestroyWhenOffScreen(boolean b) {
+    public void destroyWhenOffScreen(boolean b) {
         destroyWhenOffScreen = b;
     }
 
-    public boolean shouldDestroyWhenOffScreen() {
+    public boolean destroyWhenOffScreen() {
         return destroyWhenOffScreen;
     }
 
     /**
-     * Mark this Actor to be destroyed on the next update.
+     * Mark this <code>Actor</code> to be destroyed on the next update.
      */
     public void markPendingDestroy() {
        pendingDestroy = true;
@@ -77,7 +91,8 @@ public abstract class Actor {
     }
 
     /**
-     * Remove this Actor's graphic from anywhere it is displayed, and remove it from the assigned world if necessary.
+     * Remove this <code>Actor</code>'s graphic from anywhere it is displayed, and remove it
+     * from the world it's assigned to if necessary.
      */
     public void destroy() {
         graphic.removeFromParent();

@@ -8,11 +8,9 @@ import java.awt.*;
 
 public class GraphicsEngine {
     private final TGraphicCompound canvas;
-//    private final Color backgroundColor;
 
     public GraphicsEngine(Dimension dimension) {
         canvas = new TGraphicCompound(dimension);
-//        backgroundColor = null;
     }
 
     public void paint(GraphicsCtx ctx) {
