@@ -137,7 +137,10 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
                     actor.destroy();
                     continue;
                 }
-                actor.physics().update(physicsEngine, dtSec);
+
+
+                var physics = actor.physics();
+                physics.ifPresent(p -> p.update(physicsEngine, dtSec));
             }
 
             physicsEngine.processCollisions(actors, dtSec);

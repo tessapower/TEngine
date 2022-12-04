@@ -106,7 +106,7 @@ public abstract class Actor {
         return graphic;
     }
 
-    public TPhysicsComponent physics() {
-        return physics;
+    public Optional<TPhysicsComponent> physics() {
+        return Optional.ofNullable(physics);
     }
 }
