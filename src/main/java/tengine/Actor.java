@@ -99,7 +99,7 @@ public abstract class Actor {
         if (world != null) {
             world.remove(this);
         }
-        world = null;
+        setWorld(null);
     }
 
     public TGraphicObject graphic() {

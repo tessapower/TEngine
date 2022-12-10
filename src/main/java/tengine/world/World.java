@@ -35,6 +35,8 @@ public class World {
         actors.remove(actor);
     }
 
+    public void removeAll() { actors.forEach(this::remove); }
+
     public TGraphicCompound canvas() {
         return canvas;
     }
