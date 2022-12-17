@@ -7,8 +7,13 @@ import java.io.InputStream;
 
 /**
  * A helper class used to load images.
+ *
+ * @author Tessa Power
  */
 class ImageLoader {
+    /**
+     * Load an <code>Image</code> using the given <code>InputStream</code>.
+     */
     static Image loadImage(InputStream is) {
         try {
             return ImageIO.read(is);

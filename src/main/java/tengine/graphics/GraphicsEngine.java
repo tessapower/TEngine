@@ -35,7 +35,7 @@ public class GraphicsEngine {
         canvas.removeAll();
     }
 
-    public void update(double dtSec) {
-        canvas.update(dtSec);
+    public void update(double dtSecs) {
+        canvas.update(dtSecs);
     }
 }

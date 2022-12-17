@@ -9,6 +9,17 @@ import tengine.world.World;
 
 import java.util.Optional;
 
+/**
+ * An <code>Actor</code>, a.k.a. 'Game Object", "Game Entity", or "Node", is a general purpose
+ * object that interacts with your game, and responds to player input or other
+ * <code>Actor</code>s in the world. <code>Actor</code>s are modelled on an "Entity Component
+ * System" (ECS). Currently, an <code>Actor</code> comprises a graphical component and a physical
+ * component, but can be extended to support other types of components, e.g. AI or player data.
+ *
+ * @author Tessa Power
+ * @see TPhysicsComponent
+ * @see TGraphicObject
+ */
 public abstract class Actor {
     protected TPhysicsComponent physics = null;
     protected TGraphicObject graphic = null;
@@ -32,8 +43,7 @@ public abstract class Actor {
     public Actor() {}
 
     /**
-     * Use this method when you want to manually set the origin of the <code>Actor</code> and
-     * its graphical and physical components.
+     * Set the origin of this <code>Actor</code> and it's components..
      */
     public void setOrigin(TPoint origin) {
         this.origin = origin;
@@ -47,34 +57,58 @@ public abstract class Actor {
         }
     }
 
+    /**
+     * The origin of this <code>Actor</code>.
+     */
     public TPoint origin() {
         return origin;
     }
 
+    /**
+     * The x component of the origin of this <code>Actor</code>.
+     */
     public double x() {
         return origin.x;
     }
 
+    /**
+     * The y component of the origin of this <code>Actor</code>.
+     */
     public double y() {
         return origin.y;
     }
 
+    /**
+     * The velocity of this <code>Actor</code>.
+     */
     public TVelocity velocity() {
         return velocity;
     }
 
+    /**
+     * Set the velocity of this <code>Actor</code>.
+     */
     public void setVelocity(TVelocity velocity) {
         this.velocity = velocity;
     }
 
+    /**
+     * The <code>CollisionShape</code> which encloses this <code>Actor</code>.
+     */
     public CollisionShape bounds() {
         return physics.collisionShape();
     }
 
+    /**
+     * Set whether this <code>Actor</code> should be destroyed when it goes offscreen.
+     */
     public void destroyWhenOffScreen(boolean b) {
         destroyWhenOffScreen = b;
     }
 
+    /**
+     * Whether this <code>Actor</code> should be destroyed when it goes offscreen.
+     */
     public boolean destroyWhenOffScreen() {
         return destroyWhenOffScreen;
     }
@@ -86,13 +120,24 @@ public abstract class Actor {
        pendingDestroy = true;
     }
 
+    /**
+     * <strong>WARNING</strong>: this method should not be called directly, instead call
+     * <code>World::add(Actor)</code> and the <code>World</code> will take care of calling this 
+     * method.
+     * 
+     * @see World#add(Actor)
+     */
     public void setWorld(World world) {
         this.world = world;
     }
 
     /**
-     * Remove this <code>Actor</code>'s graphic from anywhere it is displayed, and remove it
-     * from the world it's assigned to if necessary.
+     * Destroys this <code>Actor</code> and removes it from the <code>World</code> it belongs to,
+     * if any. <strong>WARNING</strong>: this method should not be called directly, instead call
+     * <code>markPendingDestroy</code> and the <code>GameEngine</code> will take care of 
+     * destroying this <code>Actor</code> on the next update.
+     * 
+     * @see Actor#markPendingDestroy
      */
     public void destroy() {
         graphic.removeFromParent();
@@ -102,10 +147,19 @@ public abstract class Actor {
         setWorld(null);
     }
 
+    /**
+     * The graphical component for this <code>Actor</code>. Returns null if the graphic has not been
+     * initialized.
+     */
     public TGraphicObject graphic() {
         return graphic;
     }
 
+    /**
+     * The physical component for this <code>Actor</code>. Returns an optional, as an
+     * <code>Actor</code> does not require a <code>TPhysicsComponent</code> before it can
+     * reasonably be used.
+     */
     public Optional<TPhysicsComponent> physics() {
         return Optional.ofNullable(physics);
     }

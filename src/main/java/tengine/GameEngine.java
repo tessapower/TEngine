@@ -123,7 +123,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
 
     //------------------------------------------------------------------------------------------------ Tick Methods --//
 
-    public void update(double dtSec) {
+    public void update(double dtSecs) {
         if (activeWorld != null && !isPaused) {
             List<Actor> actors = new ArrayList<>(activeWorld.actors());
             for (Iterator<Actor> iterator = actors.iterator(); iterator.hasNext(); ) {
@@ -140,14 +140,14 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
 
 
                 var physics = actor.physics();
-                physics.ifPresent(p -> p.update(physicsEngine, dtSec));
+                physics.ifPresent(p -> p.update(physicsEngine, dtSecs));
             }
 
-            physicsEngine.processCollisions(actors, dtSec);
+            physicsEngine.processCollisions(actors, dtSecs);
         }
 
         // Allow graphical objects, e.g. AnimatedSprite, to make time-based updates if necessary
-        graphicsEngine.update(dtSec);
+        graphicsEngine.update(dtSecs);
     }
 
     public void paint(GraphicsCtx ctx) {

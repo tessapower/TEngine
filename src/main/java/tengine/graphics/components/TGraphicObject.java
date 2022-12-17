@@ -11,6 +11,8 @@ import java.util.Optional;
 
 /**
  * A generic graphical object that can be drawn to the screen.
+ *
+ * @author Tessa Power
  */
 abstract public class TGraphicObject {
     protected Dimension dimension;
@@ -110,9 +112,9 @@ abstract public class TGraphicObject {
 
     /**
      * Give this <code>TGraphicObject</code> a chance to update since the last frame was updated
-     * <code>dtSec</code> ago.
+     * <code>dtSecs</code> ago.
      */
-    public void update(double dtSec) {
+    public void update(double dtSecs) {
         // No-op
     }
 }
